@@ -26,10 +26,12 @@ class Controller_Index extends Controller_Abstract
         if ($this->_user['status'] == 0) {
 
             $this->_inPort();   // 港口中
+            $this->_tpl = 'index/in_port';
 
         } elseif ($this->_user['status'] == 1) {
 
             $this->_sailing();  // 航行中
+            $this->_tpl = 'index/sailing';
         }
     }
 
@@ -98,6 +100,7 @@ class Controller_Index extends Controller_Abstract
         $bodyUrl = $this->getx('url') ?: '/';
         $this->assign('bodyUrl', $bodyUrl);
 
+        // 无布局
         $this->_view->setLayout(null);
     }
 }

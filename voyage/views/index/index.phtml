@@ -1,9 +1,0 @@
-<? if ($user['status'] == 0): // 港口停泊中 ?>
-
-    <? include template('index/in_port'); ?>
-
-<? elseif ($user['status'] == 1): // 航行中 ?>
-
-    <? include template('index/sailing'); ?>
-
-<? endif; ?>

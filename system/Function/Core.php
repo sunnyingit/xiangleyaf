@@ -71,7 +71,7 @@ function __($string, $vars = null)
  */
 function template($tpl)
 {
-    return TPL_PATH . $tpl . TPL_EXT;
+    return Core_View::getInstance()->getScriptPath() . $tpl . TPL_EXT;
 }
 
 /**
