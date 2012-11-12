@@ -1,0 +1,18 @@
+<header>
+    <div id="header_l">
+        <div class="national"><img src="/img/national/flag_<?=$user['country_id']?>.png" /></div>
+        <div class="person" onclick="location.reload()"><img src="/img/person/role_<?=$user['avatar_id']?>.png" /></div>
+        <div class="peerages"></div>
+        <span>LV&nbsp;<?=$user['level_id']?></span>
+    </div>
+    <div id="header_r">
+        <div class="r_top">
+            <div class="name"><?=$user['user_name']?></div>
+            <img src="/img/header/gold.png" />
+            <span><?=$user['gold']?></span>
+            <img src="/img/header/silver.png" />
+            <span><?=$user['silver']?></span>
+        </div>
+        <? include template('_inc/user_attr'); ?>
+    </div>
+</header>

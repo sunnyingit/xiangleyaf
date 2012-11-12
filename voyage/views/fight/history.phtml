@@ -1,0 +1,20 @@
+<div class="content war_list">
+    <dl>
+        <? if ($logList): ?>
+            <? foreach ($logList as $log): ?>
+                <dd>
+                    <div><?=$log['result_msg']?></div>
+                    <div class="button" onclick="location.href='/fight/replay/?id=<?=$log['id']?>'">观战</div>
+
+                    <? if ($log['attacker_uid'] == $user['uid']): ?>
+                        <div class="button" onclick="location.href='/fight/fight/?enemy_uid=<?=$log['defender_uid']?>'">再战</div>
+                    <? else: ?>
+                        <div class="button" onclick="location.href='/fight/fight/?enemy_uid=<?=$log['attacker_uid']?>'">反击</div>
+                    <? endif; ?>
+                </dd>
+            <? endforeach; ?>
+        <? else: ?>
+            <dd style="height: 400px;"><?=__('没有战斗历史记录')?></dd>
+        <? endif ?>
+    </dl>
+</div>

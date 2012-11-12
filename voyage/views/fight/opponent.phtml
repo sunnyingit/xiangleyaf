@@ -1,0 +1,28 @@
+<div class="content war_list">
+    <dl>
+        <dt>
+            <div class="flagship_title"><?=__('旗舰')?></div>
+            <div class="fighting_title"><?=__('战斗力')?></div>
+            <div class="guild_title"><?=__('公会')?></div>
+        </dt>
+        <? if ($opponentList): ?>
+            <? foreach ($opponentList as $value): ?>
+                <dd>
+                    <div class="flagship">
+                        <img src="/img/warship/warship_<?=$value['flagship_id']?>.png" />
+                        <div>
+                            <p><?=$value['user_name']?></p>
+                            LV&nbsp;&nbsp;<span><?=$value['level_id']?></span>
+                            <img src="/img/national/flag_<?=$value['country_id']?>.png" />
+                        </div>
+                    </div>
+                    <div class="fighting"><?=rand(100, 200)?></div>
+                    <div class="guild"><?=__('无公会')?></div>
+                    <div class="button" onclick="location.href='/fight/fight/?enemy_uid=<?=$value['uid']?>'"><?=__('开&nbsp;战')?></div>
+                </dd>
+            <? endforeach; ?>
+        <? else: ?>
+            <dd style="height: 400px;"><?=__('没有符合条件的对手')?></dd>
+        <? endif ?>
+    </dl>
+</div>

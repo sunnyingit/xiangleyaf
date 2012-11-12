@@ -1,0 +1,75 @@
+<div class="content war_bg" >
+    <div class="player_infor">
+        <div class="infor_left" id="self_cur_ship_info" style="display: none;">
+            <div class="player_infor_top">
+                <img src="/img/players_head/head_1.jpg" />
+                <div>
+                    船名：<p class="green ship_name"></p><br />
+                    耐久：<span class="ship_hp"></span>
+                </div>
+            </div>
+            <div class="player_infor_bot"><span>蒙奇路飞蒙</span><p>狂暴炮击击</p></div>
+        </div>
+        <div class="infor_right" id="enemy_cur_ship_info" style="display: none;">
+            <div class="player_infor_top">
+                <img src="/img/players_head/head_1.jpg" />
+                <div>
+                    船名：<p class="blue ship_name"></p><br />
+                    耐久：<span class="ship_hp"></span>
+                </div>
+            </div>
+            <div class="player_infor_bot"><span>妮可罗宾妮</span><p>狂暴炮击击</p></div>
+        </div>
+    </div>
+
+    <div class="warship_ship">
+        <div class="warship_left">
+            <? $side = 'self'; // 我方船只 ?>
+            <? foreach ($selfShips as $ship): ?>
+                <? include template('fight/fight_ship_one'); ?>
+            <? endforeach; ?>
+        </div>
+        <div class="warship_right">
+            <? $side = 'enemy'; // 敌方船只 ?>
+            <? foreach ($enemyShips as $ship): ?>
+                <? include template('fight/fight_ship_one'); ?>
+            <? endforeach; ?>
+        </div>
+    </div>
+
+    <div class="button" id="showResultBtn"><?=__('战斗结果')?></div>
+
+    <div id="record_box" class="record_box">
+        <div id="record_box_inner"></div>
+    </div>
+
+    <!--开打倒计时-->
+    <div id="countdown_war" class="count_war count_3"></div>
+
+    <!--最终战果弹窗提示-->
+    <div id="pop_up_result_msg" class="pop_up_box" style="display:none;">
+        <? if ($fightResult == Model_Fight::WIN): ?>
+            <img src="/img/war/win.png" />
+        <? elseif ($fightResult == Model_Fight::LOSE): ?>
+            <img src="/img/war/lose.png" />
+        <? elseif ($fightResult == Model_Fight::DRAW): ?>
+            <img src="/img/war/draw.png" />
+        <? endif ?>
+        <div class="pop_up_box_con">
+            <p><?=$fightResultMsg?></p>
+            <div class="button" onclick="location.href='/'">确&nbsp;定</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/iscroll-lite.js"></script>
+<script type="text/javascript" src="/js/fight.js?_v=<?=WEB_VERSION?>"></script>
+<script type="text/javascript">
+    $(function() {
+        var options = {
+            'isReplay' : <?=intval($isReplay)?>,
+            'logs' : <?=json_encode($fireLogs)?>
+        };
+        new fightRecorder(options).countdown(3);    // 倒计时 3-2-1 开打！
+    });
+</script>

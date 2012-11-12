@@ -1,0 +1,15 @@
+<script type="countdown.js"></script>
+
+<div id="countdownHp"></div>
+
+<script type="text/javascript">
+    var abc = new Countdown();
+    abc.init({
+        'container' : 'countdownHp',
+        'seconds' : 30,
+        'format' : 'mm:ss',
+        'callback' : function(){
+            alert('ok!');
+        }
+    });
+</script>

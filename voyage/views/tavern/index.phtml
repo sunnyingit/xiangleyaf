@@ -1,0 +1,38 @@
+<div class="content war_list">
+    <dl><dd>
+        下次刷新时间：<div id="update_time_countdown"></div>
+    </dd></dl>
+    <dl>
+        <? if ($captainList): ?>
+            <? foreach ($captainList as $value): ?>
+            <dd>
+                <?=$value['captain_name']?>
+
+                <? if (isset($myCaptainIds[$value['captain_id']])): ?>
+                    <a href="/tavern/dismiss/?captain_id=<?=$value['captain_id']?>">解雇</a>
+                <? else: ?>
+                    <a href="/tavern/hire/?captain_id=<?=$value['captain_id']?>">招募</a>
+                <? endif; ?>
+
+            </dd>
+            <? endforeach; ?>
+        <? else: ?>
+            <dd style="height: 400px;">没有可招募的船长信息</dd>
+        <? endif; ?>
+    </dl>
+</div>
+
+<script type="text/javascript" src="/js/countdown.js"></script>
+<script type="text/javascript">
+
+    // 下次更新倒计时
+    new Countdown().init({
+        "container" : "update_time_countdown",
+        "seconds"   : "<?=($myTavernInfo['next_update_time'] - $GLOBALS['_TIME'])?>",
+        "format"    : "hh:mm:ss",
+        "callback"  : function() {
+            location.reload();
+        }
+    });
+
+</script>

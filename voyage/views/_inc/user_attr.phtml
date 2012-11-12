@@ -1,0 +1,56 @@
+<ul class="attribute" id="user_attr">
+    <? $maxAttrWidth = 122; // 属性条全满宽度（单位：像素）?>
+    <li>
+        <div class="att_icon1"></div>
+        <div class="att_right">
+            <p>
+                <span id="hp_num"><?=$user['hp']?>/<?=$user['hp_max']?></span>
+                <span id="hp_countdown"></span>
+            </p>
+            <div id="hp_bar" style="width: <?=MyHelper_View::getPropWidth($user['hp'], $user['hp_max'], $maxAttrWidth)?>px"></div>
+        </div>
+    </li>
+    <li>
+        <div class="att_icon2"></div>
+        <div class="att_right">
+            <p>
+            <? if (!$user['next_level']): // 已经是最高等级了 ?>
+                <span><?=$user['exp']?></span>
+                <div id="exp_bar"></div>
+            <? else: ?>
+                <span><?=$user['exp']?>/<?=$user['next_level']['exp']?></span>
+                <div id="exp_bar" style="width: <?=MyHelper_View::getExpWidth($user, $maxAttrWidth)?>px"></div>
+            <? endif; ?>
+            </p>
+        </div>
+    </li>
+    <li>
+        <div class="att_icon3"></div>
+        <div class="att_right">
+            <p>
+                <span id="energy_num"><?=$user['energy']?>/<?=$user['energy_max']?></span>
+                <span id="energy_countdown"></span>
+            </p>
+            <div id="energy_bar" style="width: <?=MyHelper_View::getPropWidth($user['energy'], $user['energy_max'], $maxAttrWidth)?>px"></div>
+        </div>
+    </li>
+    <li>
+        <div class="att_icon4"></div>
+        <div class="att_right">
+            <p id="move_info">
+                <span id="move_num"><?=$user['move']?>/<?=$user['move_max']?></span>
+                <span id="move_countdown"></span>
+            </p>
+            <div id="move_bar" style="width: <?=MyHelper_View::getPropWidth($user['move'], $user['move_max'], $maxAttrWidth)?>px"></div>
+        </div>
+    </li>
+</ul>
+
+<script type="text/javascript" src="/js/countdown.js"></script>
+
+<? // 生命值、精力、行动力倒计时自动恢复 ?>
+<? foreach (array('hp', 'move', 'energy') as $field): ?>
+    <? if ($user[$field] < $user[$field . '_max']): ?>
+        <? include template('_inc/user_attr_countdown'); ?>
+    <? endif; ?>
+<? endforeach; ?>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no" />
+
+<? if ('iPhone' == $cookie['m_type']): ?>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+<? elseif ('WindowsPhone' == $cookie['m_type']): ?>
+    <meta name="viewport" content="width=<?=$cookie['m_width']?>, user-scalable=no" />
+<? else: ?>
+    <? if (version_compare($cookie['m_sv'], '3', '>=')): // Andriod 3.0+ ?>
+        <meta name="viewport" content="target-densitydpi=high-dpi, maximum-scale=10, minimum-scale=0.5">
+    <? else: ?>
+        <meta name="viewport" content="target-densitydpi=high-dpi, width=device-width, user-scalable=no, initial-scale=<?=$cookie['m_scale']?>, minimum-scale=<?=$cookie['m_scale']?>, maximum-scale=<?=$cookie['m_scale']?>" />
+    <? endif; ?>
+<? endif ?>
+
+    <title><?=__('大航海')?> Mobile Demo</title>
+    <link rel="stylesheet" type="text/css" href="/css/all.css?_v=<?=WEB_VERSION?>" />
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/php.js?_v=<?=WEB_VERSION?>"></script>
+    <script type="text/javascript" src="/js/common.js?_v=<?=WEB_VERSION?>"></script>
+    <script type="text/javascript" src="/js/locale/<?=CUR_LANG?>.js?_v=<?=WEB_VERSION?>"></script>
+    <script type="text/javascript">
+        var _TIME = <?=$GLOBALS['_TIME']?>;
+        voyage.user = {
+            "uid":       '<?=$user['uid']?>',
+            "user_name": '<?=$user['user_name']?>',
+            "user_code": '<?=$user['user_code']?>'
+        };
+    </script>
+</head>
+
+<body onBeforeUnload="voyage.loading()">
+
+    <div id="div_loading_mask" class="div_popup_mask" style="display:none"></div>
+
+    <? include template($tplFile); ?>
+
+</body>
+</html>

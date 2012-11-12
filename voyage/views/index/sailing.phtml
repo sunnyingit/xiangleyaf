@@ -1,0 +1,90 @@
+<div class="content outgoing_bg" >
+    <div class="cont_top">
+        <div id="port_name">加勒比海</div>
+        <div id="port_time"><?=$YEAR?>&nbsp;<?=$SEASON?></div>
+    </div>
+    <div class="notice_mission">
+        <a href="/_test/temp/recover" class="notice_icon"><span class="remind_notice"></span></a>
+        <a href="/fight/opponent" class="mission_icon"><span class="remind_mission"></span></a>
+    </div>
+    <div id="countdown">
+        <div class="ship_img" id="sailing_progress"></div>
+        <span><?=$portFromInfo['port_name']?></span>
+        <div id="arrive_time_countdown" class="countdown_time"></div>
+        <span><?=$portToInfo['port_name']?></span>
+    </div>
+</div>
+
+<div class="box_up">
+    <div id="box_sliding_btn" class="box_sliding_up" onclick="eventList.slideUp()"></div>
+    <div class="box_common">
+        <div id="box_com_list" class="box_com_list">
+            <div id="box_com_list_inner">
+            <? for ($i = 0; $i <= 20; $i++): ?>
+                <div class="box_com_list_e">突发事件：大航海火热上线中！大航海火热上线中！大航海火热上线中！大航海火热上线中！</div>
+                <div class="box_com_list_f">战斗：大航海火热上线中！大航海火热上线中！大航海火热上线中！大航！</div>
+            <? endfor; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--让客户端知道当前页面为航行中-->
+<script src="voyage://status:sailing"></script>
+
+<script type="text/javascript" src="/js/countdown.js"></script>
+<script type="text/javascript" src="/js/iscroll-lite.js"></script>
+<script type="text/javascript">
+
+    // 航行倒计时
+    new Countdown().init({
+        "container" : "arrive_time_countdown",
+        "seconds"   : "<?=$user['arrive_time_countdown']?>",
+        "format"    : "hh:mm:ss",
+        "callback"  : function() {
+            location.href = '/';
+        }
+    });
+
+    // 事件列表
+    var eventList = {
+        "slideUp": function(){
+            $('#box_com_list').css('height', '205px');
+            $('#box_sliding_btn')[0].onclick = eventList.slideDown;
+            $('#box_sliding_btn')[0].className = 'box_sliding_down';
+        },
+        "slideDown": function(){
+            $('#box_com_list').css('height', '65px');
+            $('#box_sliding_btn')[0].onclick = eventList.slideUp;
+            $('#box_sliding_btn')[0].className = 'box_sliding_up';
+        }
+    };
+
+    // 事件列表区域滚动
+    var eventScroll = new iScroll('box_com_list', {hScroll: false, hScrollbar: false, vScrollbar: false});
+
+    // 顶部航行进度条
+    (function() {
+
+        var updateIntervalSecs = 3; // 进度条每X秒更新一次
+
+        // 更新航行进度
+        function updateSailingProgress()
+        {
+            var departedRatio = calcDepartRadio(_TIME);
+            $('#sailing_progress').css('left', (140 + Math.ceil(departedRatio * 150)) + 'px');
+            _TIME += updateIntervalSecs;
+        }
+
+        // 计算已经航行了多久（占全程时间比例多少）
+        function calcDepartRadio(now)
+        {
+            return Math.min(1, (now - <?=$user['depart_time']?>) / <?=$user['arrive_time_total']?>);
+        }
+
+        updateSailingProgress();
+        setInterval(updateSailingProgress, 990 * updateIntervalSecs);
+
+    })();
+
+</script>

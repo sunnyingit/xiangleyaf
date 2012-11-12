@@ -1,0 +1,34 @@
+<script type="text/javascript">
+
+// 创建倒计时
+var <?=$field?>Ct = new Countdown();
+
+<?=$field?>Ct.init({
+    "container" : "<?=$field?>_countdown",
+    "seconds"   : "<?=($user[$field . '_in_next_time'] - $GLOBALS['_TIME'])?>",
+    "format"    : "mm:ss",
+    "callback"  : function() {
+        $.ajax({
+            type: 'GET',
+            url: '/index/ajax-attr/?attr=<?=$field?>&t=' + Math.random(),
+            cache: false,
+            dataType: 'json',
+            success: function(result) {
+                $('#<?=$field?>_num').html(result.<?=$field?> + '/' + result.<?=$field?>_max);
+                $('#<?=$field?>_bar').css('width', voyage.getPropWidth(result.<?=$field?>, result.<?=$field?>_max, '<?=$maxAttrWidth?>') + 'px');
+
+                // 重置倒计时
+                if (parseInt(result.<?=$field?>_in_countdown) > 0) {
+                    <?=$field?>Ct.countBack(result.<?=$field?>_in_countdown);
+                } else {
+                    $('#<?=$field?>_countdown').empty();
+                }
+            },
+            error: function() {
+                voyage.reloadTop();
+            }
+        });
+    }
+});
+
+</script>

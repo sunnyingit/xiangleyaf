@@ -1,0 +1,251 @@
+/*----------all 开始----------*/
+body {font-family:"Droid Sans Fallback";font-size:15px;color:#fff6e7;text-shadow:1px 1px 1px #371C0D;width:480px;-webkit-touch-callout:none;-webkit-user-select:none;}
+*{margin:0;padding:0}
+ul,li{list-style:none}
+.clear{width:100%;height:0;clear:both}
+a{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);color:#fff6e7;text-decoration:none}
+.green{color:#00B050;}
+.blue{color:#0070C0}
+.red{color:#FF0000}
+.yellow{color:#FFE400}
+.div_popup_mask{z-index:9999;background-color:#000;opacity: 0.7;width:100%;height:100%;position:absolute;left:0px;top:0px;display:none}
+/*----------all 结束----------*/
+
+
+/*----------头部 开始----------*/
+header{background-image:url(../img/header/header_bj.jpg);width:480px;height:132px;position:fixed;top:0;z-index:100;overflow:hidden}
+#header_l{float:left;width:112px;height:132px;}
+#header_l .national{position:absolute;top:9px;left:5px}
+#header_l .person{margin-top:16px;margin-left:17px;}
+#header_l .peerages{background-image:url(../img/header/peerages_bj.png);width:37px;height:37px;position:absolute;top:83px;}
+#header_l span{display:block;margin-left:33px;margin-top:-4px;text-align:center;width:65px;color:#ffb400;}
+#header_r{float:left;width:368px;}
+#header_r .r_top{margin:10px 0 9px;height:25px;}
+#header_r .r_top *{float:left;}
+#header_r .r_top span{padding:5px 4px 0;font-size:12px;text-shadow:1px 1px 0 rgba(0,0,0,1),1px 1px 5px rgba(255,255,255,.8);color:#ffe400;}
+#header_r .r_top img{padding-left:10px}
+#header_r .r_top .name{width:120px;text-align:left;padding-top:2px;}
+#header_r .attribute{}
+#header_r .attribute li{float:left;height:34px;width:162px;margin-left:18px;}
+#header_r .attribute *{display:block;float:left}
+#header_r .attribute .att_icon1,#header_r .attribute .att_icon2,#header_r .attribute .att_icon3,#header_r .attribute .att_icon4{width:34px;height:34px;position:absolute;}
+#header_r .attribute .att_icon1{background:url(../img/header/hp.png) no-repeat}
+#header_r .attribute .att_icon2{background:url(../img/header/exp.png) no-repeat}
+#header_r .attribute .att_icon3{background:url(../img/header/energy.png) no-repeat}
+#header_r .attribute .att_icon4{background:url(../img/header/execution.png) no-repeat}
+#header_r .attribute .att_right{width:125px;font-size:12px;margin-left:25px}
+#header_r .attribute .att_right p{width:125px;}
+#header_r .attribute .att_right span{display:block;}
+#header_r .attribute .att_right span:nth-of-type(1){float:left;padding:7px 0 2px 12px;}
+#header_r .attribute .att_right span:nth-of-type(2){float:right;padding:7px 0 2px;}
+#header_r .attribute #hp_bar,#header_r .attribute #exp_bar,#header_r .attribute #energy_bar,#header_r .attribute #move_bar{float:left;height:9px;width:122px;-webkit-box-shadow:0px 2px 1px #451B0C;-webkit-border-radius:50px;overflow:hidden}
+#header_r .attribute #hp_bar{background:url(../img/header/red.png) 0 1px no-repeat;background:-webkit-linear-gradient(top,#78211F,#FE4A2D,#BA231A,#4B0108);}
+#header_r .attribute #exp_bar{background:url(../img/header/blue.png) 0 1px no-repeat;background:-webkit-linear-gradient(top,#26507C,#4FA7EB,#237BA9,#013A4F );}
+#header_r .attribute #energy_bar{background:url(../img/header/golden.png) no-repeat;background:-webkit-linear-gradient(top,#947C4C,#DACC61,#A0812B,#5E420E );}
+#header_r .attribute #move_bar{background:url(../img/header/yellow.png) no-repeat;background:-webkit-linear-gradient(top,#5D2109,#E5883B,#9D3709,#551E05 );}
+/*----------头部 结束----------*/
+
+
+/*----------内容通用----------*/
+.content{width:480px;position:relative;overflow:hidden}
+.port_bg{background:url(../img/port/index_bg.jpg);height:770px;}
+.button{background:url(../img/common/button/button.png);width:116px;height:41px;margin:10px auto;text-align:center;line-height:41px;color:#cbb695}
+.record_box{border-width:15px;-webkit-border-image:url(../img/war/record_box.jpg) 15;width:460px;height:90px;margin-top:40px;line-height:22px;overflow:hidden}/*底部战争界面记录*/
+
+
+/*港口名称 时间 公告 任务*/
+.cont_top{width:480px;position:absolute;top:0;left:0;}
+#port_name,#port_time{background:url(../img/common/port_name_bj.png);width:111px;height:35px;line-height:38px;text-align:center;}
+#port_name{float:left;margin-left:3px;z-index:10}
+#port_time{float:right;margin-right:3px;z-index:10}
+.notice_mission{top:40px;position:relative;}
+.notice_mission *{position:absolute}
+.notice_icon{left:13px;width:48px;height:66px;background:url(../img/common/notice_icon.png)}
+.mission_icon{right:13px;width:48px;height:61px;background:url(../img/common/mission_icon.png)}
+.remind_notice,.remind_mission{top:37px;background:url(../img/common/remind.png) no-repeat;width:27px;height:27px;}
+.remind_notice{left:32px;}
+.remind_mission{right:34px;}
+
+
+/*----------港口首页 开始----------*/
+/*建筑入口*/
+.wharf_into,.exchange_into,.governor_into,.shipyard_into,.tavern_into,.wharf_into img,.exchange_into img,.governor_into img,.shipyard_into img,.tavern_into img{position:absolute;display:block;}
+.wharf_into{top:280px;left:80px;width:110px;height:90px;background:url(../img/port/wharf_into.png) no-repeat 27px 0;}
+.exchange_into{top:215px;right:120px;width:90px;height:70px;background:url(../img/port/exchange_into.png) no-repeat 8px 0;}
+.governor_into{top:210px;right:0;width:110px;height:120px;background:url(../img/port/governor_into.png) no-repeat 12px 22px;}
+.shipyard_into{top:375px;left:150px;width:140px;height:120px;background:url(../img/port/shipyard_into.png) no-repeat 60px 0;}
+.tavern_into{top:360px;right:40px;width:110px;height:80px;background:url(../img/port/tavern_into.png) no-repeat 17px 0;}
+/*----------港口首页 结束----------*/
+
+
+/*----------出航首页 开始----------*/
+.outgoing_bg{background:url(../img/outgoing/outgoing_bg.jpg) no-repeat;height:500px;}
+/*倒计时-港口*/
+#countdown{background:url(../img/outgoing/countdown.png);width:308px;height:66px;margin-left:86px;margin-top:-1px;overflow:hidden}
+#countdown .ship_img{position:absolute;top:-45px;left:140px;position:absolute;background:url(../img/warship/countdown_ship.png) no-repeat;width:52px;height:39px;}
+#countdown .ship_img img{}
+#countdown span,#countdown div{float:left;display:block;margin-top:45px;text-align:center;}
+#countdown span{width:110px;}
+#countdown .countdown_time{margin-top:34px;width:85px;color:#ff0000;font-weight:bold}
+/*box通用*/
+.box_up{position:fixed;bottom:-3px}
+.box_sliding_up{background:url(../img/common/sliding_up.png) center no-repeat;height:26px;}
+.box_sliding_down{background:url(../img/common/sliding_down.png) center no-repeat;height:26px;}
+.box_common{border-width:24px 12px 22px;-webkit-border-image:url(../img/common/box_bj_com.jpg) 24 12 22;width:456px;font-size:16px;text-shadow:1px 1px 0 rgba(255,255,255,.3),1px 1px 1px rgba(0,0,0,.1);}
+.box_com_list{width:410px;margin:-10px 20px;height:65px;overflow:hidden;}
+.box_com_list .box_com_list_e ,.box_com_list .box_com_list_f {display:block;text-indent:26px;line-height:26px;padding-top:5px;}
+.box_com_list .box_com_list_e {color:#000;background:url(../img/common/exclama.png) left 10px no-repeat;}
+.box_com_list .box_com_list_f {color:#6a1300;background:url(../img/common/fight.png) left 10px no-repeat;}
+/*----------出航首页  结束----------*/
+
+
+/*----------战争首页  开始----------*/
+.war_bg{background:url(../img/war/war_bg.jpg) no-repeat;}
+/*玩家信息*/
+.player_infor{background:url(../img/war/player_infor.png);width:480px;height:99px;}
+.player_infor_top{padding-top:15px;height:40px;}
+.player_infor_top img{float:left;padding:3px 9px;}
+.player_infor_top div{float:left;width:170px;padding-top:2px;}
+.player_infor_top div span{color:#ff0000}
+.player_infor_top div p{display:inline-block}
+.player_infor_bot{padding:5px 10px 0;}
+.player_infor_bot *{float:left;display:block}
+.player_infor_bot span{width:80px;}
+.player_infor_bot p{text-align:center;color:#ffb400;width:110px;}
+.infor_left{float:left;width:240px;overflow:hidden}
+.infor_right{float:right;width:240px;overflow:hidden}
+.infor_right img{float:right}
+.infor_right .player_infor_top div{float:right;width:170px;padding-top:2px}
+.infor_right .player_infor_bot *{float:right}
+.infor_right .player_infor_bot span{text-align:right}
+/*战舰排序*/
+.warship_ship{margin-top:40px;height:320px;}
+.warship_left,.warship_right{width:200px;margin-left:8px;}
+.warship_left{float:left;}
+.warship_left div{float:left;height:105px}
+.warship_left div:nth-of-type(1){float:right;margin-top:50px;}
+.warship_left div:nth-of-type(2){float:right}
+.warship_left div:nth-of-type(3){float:left;margin-top:-260px;}
+.warship_left div:nth-of-type(4){float:left;margin-top:-155px;}
+.warship_left div:nth-of-type(5){float:left;margin-top:-40px;}
+/*数字跳动*/
+#warship_sub_hp{line-height:0;position:absolute;display:none;font-weight:700;margin:0;padding:0;color:#F00;}
+/*战斗方式*/
+.warship_ship div p.ship_effect{margin-top:-105px;width:105px;height:105px;visibility:visible}
+.warship_right{float:right;}
+.warship_right div{float:right;height:105px;}
+.warship_right div:nth-of-type(1){float:left;margin-top:50px;}
+.warship_right div:nth-of-type(2){float:left}
+.warship_right div:nth-of-type(3){float:right;margin-top:-260px;}
+.warship_right div:nth-of-type(4){float:right;margin-top:-155px;}
+.warship_right div:nth-of-type(5){float:right;margin-top:-40px;}
+.warship_right div p.ship_img,.warship_right div p.ship_effect{-webkit-transform:scaleX(-1);z-index:1;}
+/*血条*/
+.warship_ship div span[class]{display:block;margin:-5px 5px 0;background:url(../img/war/blood.png) no-repeat 0 -24px;width:88px;height:16px;position:relative;}
+.warship_ship div span span{width:60px;height:8px;display:block;left:21px;top:6px;text-align:left;position:absolute}
+.blood_1 span{background:url(../img/war/blood.png) -21px 0 no-repeat;}
+.blood_2 span{background:url(../img/war/blood.png) -21px -9px no-repeat;}
+.blood_3 span{background:url(../img/war/blood.png) -21px -17px no-repeat;}
+/*弹出框*/
+.pop_up_box{width:327px;position:absolute;top:130px;left:75px;text-align:center;z-index:2000;overflow:hidden}
+.pop_up_box img:first-child{}
+.pop_up_box_con{border-width:15px;-webkit-border-image:url(../img/war/pop_up_war.jpg) 15;width:297px;line-height:25px;margin-top:-100px;background:#CCC;}
+.pop_up_box p{padding:90px 0 0 5px;text-align:left;color:#301a00;text-shadow:none;margin-top:-5px;}
+.pop_up_box p span{color:#fff6e7;margin-top:-5px;text-shadow:1px 1px 1px #371C0D;}
+.pop_up_box p *{display:inline-block;vertical-align:middle}
+.pop_up_box p .war_coin{background:url(../img/common/silver.png);width:20px;height:19px;}
+.pop_up_box p .war_energy{background:url(../img/common/energy.png) no-repeat;width:22px;height:26px;margin-top:2px}
+.pop_up_box p .war_exp{background:url(../img/common/exp.png) no-repeat;width:30px;height:18px;}
+.pop_up_box p .war_hp{background:url(../img/common/hp.png) no-repeat;width:24px;height:17px;}
+/*倒计时-战争*/
+.count_war{position:absolute;z-index:3;top:200px;left:132px;width:223px;background:url(../img/war/count.png);}
+.count_0{background-position:0 0;height:150px;}
+.count_1{background-position:0 -150px;height:144px;}
+.count_2{background-position:0 -294px;height:144px;}
+.count_3{background-position:0 144px;height:144px;}
+/*----------战争首页  结束----------*/
+
+
+/*----------战争列表  开始----------*/
+.war_list{width:440px;-webkit-border-image:url(../img/war/war_list_bg.jpg) 160 20 20;border-width:160px 20px 20px;}
+.war_list dl{margin:0 auto;width:410px;text-shadow:none;color:#000;display:block;font-weight:bold;}
+.war_list dt{width:100%;float:left;height:25px;font-size:16px;}
+.war_list dt div{float:left;}
+.flagship_title{width:150px;text-align:left}
+.fighting_title,.guild_title{width:70px;text-align:center;}
+.war_list dd{width:100%;float:left;padding:15px 0;display:block;font-size:14px;background:url(../img/war/xian_war.png) -20px 0 no-repeat;}
+.war_list dd div{float:left;}
+.war_list dd .flagship{width:165px;margin-left:-15px;position:relative}
+.war_list dd .flagship div{float:left}
+.war_list dd .flagship img:first-child{float:left;width:61px;height:41px;margin-top:-5px}
+.war_list dd .flagship img:last-child{position:absolute;bottom:-8px;right:10px}
+.war_list dd .flagship p{text-decoration:underline}
+.war_list dd .flagship span,.war_list dd .fighting{color:#9a0200}
+.war_list dd .fighting,.war_list dd .guild{line-height:40px;text-align:center;width:70px;}
+.war_list dd .button{float:right;margin:0;font-size:18px;color:#cbb695}
+/*----------战争列表  结束----------*/
+
+
+/*----------船只装备  开始----------*/
+.ship_items{background:url(../img/ship_infor/ship_items_bg.jpg) no-repeat;text-align:center;}
+.ship_items_top{width:451px;-webkit-border-image:url(../img/ship_infor/items_box.png) 2 10;border-width:2px 10px;margin:15px auto 0}
+.ship_items_top a{display:inline-block;width:150px;height:36px;background:url(../img/ship_infor/red_bg.png);line-height:36px;font-size:18px;font-weight:bold;color:#fcd187;-webkit-text-stroke:0.5px #000;}
+.ship_items_top .dark_red{background:url(../img/ship_infor/dark_red_bg.png);color:#bb9860;}
+.ship_items .items_ship{margin:22px 0 0 32px}
+.ship_items .ship_infor{position:absolute;top:70px;width:100%;}
+.ship_items .ship_infor span,.ship_items .ship_infor a{background:url(../img/common/button/button2.png);width:115px;height:42px;line-height:42px;-webkit-text-stroke:0.2px #352015;font-size:16px;color:#cbb695;font-weight:bold;display:block}
+.ship_items .ship_infor a{color:#cbb695;float:right}
+.ship_items .ship_infor span{float:left}
+.ship_items .ship_infor .flagship,.ship_items .ship_name{-webkit-border-image:url(../img/ship_infor/flagship_bg.png) 3 5 7;border-width:3px 5px 7px;color:#000;}
+.ship_items .ship_infor .flagship{ float:left;width:60px;}
+.ship_items .ship_name{width:130px;margin:0 auto}
+.ship_items .ship_items_infor{ color:#000;text-align:left;width:440px;-webkit-border-image:url(../img/ship_infor/items_box.png) 12;border-width:12px;margin:12px auto 0;}
+.ship_items .ship_items_infor li{ width:100px;display:inline-block}
+.ship_items .ship_items_infor li span{color:#3e0400}
+.ship_items .ship_items_infor .width_exp{ width:128px;}
+.ship_items .ship_infor_ship{ margin:10px auto 5px;width:466px;height:92px;}
+.ship_items .ship_infor_ship div{width:92px;height:92px;display:table-cell;vertical-align:middle;}
+.ship_items .ship_infor_ship .ship_bg1{background:url(../img/ship_infor/bg_ship.png)}
+.ship_items .ship_infor_ship .ship_bg1_sel{background:url(../img/ship_infor/bg_ship_sel.png)}
+.ship_items .ship_infor_ship div img{ width:80px;height:55px;}
+/*----------船只装备  结束----------*/
+
+
+/*----------船只装备_船长_船首像—火炮—护甲—船帆  开始----------*/
+.captain{background:url(../img/common/war_bg.png) no-repeat; height:562px;}
+.captain .items_tab{ width:410px;height:100px;margin:80px auto 0;}
+.captain .items_tab ul{}
+.captain .items_tab ul li{ float:left;width:71px;margin-left:10px;}
+.captain .items_tab ul li img{float:left;width:69px;height:69px;}
+.captain .items_tab ul li div{float:left;background:url(../img/ship_infor/items_tab_text.jpg) no-repeat;width:69px;height:24px;text-align:center;color:#efcf90;line-height:24px;}
+.captain .items_tab ul li.on_selected span.item_select {display:block;}
+.captain .item_select{background:url(../img/ship_infor/select.png) no-repeat;width:71px;height:71px;position:absolute;z-index:2;display:none;}
+.captain .items_con{width:410px;margin:0 auto;}
+.captain .items_con .ship_infor_con{width:400px;padding:6px;border-radius:5px;border:solid 1px #533A24;-webkit-box-shadow:1px 1px 8px #756147;}
+.captain .items_con .ship_infor_con *{display:inline-block}
+.captain .items_con .ship_infor_con .infor_con_img{background:url(../img/ship_infor/infor_img_bg.png);width:72px;height:71px;vertical-align:top;text-align:center}
+.captain .items_con .ship_infor_con .infor_con_img img{width:60px;height:40px;margin-top:12px;}
+.captain .items_con .ship_infor_con .infor_con_right{width:324px;}
+.captain .items_con .ship_infor_con .infor_con_right ul{text-align:left;color:#000;padding:0 0 10px 3px;}
+.captain .items_con .ship_infor_con .infor_con_right ul li{width:158px;}
+.captain .items_con .ship_infor_con .infor_con_right ul li span:nth-of-type(1){color:#3e0400}
+.captain .items_con .ship_infor_con .infor_con_right .button{ float:right;margin:0;padding:0;}
+/*拖动区域*/
+.captain [id*="infor_drag_con"]{width:420px;height:3000px;}
+.captain .items_con dd span{color:#3e0400}
+.captain .items_con dl dt{float:left;width:105px;text-align:center}
+.captain .items_con dl{float:left;color:#000;padding-top:15px;overflow:hidden}
+.items_con .select{background:url(../img/ship_infor/select.png) no-repeat;width:71px;height:71px;position:absolute;z-index:2;-webkit-top:20px;left:20px;}
+.items_con .digital{position:absolute;top:66px;left:55px;width:29px;height:13px;line-height:13px;color:#efcf90;font-size:12px;background:url(../img/items/digital_bg.png);z-index:3;}
+#infor_drag1,#infor_drag2,#infor_drag3{width:420px;height:220px;margin-bottom:20px;overflow:hidden}
+#infor_drag_con1 dl,#infor_drag_con3 dl{width:210px;}
+#infor_drag_con1 dl dd,#infor_drag_con3 dl dd{float:left;width:105px;}
+#infor_drag_con2 dl{width:420px}
+#infor_drag_con2 dl dd{float:left;width:315px;padding-top:15px;}
+#infor_drag_con2 dl dd span{width:42px;display:inline-block}
+#infor_drag_con3 dl{ position:relative}
+#infor_drag4,#infor_drag5{width:360px;height:260px;margin:0 auto 20px;overflow:hidden}
+#infor_drag_con4 dl,#infor_drag_con5 dl{width:120px;position:relative}
+#infor_drag_con4 dl dd,#infor_drag_con5 dl dd{float:left;width:120px;}
+.block{display:block;}
+/*----------船只装备_船长_船首像—火炮—护甲—船帆  结束----------*/
