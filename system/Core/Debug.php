@@ -47,11 +47,6 @@ class Core_Debug
 
         // 页面汇总信息
         $table = array(array());
-        $dispatchInfo = Core_App::getInstance()->getDispatchInfo();
-        $table[] = array('Router: Controller_' . $dispatchInfo['controller'] . '::' . $dispatchInfo['action'] . 'Action');
-        if ($dispatchInfo['params']) {
-            $table[] = array('Params: ' . http_build_query($dispatchInfo['params']));
-        }
         $table[] = array('Total Time: ' . round(microtime(true) - $GLOBALS['_START_TIME'], 3));
         $table[] = array('Total Memory: ' . self::_size(round(memory_get_usage() - $GLOBALS['_START_MEM'], 3)));
 

@@ -136,8 +136,8 @@ abstract class Controller_Abstract extends Core_Controller_Web
         }
 
         // 传出模板变量
-        $this->assign($this->_global, null, true);
+        $this->assign($this->_global, null);
         $this->assign('cookie', $this->_cookie);
-        $this->assign('user', $this->_user->__toArray(), true);
+        $this->assign('user', $this->_user->__toArray());
     }
 }

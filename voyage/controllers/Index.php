@@ -98,6 +98,6 @@ class Controller_Index extends Controller_Abstract
         $bodyUrl = $this->getx('url') ?: '/';
         $this->assign('bodyUrl', $bodyUrl);
 
-        $this->layout = null;
+        $this->_view->setLayout(null);
     }
 }

@@ -23,18 +23,13 @@ abstract class Core_Controller_Web extends Core_Controller_Abstract
      */
     public $yafAutoRender = true;
 
-    /**
-     * 自动加载视图
-     *
-     * @var bool
-     */
-    public $autoRender = true;
-
-    public function assign($key, $value = null, $isGlobal = false)
+    public function assign($key, $value = null)
     {
-        // 全局变量
-        if ($isGlobal) {
-            $GLOBALS[$key] = $value;
+        if (is_array($key)) {
+            foreach ($key as $k => $v) {
+                $this->_view->assign($k, $v);
+            }
+            return true;
         }
 
         return $this->_view->assign($key, $value);
