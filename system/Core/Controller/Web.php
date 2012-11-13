@@ -10,13 +10,6 @@
 abstract class Core_Controller_Web extends Core_Controller_Abstract
 {
     /**
-     * 默认的布局
-     *
-     * @var string
-     */
-    public $layout = 'default';
-
-    /**
      * 自动加载视图
      *
      * @var bool
@@ -25,14 +18,17 @@ abstract class Core_Controller_Web extends Core_Controller_Abstract
 
     public function assign($key, $value = null)
     {
-        if (is_array($key)) {
-            foreach ($key as $k => $v) {
-                $this->_view->assign($k, $v);
-            }
-            return true;
-        }
-
         return $this->_view->assign($key, $value);
+    }
+
+    public function layout($tpl, array $data = array(), $return = false)
+    {
+        return $this->_view->layout($tpl, $data, $return);
+    }
+
+    public function getTpl()
+    {
+        return isset($this->tpl) ? $this->tpl : null;
     }
 
     public function alert($msg, $res = 'success', $url = '', $extra = '')

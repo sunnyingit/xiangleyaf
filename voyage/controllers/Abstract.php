@@ -4,7 +4,7 @@
  * 控制器抽象父类
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: Abstract.php 309 2012-11-12 06:01:52Z jiangjian $
+ * $Id: Abstract.php 320 2012-11-13 03:03:03Z jiangjian $
  */
 
 abstract class Controller_Abstract extends Core_Controller_Web
@@ -30,6 +30,8 @@ abstract class Controller_Abstract extends Core_Controller_Web
      */
     public function init()
     {
+        parent::init();
+
         // 初始化全局数组
         $this->_initGlobalVar();
 
@@ -47,6 +49,8 @@ abstract class Controller_Abstract extends Core_Controller_Web
         if (!$this->_user && $this->_checkAuth) {
             throw new Core_Exception_Logic(__('Access Denied - Need Login'));
         }
+
+        $this->preResponse();
     }
 
     /**

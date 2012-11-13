@@ -9,8 +9,10 @@
 
 class Controller_Error extends Core_Controller_Web
 {
-    public function errorAction($e)
+    public function errorAction()
     {
+        $e = $this->_request->getException();
+
         if (!$e instanceof Exception) {
             exit('Access Denied');
         }
@@ -27,13 +29,16 @@ class Controller_Error extends Core_Controller_Web
 
             exit($e->getMessage());
 
+        } catch (Yaf_Exception_LoadFailed_View $e) {
+
+            exit($e->getMessage());
+
         } catch (Exception $e) {
 
             switch ($e->getCode()) {
                 case YAF_ERR_NOTFOUND_MODULE:
                 case YAF_ERR_NOTFOUND_CONTROLLER:
                 case YAF_ERR_NOTFOUND_ACTION:
-                case YAF_ERR_NOTFOUND_VIEW:
                     header404();
             }
 

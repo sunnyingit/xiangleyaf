@@ -16,6 +16,72 @@ class Core_View extends Yaf_View_Simple
      */
     private $_layout = 'default';
 
+    private static $_instance;
+    public static function getInstance()
+    {
+        if (self::$_instance === null) {
+            self::$_instance = new self(rtrim(TPL_PATH, DS));
+        }
+        return self::$_instance;
+    }
+
+    /**
+     * Assign 传参
+     *
+     * @param string/array $key
+     * @param mixed/null $value
+     * @param mixed $value
+     */
+    public function assign($key, $value = null)
+    {
+        if (empty($key)) {
+            return false;
+        }
+
+        // 封装数组传参形式
+        if (is_array($key)) {
+            foreach ($key as $k => $v) {
+                $this->assign($k, $v);
+            }
+            return true;
+        }
+
+        // 常规的变量传参形式
+        parent::assign($key, $value);
+    }
+
+    /**
+     * 渲染输出模板
+     *
+     * @param string $tpl
+     * @param array $data
+     * @return false/string
+     */
+    public function display($tpl, $data = array())
+    {
+        if (strpos($tpl, TPL_EXT) === false) {
+            $tpl .= TPL_EXT;
+        }
+
+        return parent::display($tpl, $data);
+    }
+
+    /**
+     * 返回输出内容（不输出到屏幕）
+     *
+     * @param string $tpl
+     * @param array $data
+     * @return string
+     */
+    public function render($tpl, $data = array())
+    {
+        if (strpos($tpl, TPL_EXT) === false) {
+            $tpl .= TPL_EXT;
+        }
+
+        return parent::render($tpl, $data);
+    }
+
     /**
      * 设置布局
      *
@@ -41,22 +107,17 @@ class Core_View extends Yaf_View_Simple
     /**
      * 布局渲染
      *
-     * @param string $tpl
+     * @param string $bodyContent
      * @param array $data
      * @param bool $return 是否仅返回（不输出到屏幕）
      * @return string
      */
-    public function layout($tpl, $data = array(), $return = false)
+    public function layout($bodyContent, $data = array(), $return = false)
     {
         $method = $return ? 'render' : 'display';
 
-        // 无布局
-        if (null === $this->_layout) {
-            return $this->$method($tpl, $data);
-        }
-
         // 加载布局
-        $this->assign('tplFile', $tpl);
+        $this->assign('bodyContent', $bodyContent);
         return $this->$method('_layout/' . $this->_layout, $data);
     }
 }

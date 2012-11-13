@@ -4,7 +4,7 @@
  * 主界面控制器
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: Index.php 301 2012-11-08 01:29:44Z jiangjian $
+ * $Id: Index.php 320 2012-11-13 03:03:03Z jiangjian $
  */
 
 class Controller_Index extends Controller_Abstract
@@ -15,7 +15,11 @@ class Controller_Index extends Controller_Abstract
     public function userAction()
     {
         // 指定模板文件
-        $this->tpl = '_inc/user_top';
+        $tpl = '_inc/user_top';
+
+        // temp until preResponse works well
+        $this->_view->display($tpl);
+        return false;
     }
 
     /**
@@ -26,13 +30,17 @@ class Controller_Index extends Controller_Abstract
         if ($this->_user['status'] == 0) {
 
             $this->_inPort();   // 港口中
-            $this->_tpl = 'index/in_port';
+            $tpl = 'index/in_port';
 
         } elseif ($this->_user['status'] == 1) {
 
             $this->_sailing();  // 航行中
-            $this->_tpl = 'index/sailing';
+            $tpl = 'index/sailing';
         }
+
+        // temp until preResponse works well
+        $this->_view->display($tpl);
+        return false;
     }
 
     /**

@@ -4,7 +4,7 @@
  * 视图中使用的相关助手方法
  *
  * @author JianJian <silverd@sohu.com>
- * $Id: View.php 113 2012-10-19 01:15:00Z jiangjian $
+ * $Id: View.php 320 2012-11-13 03:03:03Z jiangjian $
  */
 
 class MyHelper_View

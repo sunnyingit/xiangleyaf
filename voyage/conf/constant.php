@@ -23,3 +23,6 @@ define('DEBUG_EXPLAIN_SQL', false);
 
 // 新用户存储在哪几个库
 define('DB_SUFFIX_NEW_USER', 1);
+
+// 航海元年
+define('VOYAGE_1ST_YEAR', '2012-10-09');

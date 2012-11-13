@@ -9,6 +9,11 @@
 
 abstract class Core_Controller_Abstract extends Yaf_Controller_Abstract
 {
+    public function init()
+    {
+        Yaf_Registry::set('controller', $this);
+    }
+
     /**
      * 动态获取变量
      *

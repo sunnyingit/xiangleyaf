@@ -11,7 +11,8 @@ class Core_Config
 {
     public static function load($name)
     {
-        return Yaf_Registry::get('config')->get($name)->toArray();
+        $config = Yaf_Registry::get('config')->get($name);
+        return $config ? $config->toArray() : array();
     }
 
     public static function loadEnv($name)
