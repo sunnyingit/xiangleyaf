@@ -21,11 +21,6 @@ abstract class Core_Controller_Web extends Core_Controller_Abstract
         return $this->_view->assign($key, $value);
     }
 
-    public function layout($tpl, array $data = array(), $return = false)
-    {
-        return $this->_view->layout($tpl, $data, $return);
-    }
-
     public function getTpl()
     {
         return isset($this->tpl) ? $this->tpl : null;

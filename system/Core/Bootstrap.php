@@ -89,7 +89,7 @@ class Core_Bootstrap
             if (PHP_SAPI !== 'cli') {   // 非命令行模式才输出调试信息
                 Yaf_Loader::import(SYS_PATH . 'Core/Debug.php');
                 Yaf_Loader::import(SYS_PATH . 'Third/FirePHPCore/fb.php');
-                register_shutdown_function(array('Core_Debug', 'firePHP'));
+                // register_shutdown_function(array('Core_Debug', 'firePHP'));
             }
         } else {
             ini_set('display_errors', 'Off');

@@ -6,6 +6,6 @@ class Dao_Static_Abstract extends Com_Dao
 
     public function __construct()
     {
-        $this->_dbName = 'voyage_static_' . strtolower(CUR_LANG);
+        $this->_dbName = 'voyage_static_' . CUR_LANG;
     }
 }

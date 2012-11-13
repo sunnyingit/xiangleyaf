@@ -14,12 +14,7 @@ class Controller_Index extends Controller_Abstract
      */
     public function userAction()
     {
-        // 指定模板文件
-        $tpl = '_inc/user_top';
-
-        // temp until preResponse works well
-        $this->_view->display($tpl);
-        return false;
+        // 直接渲染模板
     }
 
     /**
@@ -38,9 +33,7 @@ class Controller_Index extends Controller_Abstract
             $tpl = 'index/sailing';
         }
 
-        // temp until preResponse works well
-        $this->_view->display($tpl);
-        return false;
+        $this->assign('tpl', $tpl);
     }
 
     /**
