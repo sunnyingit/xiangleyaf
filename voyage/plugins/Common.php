@@ -2,11 +2,6 @@
 
 class Plugin_Common extends Yaf_Plugin_Abstract
 {
-    public function preDispatch(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response)
-    {
-        Yaf_Dispatcher::getInstance()->disableView();
-    }
-
     public function preResponse(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response)
     {
         $controller = Yaf_Registry::get('controller');

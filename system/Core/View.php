@@ -34,20 +34,9 @@ class Core_View extends Yaf_View_Simple
      */
     public function assign($key, $value = null)
     {
-        if (empty($key)) {
-            return false;
-        }
-
-        // 封装数组传参形式
-        if (is_array($key)) {
-            foreach ($key as $k => $v) {
-                $this->assign($k, $v);
-            }
-            return true;
-        }
-
-        // 常规的变量传参形式
-        parent::assign($key, $value);
+        return $value === null
+            ? parent::assign($key)
+            : parent::assign($key, $value);
     }
 
     /**

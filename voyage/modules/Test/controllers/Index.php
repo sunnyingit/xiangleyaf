@@ -7,7 +7,11 @@ class Controller_Index extends Core_Controller_Web
     public function indexAction()
     {
         echo 'hello modules/Controller_Index';
-        echo Com_DB_Hash::tableName('xxxxx');
+    }
+
+    public function hashAction()
+    {
+        echo Com_DB_Hash::tableName('user_log_fight', rand(1,999999));
     }
 
     public function memcacheAction()

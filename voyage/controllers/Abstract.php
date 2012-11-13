@@ -128,11 +128,6 @@ abstract class Controller_Abstract extends Core_Controller_Web
 
     public function preResponse()
     {
-        // 模板中是否加载顶部用户信息栏（开发阶段）
-        if ($this->getx('head')) {
-            $this->_cookie['head'] = true;
-        }
-
         // 获取最新的用户信息
         // 因为 $this->_user 最初是在构造函数中初始化赋值的，可能在 Action 处理中已被更改
         if ($this->_user->isUpdated()) {
