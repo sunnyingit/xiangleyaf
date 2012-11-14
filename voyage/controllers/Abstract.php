@@ -50,7 +50,7 @@ abstract class Controller_Abstract extends Core_Controller_Web
             throw new Core_Exception_Logic(__('Access Denied - Need Login'));
         }
 
-        $this->preResponse();
+        $this->assignUser();
     }
 
     /**
@@ -60,6 +60,10 @@ abstract class Controller_Abstract extends Core_Controller_Web
     {
         // 当前纪年、季节
         list($this->_global['YEAR'], $this->_global['SEASON']) = MyHelper_Year::get();
+
+        // 传出模板变量
+        $this->assign($this->_global, null);
+        $this->assign('cookie', $this->_cookie);
     }
 
     /**
@@ -126,7 +130,7 @@ abstract class Controller_Abstract extends Core_Controller_Web
         $this->_mobileParams = Model('User_Api')->initMobileParams($data);
     }
 
-    public function preResponse()
+    public function assignUser()
     {
         // 获取最新的用户信息
         // 因为 $this->_user 最初是在构造函数中初始化赋值的，可能在 Action 处理中已被更改
@@ -134,9 +138,6 @@ abstract class Controller_Abstract extends Core_Controller_Web
             $this->_user->refresh();
         }
 
-        // 传出模板变量
-        $this->assign($this->_global, null);
-        $this->assign('cookie', $this->_cookie);
         $this->assign('user', $this->_user->__toArray());
     }
 }

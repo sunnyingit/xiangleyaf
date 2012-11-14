@@ -12,12 +12,16 @@ class Core_Bootstrap
     public static function init()
     {
         $self = new self();
-        $self->_initGlobal();
-        $self->_initLocale();
-        $self->_initDebugMode();
+
+        // 依次执行本类所有方法
+        foreach (get_class_methods($self) as $method) {
+            if ($method != __FUNCTION__) {  // 不是 init 方法本身
+                $self->$method();
+            }
+        }
     }
 
-    public function _initGlobal()
+    public function initGlobal()
     {
         // 定义路径常量
         if (!defined('DS')) {
@@ -53,9 +57,12 @@ class Core_Bootstrap
 
         // 设置时区
         date_default_timezone_set(CUR_TIMEZONE);
+
+        // 开启输出缓冲
+        ob_start();
     }
 
-    public function _initLocale()
+    public function initLocale()
     {
         // 多语言版本（国际化设置）
         if (defined('CUR_LANG') && defined('CUR_TEXT_DOMAIN')) {
@@ -76,7 +83,7 @@ class Core_Bootstrap
         }
     }
 
-    public function _initDebugMode()
+    public function initDebugMode()
     {
         // 调试、错误信息开关
         if (isDebug()) {
@@ -89,7 +96,7 @@ class Core_Bootstrap
             if (PHP_SAPI !== 'cli') {   // 非命令行模式才输出调试信息
                 Yaf_Loader::import(SYS_PATH . 'Core/Debug.php');
                 Yaf_Loader::import(SYS_PATH . 'Third/FirePHPCore/fb.php');
-                // register_shutdown_function(array('Core_Debug', 'firePHP'));
+                register_shutdown_function(array('Core_Debug', 'firePHP'));
             }
         } else {
             ini_set('display_errors', 'Off');
@@ -98,5 +105,17 @@ class Core_Bootstrap
 
         // 全局错误处理 TODO
         // set_error_handler(array('Core_Error', 'handler'));
+    }
+
+    public function initRequestUri()
+    {
+        // 将 XianglePHP 风格的 URI 转为 Yaf 风格
+        // 例如：/index-test/hello-world => /indextest/helloworld
+        $request    = Yaf_Dispatcher::getInstance()->getRequest();
+        $requestUri = $request->getRequestUri();
+
+        if (strpos($requestUri, '-') !== false) {
+            $request->setRequestUri(str_replace('-', '', $requestUri));
+        }
     }
 }

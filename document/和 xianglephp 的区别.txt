@@ -1,3 +1,28 @@
-forward ����ͬ
-display
-render
+【布局的使用】
+
+XiangleYaf 里，直接在控制器中这样写：
+
+$this->render($tpl) 和 $this->_view->render($tpl) 是不一样的效果
+$this->display($tpl) 和 $this->_view->display($tpl) 也是不一样的
+
+1、先说 $this->render($tpl) 和 $this->display($tpl)
+
+这里 $tpl 只能是本控制目录下的 action 名，不能含目录，会自动将其中下划线转为斜杠
+例如在 Controller_Hello 中调用 $this->render('world')
+那么实际模板文件是 views/hello/world.phtml
+这里 render/display 的参数只能是 hello 文件夹下的模板文件名。
+
+2、再说 $this->_view->render($tpl) 和 $this->_view->display($tpl)
+
+这里的 $tpl 必须写全路径，例如：
+$this->_view->render('hello/world') 或者
+$this->_view->render('hello/world.phtml')
+
+并且不能使用布局（因为无法被 Yaf_Response 捕捉输出）
+
+【布局的实现方式】
+
+通过 echo $this->bodyContent 的方式包裹输出，详见：
+
+views/_layout/ajax.phtml
+views/_layout/default.phtml

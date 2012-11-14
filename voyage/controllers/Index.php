@@ -70,6 +70,8 @@ class Controller_Index extends Controller_Abstract
 
         $this->assign('portFromInfo', $portFromInfo);
         $this->assign('portToInfo', $portToInfo);
+
+        $this->assignUser();
     }
 
     /**
