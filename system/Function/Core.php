@@ -4,7 +4,7 @@
  * 核心函数库（修改请谨慎）
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: Core.php 306 2012-11-12 05:30:45Z jiangjian $
+ * $Id: Core.php 168 2012-11-14 01:32:27Z silverd30@gmail.com $
  */
 
 /**

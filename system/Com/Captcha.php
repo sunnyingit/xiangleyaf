@@ -4,7 +4,7 @@
  * 验证码生成、检测
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: Captcha.php 170 2012-10-22 02:09:22Z jiangjian $
+ * $Id: Captcha.php 320 2012-11-13 03:03:03Z jiangjian $
  */
 
 class Com_Captcha
@@ -61,7 +61,7 @@ class Com_Captcha
 
         // 缺省字体
         if (!$this->_font) {
-            $this->_font = dirname(__FILE__) . DS . 'Captcha' . DS . 'svenings.ttf';
+            $this->_font = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Captcha' . DIRECTORY_SEPARATOR . 'svenings.ttf';
         }
     }
 

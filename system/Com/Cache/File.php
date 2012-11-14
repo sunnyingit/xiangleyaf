@@ -4,7 +4,7 @@
  * 文件缓存封装类
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: File.php 2 2012-10-12 04:14:32Z jiangjian $
+ * $Id: File.php 320 2012-11-13 03:03:03Z jiangjian $
  */
 
 class Com_Cache_File
@@ -21,7 +21,7 @@ class Com_Cache_File
      */
     public function __construct()
     {
-        $this->_saveDir = CACHE_PATH . 'Cache' . DS . 'File' . DS;
+        $this->_saveDir = CACHE_PATH . 'Cache' . DIRECTORY_SEPARATOR . 'File' . DIRECTORY_SEPARATOR;
         @chmod($this->_saveDir, 0777);
         if (!is_writable($this->_saveDir)) {
             throw new Core_Exception_Fatal('缓存文件存储目录 ' . $this->_saveDir . ' 不可写');

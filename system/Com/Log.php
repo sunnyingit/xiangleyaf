@@ -4,7 +4,7 @@
  * 写文件日志
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: Log.php 260 2012-10-29 02:06:18Z jiangjian $
+ * $Id: Log.php 320 2012-11-13 03:03:03Z jiangjian $
  */
 
 class Com_Log
@@ -18,7 +18,7 @@ class Com_Log
      */
     public static function write($fileName, $content, $withDatetime = true)
     {
-        $fileDir = LOG_PATH . date('Y-m-d') . DS;
+        $fileDir = LOG_PATH . date('Y-m-d') . DIRECTORY_SEPARATOR;
         if (!is_dir($fileDir)) {
             @mkdir($fileDir, 0755, true);
         }
