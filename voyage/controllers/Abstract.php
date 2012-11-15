@@ -16,13 +16,25 @@ abstract class Controller_Abstract extends Core_Controller_Web
      */
     protected $_user;
 
-    // 全局数组
+    /**
+     * 全局数组
+     *
+     * @var array
+     */
     protected $_global = array();
 
-    // 是否检测登录
+    /**
+     * 是否检测登录
+     *
+     * @var bool
+     */
     protected $_checkAuth = true;
 
-    // 从手机端接收的参数
+    /**
+     * 从手机端接收的参数
+     *
+     * @var array
+     */
     protected $_mobileParams = array();
 
     /**
@@ -50,6 +62,7 @@ abstract class Controller_Abstract extends Core_Controller_Web
             throw new Core_Exception_Logic(__('Access Denied - Need Login'));
         }
 
+        // temp debug until preResponse works well
         $this->assignUser();
     }
 
@@ -124,12 +137,72 @@ abstract class Controller_Abstract extends Core_Controller_Web
         return $uid;
     }
 
+    /**
+     * 接收手机端参数
+     */
     protected function _initMobileParams()
     {
         $data = $this->getQuery();
         $this->_mobileParams = Model('User_Api')->initMobileParams($data);
     }
 
+    /**
+     * 获取用户盐
+     *
+     * @param string $extraKey 格外密钥
+     * @return string
+     */
+    protected function _getSalt($extraKey = null)
+    {
+        return 'VoyageMobile:' . date('md') . ':' . $this->_user['uid'] . ($extraKey ? ':' . $extraKey : '');
+    }
+
+    /**
+     * 加密
+     *
+     * @param string $content 待加密内容
+     * @param string $extraKey 格外密钥
+     * @return string
+     */
+    protected function _encrypt($content, $extraKey = null)
+    {
+        return Helper_Cryption_Simple::encrypt($content, $this->_getSalt($extraKey));
+    }
+
+    /**
+     * 解密
+     *
+     * @param string $content 待解密内容
+     * @param string $extraKey 格外密钥
+     * @return string
+     */
+    protected function _decrypt($content, $extraKey = null)
+    {
+        return Helper_Cryption_Simple::decrypt($content, $this->_getSalt($extraKey));
+    }
+
+    /**
+     * 批量加密指定列表的某些字段
+     *
+     * @param string $list
+     * @param string/array $idFields 待加密字段名，可设多个
+     * @param string $extraKey 格外密钥
+     * @return string
+     */
+    protected function _encryptIds($list, $idFields = 'id', $extraKey = null)
+    {
+        if ($list) {
+            foreach ($list as &$value) {
+                foreach ((array) $idFields as $idField) {
+                    $value[$idField] = $this->_encrypt($value[$idField], $extraKey);
+                }
+            }
+        }
+
+        return $list;
+    }
+
+    // public function preResponse()
     public function assignUser()
     {
         // 获取最新的用户信息

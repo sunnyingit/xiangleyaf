@@ -38,7 +38,7 @@
     // 航行倒计时
     new Countdown().init({
         "container" : "arrive_time_countdown",
-        "seconds"   : "<?=$user['arrive_time_countdown']?>",
+        "seconds"   : "<?=$arriveTimeCountdown?>",
         "format"    : "hh:mm:ss",
         "callback"  : function() {
             location.href = '/';
@@ -78,7 +78,7 @@
         // 计算已经航行了多久（占全程时间比例多少）
         function calcDepartRadio(now)
         {
-            return Math.min(1, (now - <?=$user['depart_time']?>) / <?=$user['arrive_time_total']?>);
+            return Math.min(1, (now - <?=$user['depart_time']?>) / <?=$arriveTimeTotal?>);
         }
 
         updateSailingProgress();

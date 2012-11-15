@@ -4,13 +4,15 @@
             <? foreach ($logList as $log): ?>
                 <dd>
                     <div><?=$log['result_msg']?></div>
-                    <div class="button" onclick="location.href='/fight/replay/?id=<?=$log['id']?>'">观战</div>
+                    <div class="button" onclick="location.href='/fight/replay/?id=<?=$log['id']?>'"><?=__('回放')?></div>
 
-                    <? if ($log['attacker_uid'] == $user['uid']): ?>
-                        <div class="button" onclick="location.href='/fight/fight/?enemy_uid=<?=$log['defender_uid']?>'">再战</div>
-                    <? else: ?>
-                        <div class="button" onclick="location.href='/fight/fight/?enemy_uid=<?=$log['attacker_uid']?>'">反击</div>
-                    <? endif; ?>
+                    <div class="button" onclick="location.href='/fight/fight/?enemy_uid=<?=$log['enemy_uid']?>'">
+                        <? if ($log['attacker_uid'] == $user['uid']): ?>
+                            <?=__('再战')?>
+                        <? else: ?>
+                            <?=__('反击')?>
+                        <? endif; ?>
+                    </div>
                 </dd>
             <? endforeach; ?>
         <? else: ?>

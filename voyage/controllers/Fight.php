@@ -18,7 +18,7 @@ class Controller_Fight extends Controller_Abstract
         $this->_user->assertSailing();
 
         $opponentList = $this->_user->fight->getOpponent();
-        $this->assign('opponentList', $opponentList);
+        $this->assign('opponentList', $this->_encryptIds($opponentList, 'uid'));
     }
 
     /**
@@ -29,7 +29,7 @@ class Controller_Fight extends Controller_Abstract
         // 必须为出海状态
         $this->_user->assertSailing();
 
-        $enemyUid = xintval($this->getx('enemy_uid'));
+        $enemyUid = $this->_decrypt($this->getx('enemy_uid'));
         if ($enemyUid < 1 || $enemyUid == $this->_user['uid']) {
             exit('Invalid EnemyUid');
         }
@@ -53,7 +53,7 @@ class Controller_Fight extends Controller_Abstract
         $logId = $fight->after();
 
         // 直接跳到回放器：播放战斗过程
-        $this->forward('Fight', 'replay', array('id' => $logId, 'in_fight' => true));
+        $this->forward('Fight', 'replay', array('id' => $this->_encrypt($logId), 'in_fight' => true));
 
         return false;
     }
@@ -87,15 +87,15 @@ class Controller_Fight extends Controller_Abstract
      */
     public function replayAction()
     {
-        $logId  = $this->getInt('id');
+        $logId = $this->_decrypt($this->getx('id'));
         if ($logId < 1) {
             exit('Invalid FightLogId');
         }
 
-        $logRow = Model('Fight_Player')->get($this->_user['uid'], $logId);
+        $logRow = $this->_user->fight->getLogRow($logId);
 
         // 0:战斗中，1:回放中
-        $isReplay = $this->get('in_fight') ? 0 : 1;
+        $isReplay = $this->getInt('in_fight') ? 0 : 1;
 
         // 传出模板变量
         $this->assign(array(
@@ -117,7 +117,15 @@ class Controller_Fight extends Controller_Abstract
         $page     = max(1, $this->getInt('page'));
         $start    = ($page - 1) * $pageSize;
 
-        $logList = Model('Fight_Player')->listByUid($this->_user['uid'], $start, $pageSize);
+        $logList = $this->_user->fight->getLogList($start, $pageSize);
+
+        // 加密id字段
+        if ($logList) {
+            foreach ($logList as &$log) {
+                $log['id']        = $this->_encrypt($log['id']);
+                $log['enemy_uid'] = $this->_encrypt($log['attacker_uid'] == $this->_user['uid'] ? $log['defender_uid'] : $log['attacker_uid']);
+            }
+        }
 
         $this->assign('logList', $logList);
     }

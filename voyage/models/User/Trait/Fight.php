@@ -40,4 +40,61 @@ class Model_User_Trait_Fight extends Model_User_Trait_Abstract
 
         return $list;
     }
+
+    public function getLogRow($logId)
+    {
+        if ($logId < 1) {
+            throw new Core_Exception_Logic(__('战斗记录不存在'));
+        }
+
+        $logRow = Dao('User_Log_Fight')->loadDs($this->_user['uid'])->get($logId);
+        if (!$logRow) {
+            throw new Core_Exception_Logic(__('战斗记录不存在'));
+        }
+
+        if ($this->_user['uid'] != $logRow['uid']) {
+            throw new Core_Exception_Logic(__('你只能看自己的战斗记录'));
+        }
+
+        return $this->_decodeLog($logRow);
+    }
+
+    public function getLogList($start = 0, $pageSize = 20)
+    {
+        $fields = 'id, attacker_uid, defender_uid, result, result_msg, create_time';
+        $logList = Dao('User_Log_Fight')->loadDs($this->_user['uid'])->findByPage(
+            array('uid' => $this->_user['uid']), $start, $pageSize, 'id DESC', $fields
+        );
+
+        return $logList;
+
+/*  Query Builder
+        $logList = Dao('User_Log_Fight')->loadDs($uid)
+                                       ->field('attacker_uid', 'defender_uid')
+                                       ->where(array('uid' => $uid))
+                                       ->limit($start, $pageSize)
+                                       ->sort('id DESC')
+                                       ->fetchAll();
+
+        $sql = "SELECT {$fields} FROM `user_fight_log` WHERE `uid` = '{$uid}' ORDER BY `id` DESC";
+        $logList = Dao('User_Log_Fight')->loadDs($uid)->query('limitQuery', $sql, $start, $pageSize);
+*/
+    }
+
+    private function _decodeLog($log)
+    {
+        if (isset($log['self_ships'])) {
+            $log['self_ships']  = unserialize($log['self_ships']);
+        }
+
+        if (isset($log['enemy_ships'])) {
+            $log['enemy_ships'] = unserialize($log['enemy_ships']);
+        }
+
+        if (isset($log['fire_logs'])) {
+            $log['fire_logs']   = unserialize($log['fire_logs']);
+        }
+
+        return $log;
+    }
 }

@@ -53,25 +53,25 @@ class Controller_Index extends Controller_Abstract
     private function _sailing()
     {
         // 倒计时：还要多久到达目的地
-        $this->_user['arrive_time_countdown'] = $this->_user['arrive_time'] - $GLOBALS['_TIME'];
+        $arriveTimeCountdown = $this->_user['arrive_time'] - $GLOBALS['_TIME'];
 
         // 已经驶达，跳转到目的港口
-        if ($this->_user['arrive_time_countdown'] < 1) {
+        if ($arriveTimeCountdown < 1) {
             $this->_user->sail->arrive();
             $this->redirect('/');
         }
 
         // 全程需航行多久
-        $this->_user['arrive_time_total'] = $this->_user['arrive_time'] - $this->_user['depart_time'];
+        $arriveTimeTotal = $this->_user['arrive_time'] - $this->_user['depart_time'];
 
         // 出发港口、目的港口信息
         $portFromInfo = Model('Static')->Port->get($this->_user['port_from']);
         $portToInfo   = Model('Static')->Port->get($this->_user['port_to']);
 
-        $this->assign('portFromInfo', $portFromInfo);
-        $this->assign('portToInfo', $portToInfo);
-
-        $this->assignUser();
+        $this->assign('portFromInfo',        $portFromInfo);
+        $this->assign('portToInfo',          $portToInfo);
+        $this->assign('arriveTimeCountdown', $arriveTimeCountdown);
+        $this->assign('arriveTimeTotal',     $arriveTimeTotal);
     }
 
     /**
