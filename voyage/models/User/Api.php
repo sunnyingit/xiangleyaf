@@ -2,25 +2,22 @@
 
 class Model_User_Api extends Core_Model_Abstract
 {
-    public function getUidByMac($mac)
+    public function getUidByToken($userToken)
     {
-        $whereArr = array('mac' => $mac);
-        return Dao('User_Index')->one('uid', $whereArr);
+        return Dao('User_Index')->getUidByToken($userToken);
     }
 
     public function getUidByCode($userCode)
     {
-        $whereArr = array('user_code' => $userCode);
-        return Dao('User_Index')->one('uid', $whereArr);
+        return Dao('User_Index')->getUidByCode($userCode);
     }
 
     public function getUidByAccount($userAccount)
     {
-        $whereArr = array('user_account' => $userAccount);
-        return Dao('User_Index')->one('uid', $whereArr);
+        return Dao('User_Index')->getUidByAccount($userAccount);
     }
 
-    public function register($mac)
+    public function register($userToken)
     {
         // 联盟号
         $userCode = $this->_getUserCode();
@@ -37,18 +34,18 @@ class Model_User_Api extends Core_Model_Abstract
         )) . rand(1,1000);
 
         // demo
-        $countryId = rand(1, 4);
+        $nationId = rand(1, 4);
 
         // 用户索引表
         $setArr = array(
-            'mac'           => $mac,
-            'user_code'     => $userCode,
-            'user_name'     => $userName,
-            'user_account'  => '',
-            'db_suffix'     => 0,
-            'level_id'      => 1,
-            'position_id'   => 1,
-            'country_id'    => $countryId,
+            'user_token'   => $userToken,
+            'user_code'    => $userCode,
+            'user_name'    => $userName,
+            'user_account' => '',
+            'db_suffix'    => 0,
+            'level_id'     => 1,
+            'position_id'  => 1,
+            'nation_id'    => $nationId,
         );
         $uid = Dao('User_Index')->insert($setArr);
 
@@ -57,36 +54,41 @@ class Model_User_Api extends Core_Model_Abstract
         }
 
         // 用户库后缀
-        Dao('User_Index')->update(array(
-            'db_suffix' => $this->_getDbSuffixForNewUser($uid),
-        ), array('uid' => $uid));
+        Dao('User_Index')->updateByPk(array('db_suffix' => $this->_getDbSuffixForNewUser($uid)), $uid);
 
         // 用户基本信息
         $setArr = array(
-            'uid'           => $uid,
-            'mac'           => $mac,
-            'user_code'     => $userCode,
-            'user_name'     => $userName,
-            'user_account'  => '',
-            'create_time'   => $GLOBALS['_TIME'],
-            'silver'        => 10000,
-            'gold'          => 600,
-            'hp'            => 100,
-            'hp_max'        => 100,
-            'move'          => 200,
-            'move_max'      => 200,
-            'energy'        => 3,
-            'energy_max'    => 3,
-            'exp'           => 0,
-            'level_id'      => 1,
-            'position_id'   => 0,
-            'country_id'    => $countryId,
-            'avatar_id'     => 1,
-            'sea_area_id'   => 1,
-            'status'        => 0,
-            'port_from'     => 1, // 默认港口
+            'uid'         => $uid,
+            'user_code'   => $userCode,
+            'user_name'   => $userName,
+            'create_time' => $GLOBALS['_DATE'],
+            'silver'      => 10000,
+            'gold'        => 600,
+            'hp'          => 100,
+            'hp_max'      => 100,
+            'move'        => 200,
+            'move_max'    => 200,
+            'energy'      => 3,
+            'energy_max'  => 3,
+            'exp'         => 0,
+            'level_id'    => 1,
+            'position_id' => 0,
+            'nation_id'   => $nationId,
+            'avatar_id'   => 1,
+            'status'      => 0,
+            'port_from'   => 1, // 默认港口
         );
         Dao('User')->loadDs($uid)->insert($setArr);
+
+        // 战斗区间索引
+        $setArr = array(
+            'uid'              => $uid,
+            'hp'               => 100,
+            'level_id'         => 1,
+            'nation_id'        => $nationId,
+            'last_active_time' => $GLOBALS['_TIME'],
+        );
+        Dao('Battle_Block')->insert($setArr);
 
         return $uid;
     }

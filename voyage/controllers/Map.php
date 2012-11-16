@@ -9,36 +9,6 @@ class Controller_Map extends Controller_Abstract
     {
         // demo
         $this->redirect('/map/depart/?port_to=random');
-
-        $seaAreaList = Model('Static')->SeaArea->all();
-        pr($seaAreaList);
-    }
-
-    /**
-     * 指定海域下的港口列表
-     */
-    public function portListAction()
-    {
-        $seaAreaId = $this->getInt('sea_area_id');
-        if (!$seaAreaId) {
-            exit('Invalid SeaAreaId');
-        }
-
-        $seaAreaRow = Model('Static')->SeaArea->get($seaAreaId);
-        if (!$seaAreaRow) {
-            exit('Invalid SeaAreaRow');
-        }
-
-        if ($this->_user['level_id'] < $seaAreaRow['unlock_level']) {
-            exit('等级不够解锁该海域');
-        }
-
-        // 港口列表
-        $portList = Model('Static')->Port->find(array('sea_area_id' => $seaAreaId));
-
-        $this->json($portList);
-
-        return false;
     }
 
     /**
@@ -54,7 +24,7 @@ class Controller_Map extends Controller_Abstract
 
         // demo 随机找个目的港口
         if ($portTo == 'random') {
-            $portTo = Model('Static')->Port->one('port_id', "port_id != '{$this->_user['port_from']}'", 'RAND()');
+            $portTo = Model('Static')->Port->one('id', "id != '{$this->_user['port_from']}'", 'RAND()');
         }
 
         if (!$portTo) {
@@ -65,13 +35,9 @@ class Controller_Map extends Controller_Abstract
             exit('目的港口不能和你当前所在港口相同');
         }
 
-        $portRow = Model('Static')->Port->getFull($portTo);
+        $portRow = Model('Static')->Port->get($portTo);
         if (!$portRow) {
             exit('Invalid PortRow');
-        }
-
-        if ($portRow['sea_area']['unlock_level'] > $this->_user['level']) {
-            exit('等级不够解锁该海域');
         }
     }
 
@@ -103,14 +69,14 @@ class Controller_Map extends Controller_Abstract
         $this->_checkPortTarget($portTo);
 
         // 需消耗多少金块
-        $goldNum = 5;
+        $needGold = 5;
 
-        if ($this->_user['gold'] < $goldNum) {
+        if ($this->_user['gold'] < $needGold) {
             exit('您的金块不足');
         }
 
         // 扣除金块
-        $this->_user->consumeGold($goldNum);
+        $this->_user->consumeBullion($needGold);
 
         // 扬帆起航
         $this->_user->sail->depart($portTo);

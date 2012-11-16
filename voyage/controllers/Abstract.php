@@ -93,31 +93,31 @@ abstract class Controller_Abstract extends Core_Controller_Web
         // demo
         if (isset($_GET['test'])) {
 
-            $mac = $this->getx('test');
-            $mac = $mac ? $mac : 'test';
+            $userToken = $this->getx('test');
+            $userToken = $userToken ? $userToken : 'test';
 
         } else {
 
             // 用户设备号
-            $mac = $this->_mobileParams['udid'];
-            if (!$mac || strlen($mac) > 50) {
+            $userToken = $this->_mobileParams['udid'];
+            if (!$userToken || strlen($userToken) > 50) {
                 throw new Core_Exception_Logic(__('非法访问，用户MAC为空'));
             }
 
             // 验证设备号是否篡改
-            $macArr = array(
-                'mac' => $mac,
+            $userTokenArr = array(
+                'user_token' => $userToken,
                 'xkey' => $this->_mobileParams['hashCode'],
             );
-            if (!Model('User_Auth')->valid($macArr)) {
+            if (!Model('User_Auth')->valid($userTokenArr)) {
                 throw new Core_Exception_Logic(__('非法访问，用户MAC不合法'));
             }
         }
 
         // 根据设备号取uid
-        if (!$uid = Model('User_Api')->getUidByMac($mac)) {
+        if (!$uid = Model('User_Api')->getUidByToken($userToken)) {
             // 如果取不到，则注册新用户
-            if (!$uid = Model('User_Api')->register($mac)) {
+            if (!$uid = Model('User_Api')->register($userToken)) {
                 throw new Core_Exception_Logic(__('用户初始化失败，请联系管理员'));
             }
         }
@@ -125,7 +125,7 @@ abstract class Controller_Abstract extends Core_Controller_Web
         // 写 Cookie
         $cookieUser = array(
             'uid' => $uid,
-            'mac' => $mac,
+            'user_token' => $userToken,
         );
         Model('User_Auth')->set($cookieUser);
 

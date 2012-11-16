@@ -26,13 +26,13 @@
         <div class="warship_left">
             <? $side = 'self'; // 我方船只 ?>
             <? foreach ($selfShips as $ship): ?>
-                <? include template('fight/fight_ship_one'); ?>
+                <? include template('battle/battle-ship-one'); ?>
             <? endforeach; ?>
         </div>
         <div class="warship_right">
             <? $side = 'enemy'; // 敌方船只 ?>
             <? foreach ($enemyShips as $ship): ?>
-                <? include template('fight/fight_ship_one'); ?>
+                <? include template('battle/battle-ship-one'); ?>
             <? endforeach; ?>
         </div>
     </div>
@@ -48,28 +48,28 @@
 
     <!--最终战果弹窗提示-->
     <div id="pop_up_result_msg" class="pop_up_box" style="display:none;">
-        <? if ($fightResult == Model_Fight::WIN): ?>
+        <? if ($battleResult == Model_Battle::WIN): ?>
             <img src="/img/war/win.png" />
-        <? elseif ($fightResult == Model_Fight::LOSE): ?>
+        <? elseif ($battleResult == Model_Battle::LOSE): ?>
             <img src="/img/war/lose.png" />
-        <? elseif ($fightResult == Model_Fight::DRAW): ?>
+        <? elseif ($battleResult == Model_Battle::DRAW): ?>
             <img src="/img/war/draw.png" />
         <? endif ?>
         <div class="pop_up_box_con">
-            <p><?=$fightResultMsg?></p>
+            <p><?=$battleResultMsg?></p>
             <div class="button" onclick="location.href='/'">确&nbsp;定</div>
         </div>
     </div>
 </div>
 
 <script type="text/javascript" src="/js/iscroll-lite.js"></script>
-<script type="text/javascript" src="/js/fight.js?_v=<?=WEB_VERSION?>"></script>
+<script type="text/javascript" src="/js/battle.js?_v=<?=WEB_VERSION?>"></script>
 <script type="text/javascript">
     $(function() {
         var options = {
             'isReplay' : <?=intval($isReplay)?>,
             'logs' : <?=json_encode($fireLogs)?>
         };
-        new fightRecorder(options).countdown(3);    // 倒计时 3-2-1 开打！
+        new battleRecorder(options).countdown(3);    // 倒计时 3-2-1 开打！
     });
 </script>

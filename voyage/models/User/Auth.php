@@ -38,7 +38,7 @@ class Model_User_Auth extends Core_Model_Abstract
 
     public function valid($authUser)
     {
-        return ($authUser['mac'] && $authUser['xkey'] && $authUser['xkey'] == $this->_xkey($authUser));
+        return ($authUser['user_token'] && $authUser['xkey'] && $authUser['xkey'] == $this->_xkey($authUser));
     }
 
     /**
@@ -76,7 +76,7 @@ class Model_User_Auth extends Core_Model_Abstract
             $string .= $authUser['uid'] . ':';
         }
 
-        $string .= $authUser['mac'] . ':' . self::$_cookieSerectKey;
+        $string .= $authUser['user_token'] . ':' . self::$_cookieSerectKey;
         return strtoupper(md5(strtoupper(sha1($string))));
     }
 }

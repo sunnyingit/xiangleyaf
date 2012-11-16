@@ -45,6 +45,15 @@ class Com_Dao
      */
     protected $_db;
 
+    public function __construct()
+    {
+        // 根据类名获取表名
+        // 例如：Dao_User_Index => user_index
+        if (! $this->_tableName) {
+            $this->_tableName = strtolower(str_replace('Dao_', '', get_called_class()));
+        }
+    }
+
     /**
      * 获取 Db 连接实例
      *
@@ -53,19 +62,37 @@ class Com_Dao
     protected function _db()
     {
         if ($this->_db === null) {
-            if (!$this->_dbName) {
+            if (! $this->_dbName) {
                 throw new Core_Exception_Fatal(get_class($this) . ' 没有定义 $_dbName，无法使用 Com_Dao');
-            }
-            if (!$this->_tableName) {
-                throw new Core_Exception_Fatal(get_class($this) . ' 没有定义 $_tableName，无法使用 Com_Dao');
-            }
-            if (!$this->_primaryKey) {
-                throw new Core_Exception_Fatal(get_class($this) . ' 没有定义 $_primaryKey，无法使用 Com_Dao');
             }
             $this->_db = Com_DB::get($this->_dbName);
         }
 
         return $this->_db;
+    }
+
+    /**
+     * 设置当前库名
+     *
+     * @return $this
+     */
+    public function setDbName($dbName)
+    {
+        $this->_dbName = $dbName;
+
+        return $this;
+    }
+
+    /**
+     * 设置当前表名
+     *
+     * @return $this
+     */
+    public function setTableName($tableName)
+    {
+        $this->_tableName = $tableName;
+
+        return $this;
     }
 
     /**

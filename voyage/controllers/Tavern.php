@@ -36,14 +36,14 @@ class Controller_Tavern extends Controller_Abstract
     public function refreshAction()
     {
         // 需消耗多少金块
-        $goldNum = 5;
+        $needGold = 5;
 
-        if ($this->_user['gold'] < $goldNum) {
-            throw new Core_Exception_Logic(__('您的金块不足 {need_gold}', array('need_gold' => $goldNum)));
+        if ($this->_user['gold'] < $needGold) {
+            throw new Core_Exception_Logic(__('您的金块不足 {need_golds}', array('need_golds' => $needGold)));
         }
 
         // 扣除金块
-        $this->_user->base->consumeGold($goldNum);
+        $this->_user->base->consumeBullion($needGold);
 
         // 我的酒馆信息
         $myTavernInfo = $this->_user->tavern->get();

@@ -1,4 +1,4 @@
-var fightRecorder = function(options)
+var battleRecorder = function(options)
 {
     var self = this;
 
@@ -247,7 +247,7 @@ var fightRecorder = function(options)
             voyage.reloadTop();
 
             // 重置航行时间
-            $.get('/fight/reset-arrive-time/?t=' + Math.random());
+            $.get('/battle/reset-arrive-time/?t=' + Math.random());
         }
     };
 

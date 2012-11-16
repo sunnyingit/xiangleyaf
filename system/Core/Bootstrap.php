@@ -34,19 +34,23 @@ class Core_Bootstrap
         define('CACHE_PATH',    DATA_PATH . 'cache'    . DS);
         define('LOCALE_PATH',   DATA_PATH . 'locale'   . DS);
         define('RESOURCE_PATH', DATA_PATH . 'resource' . DS);
-        define('THRIFT_PACKAGES_PATH', DATA_PATH . 'thrift' . DS . 'gen-php' . DS);
+        define('THRIFT_PATH',   DATA_PATH . 'thrift'   . DS . 'gen-php' . DS);
+
+        // 应用常量定义
+        Yaf_Loader::import(APP_PATH . 'conf/constant.php');
 
         // 设置编码
         header('Content-type: text/html; charset=UTF-8');
+
+        // 设置时区
+        date_default_timezone_set(CUR_TIMEZONE);
 
         // 性能测试 - 程序开始执行时间、消耗内存
         $GLOBALS['_START_TIME'] = microtime(true);
         $GLOBALS['_START_MEM']  = memory_get_usage();
         $GLOBALS['_TIME']       = $_SERVER['REQUEST_TIME'];
+        $GLOBALS['_DATE']       = date('Y-m-d H:i:s');
         $GLOBALS['_SQLs']       = array();
-
-        // 应用常量定义
-        Yaf_Loader::import(APP_PATH . 'conf/constant.php');
 
         // 全局常量、函数等
         Yaf_Loader::import(SYS_PATH . 'Function/Core.php');
@@ -54,9 +58,6 @@ class Core_Bootstrap
 
         // 把配置保存起来
         Yaf_Registry::set('config', Yaf_Application::app()->getConfig());
-
-        // 设置时区
-        date_default_timezone_set(CUR_TIMEZONE);
 
         // 开启输出缓冲
         ob_start();

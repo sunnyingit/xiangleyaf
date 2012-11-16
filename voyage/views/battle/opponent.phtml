@@ -2,7 +2,7 @@
     <dl>
         <dt>
             <div class="flagship_title"><?=__('旗舰')?></div>
-            <div class="fighting_title"><?=__('战斗力')?></div>
+            <div class="battleing_title"><?=__('战斗力')?></div>
             <div class="guild_title"><?=__('公会')?></div>
         </dt>
         <? if ($opponentList): ?>
@@ -13,12 +13,12 @@
                         <div>
                             <p><?=$value['user_name']?></p>
                             LV&nbsp;&nbsp;<span><?=$value['level_id']?></span>
-                            <img src="/img/national/flag_<?=$value['country_id']?>.png" />
+                            <img src="/img/national/flag_<?=$value['nation_id']?>.png" />
                         </div>
                     </div>
-                    <div class="fighting"><?=rand(100, 200)?></div>
+                    <div class="battleing"><?=rand(100, 200)?></div>
                     <div class="guild"><?=__('无公会')?></div>
-                    <div class="button" onclick="location.href='/fight/fight/?enemy_uid=<?=$value['uid']?>'"><?=__('开&nbsp;战')?></div>
+                    <div class="button" onclick="location.href='/battle/battle/?enemy_uid=<?=$value['uid']?>'"><?=__('开&nbsp;战')?></div>
                 </dd>
             <? endforeach; ?>
         <? else: ?>

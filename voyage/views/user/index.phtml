@@ -1,6 +1,6 @@
 <header>
     <div id="header_l">
-        <div class="national"><img src="/img/national/flag_<?=$user['country_id']?>.png" /></div>
+        <div class="national"><img src="/img/national/flag_<?=$user['nation_id']?>.png" /></div>
         <div class="person" onclick="location.reload()"><img src="/img/person/role_<?=$user['avatar_id']?>.png" /></div>
         <div class="peerages"></div>
         <span>LV&nbsp;<?=$user['level_id']?></span>
@@ -13,6 +13,6 @@
             <img src="/img/header/silver.png" />
             <span><?=$user['silver']?></span>
         </div>
-        <? include template('_inc/user_attr'); ?>
+        <? include template('user/user-attr'); ?>
     </div>
 </header>

@@ -24,8 +24,6 @@ class Model_User extends Model_User_Abstract
     {
         $this->_user = $this->_getUser($uid);
 
-        $this->_useTrait(array('Base', 'Sail', 'Restore', 'Ship', 'Captain', 'Fight', 'Tavern'));
-
         // 升级检测
         $this->base->levelUp();
 
@@ -36,21 +34,36 @@ class Model_User extends Model_User_Abstract
         $this->restore->regular();
     }
 
-    protected function _useTrait($traits)
+    public function __get($var)
     {
-        foreach ((array) $traits as $trait) {
-            $class = 'Model_User_Trait_' . ucfirst($trait);
-            $this->{lcfirst($trait)} = new $class($this);
+        static $varsMap = array(
+            'base'    => 1,
+            'sail'    => 1,
+            'restore' => 1,
+            'ship'    => 1,
+            'captain' => 1,
+            'battle'  => 1,
+            'tavern'  => 1,
+        );
+
+        if (isset($varsMap[$var])) {
+            $class = 'Model_User_Trait_' . ucfirst($var);
+            return $this->{$var} = new $class($this);
         }
 
-        return $this;
+        if (isset($this->_user[$var])) {
+            return $this->_user[$var];
+        }
+
+        parent::__get();
     }
 
     protected function _getUser($uid)
     {
         // 基本信息
         $user = Dao('User')->loadDs($uid)->get($uid);
-        if (!$user) {
+
+        if (! $user) {
             throw new Core_Exception_Logic(__('用户信息不存在'));
         }
 
@@ -64,8 +77,8 @@ class Model_User extends Model_User_Abstract
         }
 
         // 国家信息
-        if ($user['country_id']) {
-            $user['country'] = Dao('Static_Country')->get($user['country_id']);
+        if ($user['nation_id']) {
+            $user['nation'] = Dao('Static_Nation')->get($user['nation_id']);
         }
 
         return $user;
@@ -145,7 +158,7 @@ class Model_User extends Model_User_Abstract
     {
         $updateArr = array();
 
-        foreach (array('level_id', 'postion_id', 'country_id', 'user_name') as $field) {
+        foreach (array('level_id', 'postion_id', 'nation_id', 'user_name') as $field) {
             if (isset($setArr[$field])) {
                 $updateArr[$field] = $setArr[$field];
             }

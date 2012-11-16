@@ -49,6 +49,6 @@
 <? // 生命值、精力、行动力倒计时自动恢复 ?>
 <? foreach (array('hp', 'move', 'energy') as $field): ?>
     <? if ($user[$field] < $user[$field . '_max']): ?>
-        <? include template('_inc/user_attr_countdown'); ?>
+        <? include template('user/user-attr-countdown'); ?>
     <? endif; ?>
 <? endforeach; ?>

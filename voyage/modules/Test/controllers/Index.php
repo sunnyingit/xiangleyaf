@@ -11,7 +11,7 @@ class Controller_Index extends Core_Controller_Web
 
     public function hashAction()
     {
-        echo Com_DB_Hash::tableName('user_log_fight', rand(1,999999));
+        echo Com_DB_Hash::tableName('user_log_battle', rand(1,999999));
     }
 
     public function memcacheAction()

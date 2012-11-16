@@ -4,9 +4,9 @@
             <? foreach ($logList as $log): ?>
                 <dd>
                     <div><?=$log['result_msg']?></div>
-                    <div class="button" onclick="location.href='/fight/replay/?id=<?=$log['id']?>'"><?=__('回放')?></div>
+                    <div class="button" onclick="location.href='/battle/replay/?id=<?=$log['id']?>'"><?=__('回放')?></div>
 
-                    <div class="button" onclick="location.href='/fight/fight/?enemy_uid=<?=$log['enemy_uid']?>'">
+                    <div class="button" onclick="location.href='/battle/battle/?enemy_uid=<?=$log['enemy_uid']?>'">
                         <? if ($log['attacker_uid'] == $user['uid']): ?>
                             <?=__('再战')?>
                         <? else: ?>

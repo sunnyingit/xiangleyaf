@@ -56,49 +56,49 @@ msgstr "Autumn"
 msgid "冬天"
 msgstr "Winter"
 
-#: Class/Model/Fight.php:35
+#: Class/Model/Battle.php:35
 msgid "战斗初始化失败：用户信息不存在"
 msgstr ""
 
-#: Class/Model/Fight.php:54
+#: Class/Model/Battle.php:54
 msgid "你尚未出海，无法参与战斗"
 msgstr ""
 
-#: Class/Model/Fight.php:58
+#: Class/Model/Battle.php:58
 msgid "你的生命值太低，无法参与战斗"
 msgstr ""
 
-#: Class/Model/Fight.php:66
+#: Class/Model/Battle.php:66
 msgid "你的精力不足，无法参与战斗"
 msgstr ""
 
-#: Class/Model/Fight.php:80
+#: Class/Model/Battle.php:80
 msgid "你没有任何舰船，无法战斗"
 msgstr ""
 
-#: Class/Model/Fight.php:86
+#: Class/Model/Battle.php:86
 msgid "对方没有任何舰船，无法战斗"
 msgstr ""
 
-#: Class/Model/Fight.php:283 Class/Model/Fight.php:301
-#: Class/Model/Fight.php:308
+#: Class/Model/Battle.php:283 Class/Model/Battle.php:301
+#: Class/Model/Battle.php:308
 msgid "我方"
 msgstr "our"
 
-#: Class/Model/Fight.php:284 Class/Model/Fight.php:291
-#: Class/Model/Fight.php:300
+#: Class/Model/Battle.php:284 Class/Model/Battle.php:291
+#: Class/Model/Battle.php:300
 msgid "敌方"
 msgstr "enemy"
 
-#: Class/Model/Fight.php:282 Class/Model/Fight.php:299
+#: Class/Model/Battle.php:282 Class/Model/Battle.php:299
 msgid "{attacker_ship}攻击{defender_ship}，造成{damage}点伤害。"
 msgstr "{attacker_ship} attacked {defender_ship} for {damage} points."
 
-#: Class/Model/Fight.php:290 Class/Model/Fight.php:307
+#: Class/Model/Battle.php:290 Class/Model/Battle.php:307
 msgid "并击沉了{defender_ship}。"
 msgstr "and {defender_ship}  was sunk."
 
-#: Class/Model/Fight.php:359
+#: Class/Model/Battle.php:359
 msgid ""
 "我方气势如虹，经过{round}个回合，获得战斗胜利，从{enemy_name}那抢到"
 "{silver_coins}，获得{exp}，消耗{energy}，损失{hp}，{enemy_name}损失"
@@ -108,7 +108,7 @@ msgstr ""
 "{enemy_name}, got {exp}, consumed {energy}, lost {hp}, and {enemy_name} lost "
 "{enemy_hp}."
 
-#: Class/Model/Fight.php:369
+#: Class/Model/Battle.php:369
 msgid ""
 "对方实力强大，经过{round}个回合，我方不幸战斗失败，被抢走{silver_coins}，损失"
 "{hp}，{enemy_name}损失{enemy_hp}。"
@@ -116,7 +116,7 @@ msgstr ""
 "We lost! After {round} rounds, we lost the battle, was robbed {silver_coins} "
 "by {enemy_name}, lost {hp}, and {enemy_name} lost {enemy_hp}."
 
-#: Class/Model/Fight.php:390
+#: Class/Model/Battle.php:390
 msgid ""
 "对方实力强大，经过{round}个回合，我方不幸战斗失败，消耗{energy}，损失{hp}，"
 "{enemy_name}损失{enemy_hp}。"
@@ -124,7 +124,7 @@ msgstr ""
 "We lost! After {round} rounds, we lost the battle, consumed {energy}, lost "
 "{hp}, and {enemy_name} lost {enemy_hp}."
 
-#: Class/Model/Fight.php:398
+#: Class/Model/Battle.php:398
 msgid ""
 "我方实力强大，经过{round}个回合，获得了战斗胜利，损失{hp}，{enemy_name}损失"
 "{enemy_hp}。"
@@ -132,7 +132,7 @@ msgstr ""
 "We won! After {round} rounds, we won the battle, lost {hp}, and {enemy_name} "
 "lost {enemy_hp}."
 
-#: Class/Model/Fight.php:418
+#: Class/Model/Battle.php:418
 msgid ""
 "双方实力相当，经过{round}个回合，战斗打成平手，消耗{energy}，损失{hp}，"
 "{enemy_name}损失{enemy_hp}。"
@@ -140,7 +140,7 @@ msgstr ""
 "Battle draw! After {round} rounds, the battle broke even, we consumed "
 "{energy}, lost {hp}, and {enemy_name} lost {enemy_hp}."
 
-#: Class/Model/Fight.php:426
+#: Class/Model/Battle.php:426
 msgid ""
 "双方实力相当，经过{round}个回合，战斗打成平手，损失{hp}，{enemy_name}损失"
 "{enemy_hp}。"
@@ -148,7 +148,7 @@ msgstr ""
 "Battle draw! After {round} rounds, the battle broke even, we lost {hp}, and "
 "{enemy_name} lost {enemy_hp}."
 
-#: Class/Model/Fight.php:438
+#: Class/Model/Battle.php:438
 msgid "战斗结果异常，善后事宜无法处理"
 msgstr ""
 
@@ -164,15 +164,15 @@ msgstr ""
 msgid "用户信息不存在"
 msgstr ""
 
-#: Class/Model/Fight/Player.php:15
-msgid "Invalid FightLogId"
+#: Class/Model/Battle/Player.php:15
+msgid "Invalid BattleLogId"
 msgstr ""
 
-#: Class/Model/Fight/Player.php:20
-msgid "Invalid FightLogRow"
+#: Class/Model/Battle/Player.php:20
+msgid "Invalid BattleLogRow"
 msgstr ""
 
-#: Class/Model/Fight/Recorder.php:60
+#: Class/Model/Battle/Recorder.php:60
 msgid "战斗记录器初始化失败"
 msgstr ""
 
@@ -180,37 +180,37 @@ msgstr ""
 msgid "你已经雇用过这名船长，请勿重复操作"
 msgstr ""
 
-#: View/fight/history.phtml:17
+#: View/battle/history.phtml:17
 msgid "没有战斗历史记录"
-msgstr "No Fight Log."
+msgstr "No Battle Log."
 
-#: View/fight/opponent.phtml:4
+#: View/battle/opponent.phtml:4
 msgid "旗舰"
 msgstr "Flagship"
 
-#: View/fight/opponent.phtml:5
+#: View/battle/opponent.phtml:5
 msgid "战斗力"
 msgstr "Attack"
 
-#: View/fight/opponent.phtml:6
+#: View/battle/opponent.phtml:6
 msgid "公会"
 msgstr "Group"
 
-#: View/fight/opponent.phtml:20
+#: View/battle/opponent.phtml:20
 msgid "无公会"
 msgstr "NoGroup"
 
-#: View/fight/opponent.phtml:21
+#: View/battle/opponent.phtml:21
 msgid "开&nbsp;战"
-msgstr "Fighting!"
+msgstr "Battleing!"
 
-#: View/fight/opponent.phtml:25
+#: View/battle/opponent.phtml:25
 msgid "没有符合条件的对手"
 msgstr "No Opponent."
 
-#: View/fight/replay.phtml:40
+#: View/battle/replay.phtml:40
 msgid "战斗结果"
-msgstr "Fight Result"
+msgstr "Battle Result"
 
 #: View/index/app.phtml:5 View/_layout/default.phtml:19
 msgid "大航海"

@@ -4,10 +4,10 @@
  * 战斗模型
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: Fight.php 6 2012-11-16 02:55:04Z jiangjian $
+ * $Id: Battle.php 6 2012-11-16 02:55:04Z jiangjian $
  */
 
-class Model_Fight extends Core_Model_Abstract
+class Model_Battle extends Core_Model_Abstract
 {
     const
         MAX_ROUNDS      = 20,   // 最多几个回合
@@ -21,7 +21,7 @@ class Model_Fight extends Core_Model_Abstract
     private $_enemy;
     private $_selfShips   = array();
     private $_enemyShips  = array();
-    private $_fightResult = 0;
+    private $_battleResult = 0;
 
     /**
      * 初始化一场战斗
@@ -42,7 +42,7 @@ class Model_Fight extends Core_Model_Abstract
         $this->_initCheck();
 
         // 战斗记录器
-        $this->_recorder = new Model_Fight_Recorder($this->_self, $this->_enemy);
+        $this->_recorder = new Model_Battle_Recorder($this->_self, $this->_enemy);
 
         // 船只初始化
         $this->_initShips();
@@ -109,19 +109,19 @@ class Model_Fight extends Core_Model_Abstract
      */
     public function process()
     {
-        $this->_fightResult = $this->_fight();
+        $this->_battleResult = $this->_battle();
 
-        $this->_recorder->setFightResult($this->_fightResult);
+        $this->_recorder->setBattleResult($this->_battleResult);
 
-        return $this->_fightResult;
+        return $this->_battleResult;
     }
 
     /**
      * 战斗进行
      *
-     * @return const Model_Fight::WIN/LOSE/DRAW
+     * @return const Model_Battle::WIN/LOSE/DRAW
      */
-    private function _fight()
+    private function _battle()
     {
         $selfAimTarget  = 0; // 我方瞄准攻击的目标（默认是敌方的第1艘船）
         $enemyAimTarget = 0; // 敌方瞄准攻击的目标（默认是我方的第1艘船）
@@ -279,15 +279,15 @@ class Model_Fight extends Core_Model_Abstract
 
             // 基本文案
             $message = __('{attacker_ship}攻击{defender_ship}，造成{damage}点伤害。', array(
-                'attacker_ship' => '<span class="green">' . __('我方') . $attackerShip['ship_name'] . '</span>',
-                'defender_ship' => '<span class="blue">'  . __('敌方') . $defenderShip['ship_name'] . '</span>',
+                'attacker_ship' => '<span class="green">' . __('我方') . $attackerShip['name'] . '</span>',
+                'defender_ship' => '<span class="blue">'  . __('敌方') . $defenderShip['name'] . '</span>',
                 'damage'        => '<span class="red">'   . $damage    . '</span>',
             ));
 
             // 附加文案 - 守船被击沉
             if ($defenderShip['hp'] < 1) {
                 $message .= __('并击沉了{defender_ship}。', array(
-                    'defender_ship' => '<span class="blue">' . __('敌方') . $defenderShip['ship_name'] . '</span>',
+                    'defender_ship' => '<span class="blue">' . __('敌方') . $defenderShip['name'] . '</span>',
                 ));
             }
 
@@ -296,15 +296,15 @@ class Model_Fight extends Core_Model_Abstract
 
             // 基本文案
             $message = __('{attacker_ship}攻击{defender_ship}，造成{damage}点伤害。', array(
-                'attacker_ship' => '<span class="blue">'  . __('敌方') . $attackerShip['ship_name'] . '</span>',
-                'defender_ship' => '<span class="green">' . __('我方') . $defenderShip['ship_name'] . '</span>',
+                'attacker_ship' => '<span class="blue">'  . __('敌方') . $attackerShip['name'] . '</span>',
+                'defender_ship' => '<span class="green">' . __('我方') . $defenderShip['name'] . '</span>',
                 'damage'        => '<span class="red">'   . $damage    . '</span>',
             ));
 
             // 附加文案 - 守船被击沉
             if ($defenderShip['hp'] < 1) {
                 $message .= __('并击沉了{defender_ship}。', array(
-                    'defender_ship' => '<span class="green">' . __('我方') . $defenderShip['ship_name'] . '</span>',
+                    'defender_ship' => '<span class="green">' . __('我方') . $defenderShip['name'] . '</span>',
                 ));
             }
         }
@@ -321,7 +321,7 @@ class Model_Fight extends Core_Model_Abstract
     public function after()
     {
         // 战果提示文字
-        $fightResustMsg = array(
+        $battleResustMsg = array(
             'self'  => '',
             'enemy' => '',
         );
@@ -341,7 +341,7 @@ class Model_Fight extends Core_Model_Abstract
         // 本次战斗打了几个回合
         $roundCount = $this->_recorder->roundCount();
 
-        switch ($this->_fightResult) {
+        switch ($this->_battleResult) {
 
             // 我方胜利
             case self::WIN:
@@ -356,7 +356,7 @@ class Model_Fight extends Core_Model_Abstract
                 $attrArrEnemy['hp'] = -rand(16, 20);
 
                 // 最终战果影响文字
-                $fightResustMsg = array(
+                $battleResustMsg = array(
                     // 我看到的
                     'self' => __('我方气势如虹，经过{round}个回合，获得战斗胜利，从{enemy_name}那抢到{silver_coins}，获得{exp}，消耗{energy}，损失{hp}，{enemy_name}损失{enemy_hp}。', array(
                         'round'        => $roundCount,
@@ -387,7 +387,7 @@ class Model_Fight extends Core_Model_Abstract
                 $attrArrEnemy['hp'] = -rand(1, 5);
 
                 // 最终战果影响文字
-                $fightResustMsg = array(
+                $battleResustMsg = array(
                     // 我看到的
                     'self' => __('对方实力强大，经过{round}个回合，我方不幸战斗失败，消耗{energy}，损失{hp}，{enemy_name}损失{enemy_hp}。', array(
                         'round'        => $roundCount,
@@ -415,7 +415,7 @@ class Model_Fight extends Core_Model_Abstract
                 $attrArrEnemy['hp'] = -rand(8, 12);
 
                 // 最终战果影响文字
-                $fightResustMsg = array(
+                $battleResustMsg = array(
                     // 我看到的
                     'self' => __('双方实力相当，经过{round}个回合，战斗打成平手，消耗{energy}，损失{hp}，{enemy_name}损失{enemy_hp}。', array(
                         'round'        => $roundCount,
@@ -453,7 +453,7 @@ class Model_Fight extends Core_Model_Abstract
         $this->_enemy->update($setArrEnemy);
 
         // 保存战斗记录
-        $logId = $this->_recorder->setFightResultMsg($fightResustMsg)->save();
+        $logId = $this->_recorder->setBattleResultMsg($battleResustMsg)->save();
 
         return $logId;
     }

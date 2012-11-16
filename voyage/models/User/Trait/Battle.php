@@ -1,6 +1,6 @@
 <?php
 
-class Model_User_Trait_Fight extends Model_User_Trait_Abstract
+class Model_User_Trait_Battle extends Model_User_Trait_Abstract
 {
     /**
      * 海战对手列表
@@ -24,11 +24,11 @@ class Model_User_Trait_Fight extends Model_User_Trait_Abstract
         $whereSql = '1';
         $whereSql .= " AND level_id >= '{$levelStart}' AND level_id <= '{$levelEnd}'";
         $whereSql .= " AND uid != '{$this->_user['uid']}'";
-        // $whereSql .= " AND country_id != '{$this->_user['country_id']}'";
+        // $whereSql .= " AND nation_id != '{$this->_user['nation_id']}'";
         // $whereSql .= " AND status = 1";
-        // $whereSql .= " AND hp >= '". Model_Fight::USER_MIN_HP . "'";
+        // $whereSql .= " AND hp >= '". Model_Battle::USER_MIN_HP . "'";
 
-        $list = Dao('User_Index')->findByPage($whereSql, 0, 10);
+        $list = Dao('Battle_Block')->findByPage($whereSql, 0, 10);
         if (!$list) {
             return array();
         }
@@ -36,6 +36,7 @@ class Model_User_Trait_Fight extends Model_User_Trait_Abstract
         // TODO 计算战斗力、公会信息
         foreach ($list as &$value) {
             $value['flagship_id'] = rand(1, 5); // demo
+            $value['user_name'] = Dao('User_Index')->name($value['uid']);
         }
 
         return $list;
@@ -47,7 +48,7 @@ class Model_User_Trait_Fight extends Model_User_Trait_Abstract
             throw new Core_Exception_Logic(__('战斗记录不存在'));
         }
 
-        $logRow = Dao('User_Log_Fight')->loadDs($this->_user['uid'])->get($logId);
+        $logRow = Dao('User_Log_Battle')->loadDs($this->_user['uid'])->get($logId);
         if (!$logRow) {
             throw new Core_Exception_Logic(__('战斗记录不存在'));
         }
@@ -62,22 +63,22 @@ class Model_User_Trait_Fight extends Model_User_Trait_Abstract
     public function getLogList($start = 0, $pageSize = 20)
     {
         $fields = 'id, attacker_uid, defender_uid, result, result_msg, create_time';
-        $logList = Dao('User_Log_Fight')->loadDs($this->_user['uid'])->findByPage(
+        $logList = Dao('User_Log_Battle')->loadDs($this->_user['uid'])->findByPage(
             array('uid' => $this->_user['uid']), $start, $pageSize, 'id DESC', $fields
         );
 
         return $logList;
 
 /*  Query Builder
-        $logList = Dao('User_Log_Fight')->loadDs($uid)
+        $logList = Dao('User_Log_Battle')->loadDs($uid)
                                        ->field('attacker_uid', 'defender_uid')
                                        ->where(array('uid' => $uid))
                                        ->limit($start, $pageSize)
                                        ->sort('id DESC')
                                        ->fetchAll();
 
-        $sql = "SELECT {$fields} FROM `user_fight_log` WHERE `uid` = '{$uid}' ORDER BY `id` DESC";
-        $logList = Dao('User_Log_Fight')->loadDs($uid)->query('limitQuery', $sql, $start, $pageSize);
+        $sql = "SELECT {$fields} FROM `user_battle_log` WHERE `uid` = '{$uid}' ORDER BY `id` DESC";
+        $logList = Dao('User_Log_Battle')->loadDs($uid)->query('limitQuery', $sql, $start, $pageSize);
 */
     }
 

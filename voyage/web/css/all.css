@@ -95,7 +95,7 @@ header{background-image:url(../img/header/header_bj.jpg);width:480px;height:132p
 .box_com_list{width:410px;margin:-10px 20px;height:65px;overflow:hidden;}
 .box_com_list .box_com_list_e ,.box_com_list .box_com_list_f {display:block;text-indent:26px;line-height:26px;padding-top:5px;}
 .box_com_list .box_com_list_e {color:#000;background:url(../img/common/exclama.png) left 10px no-repeat;}
-.box_com_list .box_com_list_f {color:#6a1300;background:url(../img/common/fight.png) left 10px no-repeat;}
+.box_com_list .box_com_list_f {color:#6a1300;background:url(../img/common/battle.png) left 10px no-repeat;}
 /*----------出航首页  结束----------*/
 
 
@@ -172,7 +172,7 @@ header{background-image:url(../img/header/header_bj.jpg);width:480px;height:132p
 .war_list dt{width:100%;float:left;height:25px;font-size:16px;}
 .war_list dt div{float:left;}
 .flagship_title{width:150px;text-align:left}
-.fighting_title,.guild_title{width:70px;text-align:center;}
+.battleing_title,.guild_title{width:70px;text-align:center;}
 .war_list dd{width:100%;float:left;padding:15px 0;display:block;font-size:14px;background:url(../img/war/xian_war.png) -20px 0 no-repeat;}
 .war_list dd div{float:left;}
 .war_list dd .flagship{width:165px;margin-left:-15px;position:relative}
@@ -180,8 +180,8 @@ header{background-image:url(../img/header/header_bj.jpg);width:480px;height:132p
 .war_list dd .flagship img:first-child{float:left;width:61px;height:41px;margin-top:-5px}
 .war_list dd .flagship img:last-child{position:absolute;bottom:-8px;right:10px}
 .war_list dd .flagship p{text-decoration:underline}
-.war_list dd .flagship span,.war_list dd .fighting{color:#9a0200}
-.war_list dd .fighting,.war_list dd .guild{line-height:40px;text-align:center;width:70px;}
+.war_list dd .flagship span,.war_list dd .battleing{color:#9a0200}
+.war_list dd .battleing,.war_list dd .guild{line-height:40px;text-align:center;width:70px;}
 .war_list dd .button{float:right;margin:0;font-size:18px;color:#cbb695}
 /*----------战争列表  结束----------*/
 

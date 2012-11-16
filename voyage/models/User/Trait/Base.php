@@ -10,21 +10,21 @@ class Model_User_Trait_Base extends Model_User_Trait_Abstract
     public function levelUp()
     {
         // 已经是最大等级（没有下一级了）
-        if (!$this->_user['next_level']) {
+        if (! $this->_user['next_level']) {
             return -1;
         }
 
         // 经验值还未到下一级别的升级线
-        if (!$this->_user['exp'] < $this->_user['next_level']['exp']) {
+        if (! $this->_user['exp'] < $this->_user['next_level']['exp']) {
             return -2;
         }
 
-        $curLevel = Dao('Static_Level')->getLevelByExp($this->_user['exp']);
-        if ($curLevel['level_id'] == $this->_user['level_id'])  {
+        $curLevelId = Dao('Static_Level')->getLevelByExp($this->_user['exp']);
+        if ($curLevelId == $this->_user['level_id'])  {
             return -3;
         }
 
-        if (!$this->_user->update('level_id', $curLevel['level_id'])) {
+        if (! $this->_user->update('level_id', $curLevelId)) {
             return -4;
         }
 

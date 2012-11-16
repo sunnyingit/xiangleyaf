@@ -10,14 +10,6 @@
 class Controller_Index extends Controller_Abstract
 {
     /**
-     * 顶部用户信息
-     */
-    public function userAction()
-    {
-        // 直接渲染模板
-    }
-
-    /**
      * 主界面
      */
     public function indexAction()
@@ -25,7 +17,7 @@ class Controller_Index extends Controller_Abstract
         if ($this->_user['status'] == 0) {
 
             $this->_inPort();   // 港口中
-            $tpl = 'index/in_port';
+            $tpl = 'index/in-port';
 
         } elseif ($this->_user['status'] == 1) {
 

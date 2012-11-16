@@ -32,8 +32,8 @@ class Com_Thrift
         $this->_config      = $config[$appName];
 
         // 引入 gen-php 文件包
-        require_once THRIFT_PACKAGES_PATH . $this->_appName . '/' . $this->_appName . '_types.php';
-        require_once THRIFT_PACKAGES_PATH . $this->_appName . '/' . $this->_serviceName . '.php';
+        require_once THRIFT_PATH . $this->_appName . '/' . $this->_appName . '_types.php';
+        require_once THRIFT_PATH . $this->_appName . '/' . $this->_serviceName . '.php';
     }
 
     public function __destruct()
