@@ -43,7 +43,7 @@ class Controller_Tavern extends Controller_Abstract
         }
 
         // 扣除金块
-        $this->_user->base->consumeBullion($needGold);
+        $this->_user->base->consumeGold($needGold);
 
         // 我的酒馆信息
         $myTavernInfo = $this->_user->tavern->get();

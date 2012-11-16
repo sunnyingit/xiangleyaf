@@ -7,7 +7,7 @@
  * $Id: Exchange.php 282 2012-11-05 01:23:56Z jiangjian $
  */
 
-class Controller_Exchange extends Controller_Abstract
+class Controller_Trader extends Controller_Abstract
 {
     public function init()
     {

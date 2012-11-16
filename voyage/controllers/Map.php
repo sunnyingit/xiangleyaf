@@ -76,7 +76,7 @@ class Controller_Map extends Controller_Abstract
         }
 
         // 扣除金块
-        $this->_user->consumeBullion($needGold);
+        $this->_user->consumeGold($needGold);
 
         // 扬帆起航
         $this->_user->sail->depart($portTo);

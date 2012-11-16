@@ -7,7 +7,7 @@
  * $Id: Wharf.php 282 2012-11-05 01:23:56Z jiangjian $
  */
 
-class Controller_Wharf extends Controller_Abstract
+class Controller_Dock extends Controller_Abstract
 {
     public function init()
     {
