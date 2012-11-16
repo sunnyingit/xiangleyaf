@@ -122,7 +122,7 @@ class Model_User_Trait_Restore extends Model_User_Trait_Abstract
         return 1;
     }
 
-    public function full($fields)
+    public function full($fields = null)
     {
         if (!$fields) {
             $fields = array('hp', 'move', 'energy');
@@ -138,14 +138,20 @@ class Model_User_Trait_Restore extends Model_User_Trait_Abstract
 
     public function change($updateArr)
     {
+        if (! $updateArr) {
+            return false;
+        }
+
         $setArr = array();
 
         foreach ($updateArr as $field => $offset) {
 
-            if ($value > 0) {   // 增加
+            if ($offset > 0) {   // 增加
+
                 $setArr[$field] = array('+', $offset, $this->_user[$field . '_max']);
 
             } else {    // 减少
+
                 $setArr[$field] = array('-', abs($offset), 0);
             }
 

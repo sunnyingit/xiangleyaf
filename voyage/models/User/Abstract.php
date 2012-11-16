@@ -39,12 +39,7 @@ abstract class Model_User_Abstract extends Core_Model_Abstract implements ArrayA
         return $this->_user;
     }
 
-    public function __get($key)
-    {
-        return $this->offsetGet($key);
-    }
-
-    public function DaoDs($class)
+    public function Dao($class)
     {
         return Dao($class)->loadDs($this->_user['uid']);
     }

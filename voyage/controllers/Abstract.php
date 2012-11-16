@@ -4,7 +4,7 @@
  * 控制器抽象父类
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: Abstract.php 320 2012-11-13 03:03:03Z jiangjian $
+ * $Id: Abstract.php 6 2012-11-16 02:55:04Z jiangjian $
  */
 
 abstract class Controller_Abstract extends Core_Controller_Web
@@ -166,7 +166,7 @@ abstract class Controller_Abstract extends Core_Controller_Web
      */
     protected function _encrypt($content, $extraKey = null)
     {
-        return Helper_Cryption_Simple::encrypt($content, $this->_getSalt($extraKey));
+        return Helper_Cryption_Rijndael::encrypt($content, $this->_getSalt($extraKey));
     }
 
     /**
@@ -178,7 +178,7 @@ abstract class Controller_Abstract extends Core_Controller_Web
      */
     protected function _decrypt($content, $extraKey = null)
     {
-        return Helper_Cryption_Simple::decrypt($content, $this->_getSalt($extraKey));
+        return Helper_Cryption_Rijndael::decrypt($content, $this->_getSalt($extraKey));
     }
 
     /**

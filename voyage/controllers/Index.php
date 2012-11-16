@@ -4,7 +4,7 @@
  * 主界面控制器
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: Index.php 320 2012-11-13 03:03:03Z jiangjian $
+ * $Id: Index.php 4 2012-11-15 05:28:51Z jiangjian $
  */
 
 class Controller_Index extends Controller_Abstract

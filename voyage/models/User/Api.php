@@ -22,8 +22,6 @@ class Model_User_Api extends Core_Model_Abstract
 
     public function register($mac)
     {
-        $uid = Dao('User_Index')->generateUid();
-
         // 联盟号
         $userCode = $this->_getUserCode();
 
@@ -36,24 +34,32 @@ class Model_User_Api extends Core_Model_Abstract
             '迈克·杰克逊',
             '索隆·罗密欧',
             '康桑·思密达'
-        ));
+        )) . rand(1,1000);
 
         // demo
         $countryId = rand(1, 4);
 
         // 用户索引表
         $setArr = array(
-            'uid'           => $uid,
             'mac'           => $mac,
             'user_code'     => $userCode,
             'user_name'     => $userName,
             'user_account'  => '',
-            'db_suffix'     => $this->_getDbSuffixForNewUser($uid),
+            'db_suffix'     => 0,
             'level_id'      => 1,
             'position_id'   => 1,
             'country_id'    => $countryId,
         );
-        Dao('User_Index')->insert($setArr);
+        $uid = Dao('User_Index')->insert($setArr);
+
+        if ($uid < 1) {
+            throw new Core_Exception_SQL(__('注册用户失败，请联系管理员'));
+        }
+
+        // 用户库后缀
+        Dao('User_Index')->update(array(
+            'db_suffix' => $this->_getDbSuffixForNewUser($uid),
+        ), array('uid' => $uid));
 
         // 用户基本信息
         $setArr = array(

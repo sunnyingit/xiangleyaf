@@ -4,7 +4,7 @@
  * 操作Linux系统相关命令
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: Daemon.php 2 2012-10-12 04:14:32Z jiangjian $
+ * $Id: Daemon.php 5 2012-11-15 07:57:07Z jiangjian $
  */
 
 class Com_Daemon
@@ -23,7 +23,7 @@ class Com_Daemon
             $count = self::unixProcessCount($bin, $script);
             if ($count < 1) {
                 $execStr = "nohup $bin $script " . ($outputPath ? " > $outputPath " : '') . ' &';
-                echo $execStr . "\r\n";
+                echo $execStr . PHP_EOL;
                 self::cmd($execStr);
             }
         }
@@ -60,7 +60,7 @@ class Com_Daemon
         } elseif (function_exists('exec')) {
 
             exec($command, $output, $returnVar);
-            $output = implode("\n", $output);
+            $output = implode(PHP_EOL, $output);
 
         // shell_exec
         } elseif (function_exists('shell_exec')) {

@@ -4,7 +4,7 @@
  * 战斗模型
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: Fight.php 317 2012-11-12 07:46:46Z jiangjian $
+ * $Id: Fight.php 6 2012-11-16 02:55:04Z jiangjian $
  */
 
 class Model_Fight extends Core_Model_Abstract
@@ -42,8 +42,7 @@ class Model_Fight extends Core_Model_Abstract
         $this->_initCheck();
 
         // 战斗记录器
-        $this->_recorder = new Model_Fight_Recorder();
-        $this->_recorder->init($this->_self, $this->_enemy);
+        $this->_recorder = new Model_Fight_Recorder($this->_self, $this->_enemy);
 
         // 船只初始化
         $this->_initShips();
@@ -327,11 +326,14 @@ class Model_Fight extends Core_Model_Abstract
             'enemy' => '',
         );
 
-        // 准备更新数组
-        $setArrSelf = $setArrEnemy = array();
+        // 存放属性变化信息
+        $attrArrSelf = $attrArrEnemy = array();
 
-        // 扣精力
-        $setArrSelf['energy'] = array('-', 1, 0);
+        // 存放其他更新信息
+        $setArrSelf  = $setArrEnemy  = array();
+
+        // 扣属性：精力
+        $attrArrSelf['energy'] = -1;
 
         // 加经验
         $setArrSelf['exp'] = array('+', rand(1, 5));
@@ -350,8 +352,8 @@ class Model_Fight extends Core_Model_Abstract
                 $setArrEnemy['silver'] = array('-', $silverDeduct, 0);
 
                 // 双方扣血值
-                $setArrSelf['hp']  = array('-', rand(1, 5), 0);
-                $setArrEnemy['hp'] = array('-', rand(16, 20), 0);
+                $attrArrSelf['hp']  = -rand(1, 5);
+                $attrArrEnemy['hp'] = -rand(16, 20);
 
                 // 最终战果影响文字
                 $fightResustMsg = array(
@@ -361,17 +363,17 @@ class Model_Fight extends Core_Model_Abstract
                         'enemy_name'   => '<span>' . $this->_enemy['user_name'] . '</span>',
                         'silver_coins' => '<span class="war_coin"></span>' . $silverDeduct,
                         'exp'          => '<span class="war_exp"></span>' . $setArrSelf['exp'][1],
-                        'energy'       => '<span class="war_energy"></span>' . $setArrSelf['energy'][1],
-                        'hp'           => '<span class="war_hp"></span>' . $setArrSelf['hp'][1],
-                        'enemy_hp'     => '<span class="war_hp"></span>' . $setArrEnemy['hp'][1],
+                        'energy'       => '<span class="war_energy"></span>' . $attrArrSelf['energy'][1],
+                        'hp'           => '<span class="war_hp"></span>' . $attrArrSelf['hp'][1],
+                        'enemy_hp'     => '<span class="war_hp"></span>' . $attrArrEnemy['hp'][1],
                     )),
                     // 对方看到的
                     'enemy' => __('对方实力强大，经过{round}个回合，我方不幸战斗失败，被抢走{silver_coins}，损失{hp}，{enemy_name}损失{enemy_hp}。', array(
                         'round'        => $roundCount,
                         'silver_coins' => '<span class="war_coin"></span>' . $silverDeduct,
-                        'hp'           => '<span class="war_hp"></span>' . $setArrEnemy['hp'][1],
+                        'hp'           => '<span class="war_hp"></span>' . $attrArrEnemy['hp'][1],
                         'enemy_name'   => '<span>' . $this->_self['user_name'] . '</span>',
-                        'enemy_hp'     => '<span class="war_hp"></span>' . $setArrSelf['hp'][1],
+                        'enemy_hp'     => '<span class="war_hp"></span>' . $attrArrSelf['hp'][1],
                     )),
                 );
 
@@ -381,25 +383,25 @@ class Model_Fight extends Core_Model_Abstract
             case self::LOSE:
 
                 // 双方扣血值
-                $setArrSelf['hp']  = array('-', rand(16, 20), 0);
-                $setArrEnemy['hp'] = array('-', rand(1, 5), 0);
+                $attrArrSelf['hp']  = -rand(16, 20);
+                $attrArrEnemy['hp'] = -rand(1, 5);
 
                 // 最终战果影响文字
                 $fightResustMsg = array(
                     // 我看到的
                     'self' => __('对方实力强大，经过{round}个回合，我方不幸战斗失败，消耗{energy}，损失{hp}，{enemy_name}损失{enemy_hp}。', array(
                         'round'        => $roundCount,
-                        'energy'       => '<span class="war_energy"></span>' . $setArrSelf['energy'][1],
-                        'hp'           => '<span class="war_hp"></span>' . $setArrSelf['hp'][1],
+                        'energy'       => '<span class="war_energy"></span>' . $attrArrSelf['energy'][1],
+                        'hp'           => '<span class="war_hp"></span>' . $attrArrSelf['hp'][1],
                         'enemy_name'   => '<span>' . $this->_enemy['user_name'] . '</span>',
-                        'enemy_hp'     => '<span class="war_hp"></span>' . $setArrEnemy['hp'][1],
+                        'enemy_hp'     => '<span class="war_hp"></span>' . $attrArrEnemy['hp'][1],
                     )),
                     // 对方看到的
                     'enemy' => __('我方实力强大，经过{round}个回合，获得了战斗胜利，损失{hp}，{enemy_name}损失{enemy_hp}。', array(
                         'round'        => $roundCount,
-                        'hp'           => '<span class="war_hp"></span>' . $setArrEnemy['hp'][1],
+                        'hp'           => '<span class="war_hp"></span>' . $attrArrEnemy['hp'][1],
                         'enemy_name'   => '<span>' . $this->_self['user_name'] . '</span>',
-                        'enemy_hp'     => '<span class="war_hp"></span>' . $setArrSelf['hp'][1],
+                        'enemy_hp'     => '<span class="war_hp"></span>' . $attrArrSelf['hp'][1],
                     )),
                 );
 
@@ -409,25 +411,25 @@ class Model_Fight extends Core_Model_Abstract
             case self::DRAW:
 
                 // 双方扣血值
-                $setArrSelf['hp']  = array('-', rand(8, 12), 0);
-                $setArrEnemy['hp'] = array('-', rand(8, 12), 0);
+                $attrArrSelf['hp']  = -rand(8, 12);
+                $attrArrEnemy['hp'] = -rand(8, 12);
 
                 // 最终战果影响文字
                 $fightResustMsg = array(
                     // 我看到的
                     'self' => __('双方实力相当，经过{round}个回合，战斗打成平手，消耗{energy}，损失{hp}，{enemy_name}损失{enemy_hp}。', array(
                         'round'        => $roundCount,
-                        'energy'       => '<span class="war_energy"></span>' . $setArrSelf['energy'][1],
-                        'hp'           => '<span class="war_hp"></span>' . $setArrSelf['hp'][1],
+                        'energy'       => '<span class="war_energy"></span>' . $attrArrSelf['energy'][1],
+                        'hp'           => '<span class="war_hp"></span>' . $attrArrSelf['hp'][1],
                         'enemy_name'   => '<span>' . $this->_enemy['user_name'] . '</span>',
-                        'enemy_hp'     => '<span class="war_hp"></span>' . $setArrEnemy['hp'][1],
+                        'enemy_hp'     => '<span class="war_hp"></span>' . $attrArrEnemy['hp'][1],
                     )),
                     // 对方看到的
                     'enemy' => __('双方实力相当，经过{round}个回合，战斗打成平手，损失{hp}，{enemy_name}损失{enemy_hp}。', array(
                         'round'        => $roundCount,
-                        'hp'           => '<span class="war_hp"></span>' . $setArrEnemy['hp'][1],
+                        'hp'           => '<span class="war_hp"></span>' . $attrArrEnemy['hp'][1],
                         'enemy_name'   => '<span>' . $this->_self['user_name'] . '</span>',
-                        'enemy_hp'     => '<span class="war_hp"></span>' . $setArrSelf['hp'][1],
+                        'enemy_hp'     => '<span class="war_hp"></span>' . $attrArrSelf['hp'][1],
                     )),
                 );
 
@@ -442,13 +444,13 @@ class Model_Fight extends Core_Model_Abstract
         // 防止玩家没有点击“战斗结果”按钮重置战斗耗时，这种情况下，使用这个缺省时间（例如：直接退出应用等）
         $setArrSelf['arrive_time'] = array('+', $this->_getElapse());
 
-        // 统一更新我方属性
+        // 统一更新属性
+        $this->_self->restore->change($attrArrSelf);
         $this->_self->update($setArrSelf);
 
         // 统一更新敌方属性
-        if ($setArrEnemy) {
-            $this->_enemy->update($setArrEnemy);
-        }
+        $this->_enemy->restore->change($attrArrEnemy);
+        $this->_enemy->update($setArrEnemy);
 
         // 保存战斗记录
         $logId = $this->_recorder->setFightResultMsg($fightResustMsg)->save();

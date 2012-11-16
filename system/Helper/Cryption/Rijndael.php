@@ -1,6 +1,13 @@
 <?php
 
-class Helper_Cryption_Simple
+/**
+ * Rijndael 加密解密
+ *
+ * @author JiangJian <silverd@sohu.com>
+ * $Id: Rijndael.php 6 2012-11-16 02:55:04Z jiangjian $
+ */
+
+class Helper_Cryption_Rijndael
 {
     private static $_key = 'z6e7allz123';
 

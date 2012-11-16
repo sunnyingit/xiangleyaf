@@ -4,7 +4,7 @@
  * 战斗控制器
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: Fight.php 301 2012-11-08 01:29:44Z jiangjian $
+ * $Id: Fight.php 4 2012-11-15 05:28:51Z jiangjian $
  */
 
 class Controller_Fight extends Controller_Abstract

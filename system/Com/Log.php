@@ -4,7 +4,7 @@
  * 写文件日志
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: Log.php 320 2012-11-13 03:03:03Z jiangjian $
+ * $Id: Log.php 5 2012-11-15 07:57:07Z jiangjian $
  */
 
 class Com_Log
@@ -28,6 +28,6 @@ class Com_Log
             $content = '[' . date('Y-m-d H:i:s') . '] ' . $content;
         }
 
-        @file_put_contents($fileDir . $fileName . '.log', $content . "\n", FILE_APPEND);
+        @file_put_contents($fileDir . $fileName . '.log', $content . PHP_EOL, FILE_APPEND);
     }
 }

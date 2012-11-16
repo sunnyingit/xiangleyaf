@@ -4,7 +4,7 @@
  * 战斗记录器模型
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: Recorder.php 309 2012-11-12 06:01:52Z jiangjian $
+ * $Id: Recorder.php 6 2012-11-16 02:55:04Z jiangjian $
  */
 
 class Model_Fight_Recorder extends Core_Model_Abstract
@@ -54,7 +54,7 @@ class Model_Fight_Recorder extends Core_Model_Abstract
      * @param Model_User $self
      * @param Model_User $enemy
      */
-    public function init(Model_User $self, Model_User $enemy)
+    public function __construct(Model_User $self, Model_User $enemy)
     {
         if (!$self || !$enemy) {
             throw new Core_Exception_Logic(__('战斗记录器初始化失败'));

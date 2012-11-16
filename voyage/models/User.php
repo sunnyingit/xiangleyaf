@@ -4,7 +4,7 @@
  * 用户模型基类
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: User.php 309 2012-11-12 06:01:52Z jiangjian $
+ * $Id: User.php 6 2012-11-16 02:55:04Z jiangjian $
  */
 
 class Model_User extends Model_User_Abstract
@@ -19,20 +19,6 @@ class Model_User extends Model_User_Abstract
      * @var array
      */
     protected $_isUpdated = false;
-
-    public function assertInPort($msg = '')
-    {
-        if ($this->_user['status'] != self::STATUS_IN_PORT || $this->_user['port_from'] < 1) {
-            throw new Core_Exception_Logic($msg ?: __('你不在码头，无法进行该项操作'));
-        }
-    }
-
-    public function assertSailing($msg = '')
-    {
-        if ($this->_user['status'] != self::STATUS_SAILING) {
-            throw new Core_Exception_Logic($msg ?: __('你尚未出海，无法进行该项操作'));
-        }
-    }
 
     public function __construct($uid)
     {
@@ -85,11 +71,23 @@ class Model_User extends Model_User_Abstract
         return $user;
     }
 
+    public function assertInPort($msg = '')
+    {
+        if ($this->_user['status'] != self::STATUS_IN_PORT || $this->_user['port_from'] < 1) {
+            throw new Core_Exception_Logic($msg ?: __('你不在码头，无法进行该项操作'));
+        }
+    }
+
+    public function assertSailing($msg = '')
+    {
+        if ($this->_user['status'] != self::STATUS_SAILING) {
+            throw new Core_Exception_Logic($msg ?: __('你尚未出海，无法进行该项操作'));
+        }
+    }
+
     public function refresh()
     {
-        // 合并数组（加号合并：后者如有重复键不会覆盖前者）
-        $this->_user = $this->_getUser($this->_user['uid']) + $this->_user;
-
+        $this->_user = $this->_getUser($this->_user['uid']);
         return $this;
     }
 
@@ -145,16 +143,16 @@ class Model_User extends Model_User_Abstract
      */
     protected function _updateUserIndex(&$setArr)
     {
-        $setArrIndex = array();
+        $updateArr = array();
 
         foreach (array('level_id', 'postion_id', 'country_id', 'user_name') as $field) {
             if (isset($setArr[$field])) {
-                $setArrIndex[$field] = $setArr[$field];
+                $updateArr[$field] = $setArr[$field];
             }
         }
 
-        if ($setArrIndex) {
-            return Dao('User_Index')->updateByPk($setArrIndex, $this->_user['uid']);
+        if ($updateArr) {
+            return Dao('User_Index')->updateByPk($updateArr, $this->_user['uid']);
         }
 
         return true;
@@ -168,14 +166,6 @@ class Model_User extends Model_User_Abstract
      */
     protected function _updateUserBase(&$setArr)
     {
-        // 扣生命值、行动力、精力后，触发自动恢复机制 TODO 统一放到 Model_User_Trait_Restore 中
-        foreach (array('hp', 'move', 'energy') as $field) {
-            if (isset($setArr[$field]) && '-' == $setArr[$field][0]) {
-                // 更新下次恢复时间
-                $setArr[$field . '_in_next_time'] = $this->restore->calcNextUpdateTime($field, -abs($setArr[$field][1]));
-            }
-        }
-
-        return $this->DaoDs('User')->updateByPk($setArr, $this->_user['uid']);
+        return $this->Dao('User')->updateByPk($setArr, $this->_user['uid']);
     }
 }
