@@ -16,6 +16,7 @@ class Dao_User_Abstract extends Com_Dao
     public function setDs($dbSuffix)
     {
         $this->_dbName = 'voyage_' . $dbSuffix;
+
         return $this;
     }
 }

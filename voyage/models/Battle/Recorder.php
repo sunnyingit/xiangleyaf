@@ -15,14 +15,14 @@ class Model_Battle_Recorder extends Core_Model_Abstract
      *
      * @var const Model_Battle::WIN/LOSE/DRAW
      */
-    private $_battleResult;
+    private $_result;
 
     /**
      * 最终战果影响文字
      *
      * @var string
      */
-    private $_battleResultMsg = array();
+    private $_resultMsg = array();
 
     /**
      * 每回合开炮次数统计
@@ -124,14 +124,15 @@ class Model_Battle_Recorder extends Core_Model_Abstract
             'defender_uid'  => $this->_enemy['uid'],
             'self_ships'    => serialize($this->_ships['self']),
             'enemy_ships'   => serialize($this->_ships['enemy']),
-            'result'        => $this->_battleResult,
-            'result_msg'    => $this->_battleResultMsg['self'],
+            'result'        => $this->_result,
+            'result_msg'    => $this->_resultMsg['self'],
             'fire_logs'     => serialize($this->_fireLogs['self']),
             'create_time'   => $GLOBALS['_TIME'],
         );
-        $logId = Dao('User_Log_Battle')->loadDs($this->_self['uid'])
-                            ->hashTable($this->_self['uid'])
-                            ->insert($setArr);
+        $logId = Dao('User_Log_Battle')
+                    ->loadDs($this->_self['uid'])
+                    ->hashTable($this->_self['uid'])
+                    ->insert($setArr);
 
         // 再记录到对方的库中
         $setArr = array(
@@ -140,14 +141,15 @@ class Model_Battle_Recorder extends Core_Model_Abstract
             'defender_uid'  => $this->_enemy['uid'],
             'self_ships'    => serialize($this->_ships['enemy']),
             'enemy_ships'   => serialize($this->_ships['self']),
-            'result'        => $this->_getOppositeResult($this->_battleResult), // 相反的战果
-            'result_msg'    => $this->_battleResultMsg['enemy'],
+            'result'        => $this->_getOppositeResult($this->_result), // 相反的战果
+            'result_msg'    => $this->_resultMsg['enemy'],
             'fire_logs'     => serialize($this->_fireLogs['enemy']),
             'create_time'   => $GLOBALS['_TIME'],
         );
-        Dao('User_Log_Battle')->loadDs($this->_enemy['uid'])
-                            ->hashTable($this->_enemy['uid'])
-                            ->insert($setArr);
+        Dao('User_Log_Battle')
+            ->loadDs($this->_enemy['uid'])
+            ->hashTable($this->_enemy['uid'])
+            ->insert($setArr);
 
         return $logId;
     }
@@ -157,15 +159,15 @@ class Model_Battle_Recorder extends Core_Model_Abstract
      *
      * @return const
      */
-    private function _getOppositeResult($battleResult)
+    private function _getOppositeResult($result)
     {
-        if ($battleResult == Model_Battle::WIN) {
+        if ($result == Model_Battle::WIN) {
             return Model_Battle::LOSE;
-        } elseif ($battleResult == Model_Battle::LOSE) {
+        } elseif ($result == Model_Battle::LOSE) {
             return Model_Battle::WIN;
         }
 
-        return $battleResult;
+        return $result;
     }
 
     public function setShips($selfShips, $enemyShips)
@@ -176,16 +178,16 @@ class Model_Battle_Recorder extends Core_Model_Abstract
         return $this;
     }
 
-    public function setBattleResult($battleResult)
+    public function setResult($result)
     {
-        $this->_battleResult = $battleResult;
+        $this->_result = $result;
 
         return $this;
     }
 
-    public function setBattleResultMsg($battleResultMsg)
+    public function setResultMsg($resultMsg)
     {
-        $this->_battleResultMsg = $battleResultMsg;
+        $this->_resultMsg = $resultMsg;
 
         return $this;
     }

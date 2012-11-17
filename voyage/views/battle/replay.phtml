@@ -48,15 +48,15 @@
 
     <!--最终战果弹窗提示-->
     <div id="pop_up_result_msg" class="pop_up_box" style="display:none;">
-        <? if ($battleResult == Model_Battle::WIN): ?>
+        <? if ($result == Model_Battle::WIN): ?>
             <img src="/img/war/win.png" />
-        <? elseif ($battleResult == Model_Battle::LOSE): ?>
+        <? elseif ($result == Model_Battle::LOSE): ?>
             <img src="/img/war/lose.png" />
-        <? elseif ($battleResult == Model_Battle::DRAW): ?>
+        <? elseif ($result == Model_Battle::DRAW): ?>
             <img src="/img/war/draw.png" />
         <? endif ?>
         <div class="pop_up_box_con">
-            <p><?=$battleResultMsg?></p>
+            <p><?=$resultMsg?></p>
             <div class="button" onclick="location.href='/'">确&nbsp;定</div>
         </div>
     </div>

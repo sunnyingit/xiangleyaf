@@ -99,12 +99,12 @@ class Controller_Battle extends Controller_Abstract
 
         // 传出模板变量
         $this->assign(array(
-            'selfShips'      => $logRow['self_ships'],
-            'enemyShips'     => $logRow['enemy_ships'],
-            'battleResult'    => $logRow['result'],
-            'battleResultMsg' => $logRow['result_msg'],
-            'fireLogs'       => $logRow['fire_logs'],
-            'isReplay'       => $isReplay,
+            'selfShips'  => $logRow['self_ships'],
+            'enemyShips' => $logRow['enemy_ships'],
+            'result'     => $logRow['result'],
+            'resultMsg'  => $logRow['result_msg'],
+            'fireLogs'   => $logRow['fire_logs'],
+            'isReplay'   => $isReplay,
         ));
     }
 
@@ -117,7 +117,7 @@ class Controller_Battle extends Controller_Abstract
         $page     = max(1, $this->getInt('page'));
         $start    = ($page - 1) * $pageSize;
 
-        $logList = $this->_user->battle->getLogList($start, $pageSize);
+        $logList  = $this->_user->battle->getLogList($start, $pageSize);
 
         // 加密id字段
         if ($logList) {

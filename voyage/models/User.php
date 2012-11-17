@@ -36,7 +36,7 @@ class Model_User extends Model_User_Abstract
 
     public function __get($var)
     {
-        static $varsMap = array(
+        static $traits = array(
             'base'    => 1,
             'sail'    => 1,
             'restore' => 1,
@@ -46,7 +46,7 @@ class Model_User extends Model_User_Abstract
             'tavern'  => 1,
         );
 
-        if (isset($varsMap[$var])) {
+        if (isset($traits[$var])) {
             $class = 'Model_User_Trait_' . ucfirst($var);
             return $this->{$var} = new $class($this);
         }
@@ -101,6 +101,7 @@ class Model_User extends Model_User_Abstract
     public function refresh()
     {
         $this->_user = $this->_getUser($this->_user['uid']);
+
         return $this;
     }
 

@@ -80,6 +80,7 @@ class Core_View extends Yaf_View_Simple
     public function setLayout($layout)
     {
         $this->_layout = $layout;
+
         return $this;
     }
 

@@ -19,9 +19,9 @@ class Model_Battle extends Core_Model_Abstract
 
     private $_self;
     private $_enemy;
-    private $_selfShips   = array();
-    private $_enemyShips  = array();
-    private $_battleResult = 0;
+    private $_selfShips  = array();
+    private $_enemyShips = array();
+    private $_result     = 0;
 
     /**
      * 初始化一场战斗
@@ -109,11 +109,11 @@ class Model_Battle extends Core_Model_Abstract
      */
     public function process()
     {
-        $this->_battleResult = $this->_battle();
+        $this->_result = $this->_battle();
 
-        $this->_recorder->setBattleResult($this->_battleResult);
+        $this->_recorder->setResult($this->_result);
 
-        return $this->_battleResult;
+        return $this->_result;
     }
 
     /**
@@ -341,7 +341,7 @@ class Model_Battle extends Core_Model_Abstract
         // 本次战斗打了几个回合
         $roundCount = $this->_recorder->roundCount();
 
-        switch ($this->_battleResult) {
+        switch ($this->_result) {
 
             // 我方胜利
             case self::WIN:
@@ -453,7 +453,7 @@ class Model_Battle extends Core_Model_Abstract
         $this->_enemy->update($setArrEnemy);
 
         // 保存战斗记录
-        $logId = $this->_recorder->setBattleResultMsg($battleResustMsg)->save();
+        $logId = $this->_recorder->setResultMsg($battleResustMsg)->save();
 
         return $logId;
     }
