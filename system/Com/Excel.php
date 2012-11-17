@@ -50,7 +50,7 @@ class Com_Excel
         }
 
         // 文件上传失败
-        if (!$data['tmp_name']) {
+        if (! $data['tmp_name']) {
             throw new Core_Exception_Fatal('文件上传失败，tmp_name 读取失败');
         }
 
@@ -59,11 +59,11 @@ class Com_Excel
 
         $excelData = array();
         $handle = fopen($fileName, 'r');
-        if (!$handle) {
+        if (! $handle) {
             throw new Core_Exception_Fatal('临时文件打开失败');
         }
 
-        while (!feof($handle)) {
+        while (! feof($handle)) {
             $data = mb_convert_encoding(trim(strip_tags(fgets($handle))), 'utf-8', 'gbk');
             if ($data) {
                 $excelData[] = explode(',', $data);

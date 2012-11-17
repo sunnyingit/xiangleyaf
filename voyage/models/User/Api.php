@@ -114,7 +114,7 @@ class Model_User_Api extends Core_Model_Abstract
         do {
             $sourceStr = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
             $userCode = Helper_String::random(6, false, $sourceStr);
-            if (!$this->getUidByCode($userCode)) {
+            if (! $this->getUidByCode($userCode)) {
                 return $userCode;
             }
         } while (true);
@@ -140,7 +140,7 @@ class Model_User_Api extends Core_Model_Abstract
      */
     public function initMobileParams($data)
     {
-        if (!$data) {
+        if (! $data) {
             return false;
         }
 
@@ -163,7 +163,7 @@ class Model_User_Api extends Core_Model_Abstract
             );
             $this->_cookie['m_scale'] = isset($scales[$mobileParams['width']]) ? $scales[$mobileParams['width']] : 1;
             $this->_cookie['m_width'] = $mobileParams['width'];
-        } elseif (!isset($this->_cookie['m_scale'])) {
+        } elseif (! isset($this->_cookie['m_scale'])) {
             $this->_cookie['m_scale'] = 1;
         }
 

@@ -289,8 +289,8 @@ class Com_Validate
             $rule += array('required' => false, 'msg' => self::$_message);
 
             // deal with not existed
-            if (!isset($data[$key])) {
-                if (!$rule['required']) continue;
+            if (! isset($data[$key])) {
+                if (! $rule['required']) continue;
                 if ($ignorNotExists) continue;
                 $this->_error[$key] = $this->_msg($rule, 'required');
                 continue;
@@ -321,26 +321,26 @@ class Com_Validate
      */
     protected function _check($value, $rule)
     {
-        if ($rule['required'] && !self::notEmpty($value)) {
+        if ($rule['required'] && ! self::notEmpty($value)) {
             return array('code' => -1, 'msg' => $this->_msg($rule, 'required'));
         }
 
-        if (isset($rule['func']) && !call_user_func($rule['func'], $value)) {
+        if (isset($rule['func']) && ! call_user_func($rule['func'], $value)) {
             return array('code' => -1, 'msg' => $this->_msg($rule, 'func'));
         }
 
-        if (isset($rule['regex']) && !self::match($value, $rule['regex'])) {
+        if (isset($rule['regex']) && ! self::match($value, $rule['regex'])) {
             return array('code' => -1, 'msg' => $this->_msg($rule, 'regex'));
         }
 
-        if (isset($rule['type']) && !self::$rule['type']($value)) {
+        if (isset($rule['type']) && ! self::$rule['type']($value)) {
             return array('code' => -1, 'msg' => $this->_msg($rule, $rule['type']));
             // 备注：上一行传 $rule['type'] 而不传 type 的原因是为了显示 $this->_message 中的默认信息
         }
 
         $acts = array('max', 'min', 'range', 'in');
         foreach ($acts as $act) {
-            if (isset($rule[$act]) && !self::$act($value, $rule[$act])) {
+            if (isset($rule[$act]) && ! self::$act($value, $rule[$act])) {
                 return array('code' => -1, 'msg' => $this->_msg($rule, $act));
             }
         }
@@ -426,7 +426,7 @@ $rules = array(
 );
 
 $validateObj = new Com_Validate();
-if (!$validateObj->check($postData, $rules)) {
+if (! $validateObj->check($postData, $rules)) {
     print_r($validateObj->error());
     exit;
 }

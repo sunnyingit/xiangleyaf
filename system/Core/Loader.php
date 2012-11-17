@@ -18,7 +18,7 @@ class Core_Loader
     private static $_loadedClass = array();
     public static function getSingleton($className)
     {
-        if (!isset(self::$_loadedClass[$className])) {
+        if (! isset(self::$_loadedClass[$className])) {
             self::$_loadedClass[$className] = new $className;
         }
 

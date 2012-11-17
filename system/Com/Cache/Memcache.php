@@ -33,11 +33,11 @@ class Com_Cache_Memcache
     {
         $config = Core_Config::loadEnv('memcache');
 
-        if (!isset($config[$module])) {
+        if (! isset($config[$module])) {
             throw new Core_Exception_Fatal('没有找到 ' . $module . ' 模块的 memcache 配置信息，请检查 memcache.conf.php');
         }
 
-        if (!isset($config[$module]['servers'])) {
+        if (! isset($config[$module]['servers'])) {
             throw new Core_Exception_Fatal('没有找到 ' . $module . ' 模块的 memcache 服务器配置信息(servers)，请检查 memcache.conf.php');
         }
 
@@ -229,7 +229,7 @@ class Com_Cache_Memcache
 
         $this->_set($key, $value, $ttl);
         $keys = $this->_cache->get($tag);
-        if (!empty($keys) && is_array($keys)) {
+        if (! empty($keys) && is_array($keys)) {
             $keys[] = $key;
             $keys = array_unique($keys);
         } else {
@@ -251,7 +251,7 @@ class Com_Cache_Memcache
         $this->_connect();
 
         $keys = $this->_cache->get($tag);
-        if (!empty($keys) && is_array($keys)) {
+        if (! empty($keys) && is_array($keys)) {
             foreach ($keys as $key) {
                 $this->_cache->delete($key, $ttl);
             }

@@ -22,7 +22,7 @@ class Com_Image
     public static function cut($orgImgPath, $maxWidth = 400, $maxHeight = 400, $resize = true, $quality = 100)
     {
         $imageInfo = @getimagesize($orgImgPath);
-        if (!$imageInfo) {
+        if (! $imageInfo) {
             return false;
         }
 
@@ -36,7 +36,7 @@ class Com_Image
         );
 
         $funcCreate = $allType[$imgType]['create'];
-        if (empty($funcCreate) || !function_exists($funcCreate)) {
+        if (empty($funcCreate) || ! function_exists($funcCreate)) {
             exit('Damaged image or invalid image type.');
         }
 

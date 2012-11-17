@@ -24,11 +24,11 @@ class Com_Queue_MemcacheQ implements Com_Queue_Interface
      */
     public function __construct($queue, array $config)
     {
-        if (!$queue) {
+        if (! $queue) {
             throw new Core_Exception_Fatal('队列名不能为空');
         }
 
-        if (!isset($config['module'])) {
+        if (! isset($config['module'])) {
             throw new Core_Exception_Fatal('没有给 MemcacheQ 队列 ' . $queue . ' 指定 module，请检查 queue.conf.php');
         }
 
@@ -50,7 +50,7 @@ class Com_Queue_MemcacheQ implements Com_Queue_Interface
      */
     public function push($value)
     {
-        if (!$value) {
+        if (! $value) {
             return false;
         }
 
@@ -58,12 +58,12 @@ class Com_Queue_MemcacheQ implements Com_Queue_Interface
 
         // 压进
         $key = $this->_queueDataKey . ':' . $pushed;
-        if (!$this->_memcache->set($key, $value)) {
+        if (! $this->_memcache->set($key, $value)) {
             return false;
         }
 
         // 累加已压进了几个元素
-        if (!$this->_memcache->increment($this->_pushedCountKey)) {
+        if (! $this->_memcache->increment($this->_pushedCountKey)) {
             $this->_memcache->set($this->_pushedCountKey, 1);
         }
 
@@ -86,7 +86,7 @@ class Com_Queue_MemcacheQ implements Com_Queue_Interface
         $this->_memcache->delete($key);
 
         // 累加弹出了几个元素
-        if (!$this->_memcache->increment($this->_popedCountKey)) {
+        if (! $this->_memcache->increment($this->_popedCountKey)) {
             $this->_memcache->set($this->_popedCountKey, 1);
         }
 

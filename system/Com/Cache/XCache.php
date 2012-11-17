@@ -15,7 +15,7 @@ class Com_Cache_XCache
      */
     public function __construct()
     {
-        if (!extension_loaded('xcache')) {
+        if (! extension_loaded('xcache')) {
             throw new Exception('The xcache extension must be loaded.');
         }
     }

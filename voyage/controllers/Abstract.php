@@ -58,7 +58,7 @@ abstract class Controller_Abstract extends Core_Controller_Web
         }
 
         // 检测登录（是否允许游客访问）
-        if (!$this->_user && $this->_checkAuth) {
+        if (! $this->_user && $this->_checkAuth) {
             throw new Core_Exception_Logic(__('Access Denied - Need Login'));
         }
 
@@ -100,7 +100,7 @@ abstract class Controller_Abstract extends Core_Controller_Web
 
             // 用户设备号
             $userToken = $this->_mobileParams['udid'];
-            if (!$userToken || strlen($userToken) > 50) {
+            if (! $userToken || strlen($userToken) > 50) {
                 throw new Core_Exception_Logic(__('非法访问，用户MAC为空'));
             }
 
@@ -109,15 +109,15 @@ abstract class Controller_Abstract extends Core_Controller_Web
                 'user_token' => $userToken,
                 'xkey' => $this->_mobileParams['hashCode'],
             );
-            if (!Model('User_Auth')->valid($userTokenArr)) {
+            if (! Model('User_Auth')->valid($userTokenArr)) {
                 throw new Core_Exception_Logic(__('非法访问，用户MAC不合法'));
             }
         }
 
         // 根据设备号取uid
-        if (!$uid = Model('User_Api')->getUidByToken($userToken)) {
+        if (! $uid = Model('User_Api')->getUidByToken($userToken)) {
             // 如果取不到，则注册新用户
-            if (!$uid = Model('User_Api')->register($userToken)) {
+            if (! $uid = Model('User_Api')->register($userToken)) {
                 throw new Core_Exception_Logic(__('用户初始化失败，请联系管理员'));
             }
         }

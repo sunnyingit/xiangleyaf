@@ -22,12 +22,12 @@ class Model_User_Auth extends Core_Model_Abstract
      */
     public function get()
     {
-        if (!isset($_COOKIE[self::$_cookieName]) || empty($_COOKIE[self::$_cookieName])) {
+        if (! isset($_COOKIE[self::$_cookieName]) || empty($_COOKIE[self::$_cookieName])) {
             return array();
         }
 
         $authUser = json_decode(stripslashes($_COOKIE[self::$_cookieName]), true);
-        if (!$authUser || !$this->valid($authUser)) {
+        if (! $authUser || ! $this->valid($authUser)) {
             return array();
         }
 

@@ -78,11 +78,11 @@ class Model_User_Trait_Restore extends Model_User_Trait_Abstract
             }
         }
 
-        if (!$setArr) {
+        if (! $setArr) {
             return false;
         }
 
-        if (!$this->_user->update($setArr)) {
+        if (! $this->_user->update($setArr)) {
             return false;
         }
 
@@ -108,7 +108,7 @@ class Model_User_Trait_Restore extends Model_User_Trait_Abstract
         }
 
         // 当 hp < hp_max 时，hp_in_next_time 却等于 0
-        if ($this->_user[$field] < $this->_user[$field . '_max'] && !$this->_user[$field . '_in_next_time']) {
+        if ($this->_user[$field] < $this->_user[$field . '_max'] && ! $this->_user[$field . '_in_next_time']) {
             $setArr[$field . '_in_next_time'] = $GLOBALS['_TIME'];
             return -2;
         }
@@ -124,7 +124,7 @@ class Model_User_Trait_Restore extends Model_User_Trait_Abstract
 
     public function full($fields = null)
     {
-        if (!$fields) {
+        if (! $fields) {
             $fields = array('hp', 'move', 'energy');
         }
 

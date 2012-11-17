@@ -23,7 +23,7 @@ class Com_Cache_File
     {
         $this->_saveDir = CACHE_PATH . 'Cache' . DIRECTORY_SEPARATOR . 'File' . DIRECTORY_SEPARATOR;
         @chmod($this->_saveDir, 0777);
-        if (!is_writable($this->_saveDir)) {
+        if (! is_writable($this->_saveDir)) {
             throw new Core_Exception_Fatal('缓存文件存储目录 ' . $this->_saveDir . ' 不可写');
         }
     }
@@ -58,7 +58,7 @@ class Com_Cache_File
         $file = $this->_saveDir . md5($key) . '.cache';
 
         // 没有找到缓存
-        if (!is_file($file)) {
+        if (! is_file($file)) {
             return false;
         }
 

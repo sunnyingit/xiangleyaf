@@ -27,7 +27,7 @@ class Com_DB_Exception extends Core_Exception_Abstract
         $msg .= $e->getMessage() . "\n";
 
         foreach ($e->getTrace() as $key => $trace) {
-            if (!isset($trace['file']) && !isset($trace['line'])) {
+            if (! isset($trace['file']) && ! isset($trace['line'])) {
                 continue;
             }
             $msg .= ($key + 1) . ' File:' . $trace['file']. ' Line:' . $trace['line'] . "\n";
@@ -43,7 +43,7 @@ class Com_DB_Exception extends Core_Exception_Abstract
 
     private static function _sqlInfoToString($sqlInfo)
     {
-        if (!$sqlInfo) {
+        if (! $sqlInfo) {
             return null;
         }
 

@@ -20,7 +20,7 @@ class Com_Session implements ArrayAccess
 
     public function __construct()
     {
-        if (!headers_sent() && !isset($_SESSION)) {
+        if (! headers_sent() && ! isset($_SESSION)) {
             session_start();
         }
     }

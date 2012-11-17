@@ -40,7 +40,7 @@ class Com_Cache_Redis
     public function __construct($module = 'global')
     {
         $config = Core_Config::loadEnv('redis');
-        if (!isset($config[$module])) {
+        if (! isset($config[$module])) {
             throw new Core_Exception_Fatal('没有找到 ' . $module . ' 模块的 redis 配置信息，请检查 redis.conf.php');
         }
 
@@ -71,7 +71,7 @@ class Com_Cache_Redis
      */
     private function _connect()
     {
-        if ($this->_redis === null || !is_object($this->_redis)) {
+        if ($this->_redis === null || ! is_object($this->_redis)) {
 
             $this->_redis = new Redis();
 

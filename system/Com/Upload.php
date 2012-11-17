@@ -182,7 +182,7 @@ class Com_Upload
      */
     protected function _move($file, $name = null)
     {
-        if (!$this->check($file)) {
+        if (! $this->check($file)) {
             return false;
         }
 
@@ -202,7 +202,7 @@ class Com_Upload
         // 完整的保存文件路径
         $fileFullName = $this->_config['savePath'] . DIRECTORY_SEPARATOR . $fileName;
 
-        if (is_file($fileFullName) && !$this->_config['override']) {
+        if (is_file($fileFullName) && ! $this->_config['override']) {
             $this->_error[] = 'file_already_exits:' . $fileFullName;
             return false;
         }
@@ -210,12 +210,12 @@ class Com_Upload
         $dir = dirname($fileFullName);
         is_dir($dir) || mkdir($dir, 0755, true);
 
-        if (!is_writable($dir)) {
+        if (! is_writable($dir)) {
             $this->_error[] = 'directory: ' . $dir . ' may not be writeable.';
             return false;
         }
 
-        if (!move_uploaded_file($file['tmp_name'], $fileFullName)) {
+        if (! move_uploaded_file($file['tmp_name'], $fileFullName)) {
             $this->_error[] = 'move_uploaded_file_failed: [' . $dir . '] may not be writeable.';
             return false;
         }
@@ -242,27 +242,27 @@ class Com_Upload
             return false;
         }
 
-        if (!is_uploaded_file($file['tmp_name'])) {
+        if (! is_uploaded_file($file['tmp_name'])) {
             $this->_error[] = 'file_upload_failed:' . $file['name'];
             return false;
         }
 
-        if (!$this->checkType($file, $this->_config['allowedTypes'])) {
+        if (! $this->checkType($file, $this->_config['allowedTypes'])) {
             $this->_error[] = 'file_type_not_allowed:' . $file['name'];
             return false;
         }
 
-        if (!$this->checkExt($file, $this->_config['allowedExts'])) {
+        if (! $this->checkExt($file, $this->_config['allowedExts'])) {
             $this->_error[] = 'file_ext_not_allowed:' . $file['name'];
             return false;
         }
 
-        if (!$this->checkFileSize($file, $this->_config['maxSize'])) {
+        if (! $this->checkFileSize($file, $this->_config['maxSize'])) {
             $this->_error[] = 'file_size_not_allowed:' . $file['name'];
             return false;
         }
 
-        if ($this->isImage($file) && !$this->checkImageSize($file, array($this->_config['maxWidth'], $this->_config['maxHeight']))) {
+        if ($this->isImage($file) && ! $this->checkImageSize($file, array($this->_config['maxWidth'], $this->_config['maxHeight']))) {
             $this->_error[] = 'image_size_not_allowed:' . $file['name'];
             return false;
         }

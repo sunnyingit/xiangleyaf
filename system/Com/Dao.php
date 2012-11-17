@@ -169,7 +169,7 @@ class Com_Dao
      */
     public function rowByPk($pk)
     {
-        if (!$this->_checkPk($pk)) {
+        if (! $this->_checkPk($pk)) {
             return false;
         }
 
@@ -214,7 +214,7 @@ class Com_Dao
      */
     public function oneByPk($field, $pk)
     {
-        if (!$this->_checkPk($pk)) {
+        if (! $this->_checkPk($pk)) {
             return false;
         }
 
@@ -308,7 +308,7 @@ class Com_Dao
      */
     public function pairs($whereArr = array())
     {
-        if (!$this->_nameField) {
+        if (! $this->_nameField) {
             return null;
         }
 
@@ -324,7 +324,7 @@ class Com_Dao
      */
     public function name($pk)
     {
-        if (!$pk || !$this->_nameField) {
+        if (! $pk || ! $this->_nameField) {
             return null;
         }
 
@@ -356,7 +356,7 @@ class Com_Dao
             'decrementx'  => 1, // 自减（保证不小于0）
         );
 
-        if (!isset($methods[$method])) {
+        if (! isset($methods[$method])) {
             throw new Core_Exception_Fatal('Call to undefined method Com_Dao::' . $method);
         }
 
@@ -375,7 +375,7 @@ class Com_Dao
      */
     public function updateByPk($setArr, $pk)
     {
-        if (!$this->_checkPk($pk) || !$setArr) {
+        if (! $this->_checkPk($pk) || ! $setArr) {
             return false;
         }
 
@@ -390,7 +390,7 @@ class Com_Dao
      */
     public function deleteByPk($pk)
     {
-        if (!$this->_checkPk($pk)) {
+        if (! $this->_checkPk($pk)) {
             return false;
         }
 

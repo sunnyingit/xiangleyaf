@@ -105,7 +105,7 @@ class Helper_String
      */
     public static function deepFilterData($data, $function)
     {
-        if (!$data || !$function) {
+        if (! $data || ! $function) {
             return false;
         }
         if (is_array($data) || is_object($data)) {
@@ -127,7 +127,7 @@ class Helper_String
      */
     public static function deepFilterDatas($data, $functions)
     {
-        if (!$data || !$functions || !is_array($functions)) {
+        if (! $data || ! $functions || ! is_array($functions)) {
             return false;
         }
         foreach ($functions as $function) {
@@ -207,7 +207,7 @@ class Helper_String
     public static function strToUtf8($string)
     {
         $encode = mb_detect_encoding($string, array("ASCII", "UTF-8", "GB2312", "GBK", "BIG5"));
-        if ($encode != "UTF-8" && !empty($string)) {
+        if ($encode != "UTF-8" && ! empty($string)) {
             $string = iconv($encode, "UTF-8//TRANSLIT//IGNORE", $string);
         }
         return $string;

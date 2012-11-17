@@ -64,7 +64,7 @@ class Controller_Battle extends Controller_Abstract
     public function resetArriveTimeAction()
     {
         $arriveTimeInfo = $this->_session['arrive_time_info'];
-        if (!$arriveTimeInfo) {
+        if (! $arriveTimeInfo) {
             exit('-1');
         }
 
@@ -72,7 +72,7 @@ class Controller_Battle extends Controller_Abstract
         $battleElapse = max(3, $GLOBALS['_TIME'] - $arriveTimeInfo['battle_start_time']);
 
         // 重置航行到达时间
-        if (!$this->_user->update('arrive_time', ($arriveTimeInfo['arrive_time_before_battle'] + $battleElapse))) {
+        if (! $this->_user->update('arrive_time', ($arriveTimeInfo['arrive_time_before_battle'] + $battleElapse))) {
             exit('-2');
         }
 

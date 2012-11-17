@@ -24,11 +24,11 @@ class Com_Queue
      */
     public static function getInstance($queue)
     {
-        if (!isset(self::$_instances[$queue])) {
+        if (! isset(self::$_instances[$queue])) {
 
             $config = Core_Config::loadEnv('queue');
 
-            if (!isset($config[$queue]) || !isset($config[$queue]['class'])) {
+            if (! isset($config[$queue]) || ! isset($config[$queue]['class'])) {
                 throw new Core_Exception_Fatal('队列 ' . $queue . ' 配置有误，请检查 queue.conf.php');
             }
 

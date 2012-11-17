@@ -60,7 +60,7 @@ class Com_Captcha
         }
 
         // 缺省字体
-        if (!$this->_font) {
+        if (! $this->_font) {
             $this->_font = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Captcha' . DIRECTORY_SEPARATOR . 'svenings.ttf';
         }
     }
@@ -75,7 +75,7 @@ class Com_Captcha
     {
         $word = strtoupper($word);
         $storedCode = $this->_getStoreCode();
-        if (!$storedCode) {
+        if (! $storedCode) {
             return false;
         }
 

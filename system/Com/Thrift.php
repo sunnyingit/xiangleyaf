@@ -23,7 +23,7 @@ class Com_Thrift
     public function __construct($appName, $serviceName)
     {
         $config = Core_Config::loadEnv('thrift');
-        if (!isset($config[$appName])) {
+        if (! isset($config[$appName])) {
             throw new Core_Exception_Fatal('没有找到 ' . $appName . ' 模块的 thrift 配置信息，请检查 thrift.conf.php');
         }
 
@@ -52,7 +52,7 @@ class Com_Thrift
 
     public static function getInstance($appName, $serviceName)
     {
-        if (!isset(self::$_instances[$appName][$serviceName])) {
+        if (! isset(self::$_instances[$appName][$serviceName])) {
             self::$_instances[$appName][$serviceName] = new self($appName, $serviceName);
         }
 
@@ -61,7 +61,7 @@ class Com_Thrift
 
     private function _connect()
     {
-        if (!$this->_client || !is_object($this->_client)) {
+        if (! $this->_client || ! is_object($this->_client)) {
 
             // 创建 Thrift 连接
             $socket    = new TSocket($this->_config['host'], $this->_config['port']);

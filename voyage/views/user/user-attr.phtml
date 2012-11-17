@@ -14,7 +14,7 @@
         <div class="att_icon2"></div>
         <div class="att_right">
             <p>
-            <? if (!$user['next_level']): // 已经是最高等级了 ?>
+            <? if (! $user['next_level']): // 已经是最高等级了 ?>
                 <span><?=$user['exp']?></span>
                 <div id="exp_bar"></div>
             <? else: ?>

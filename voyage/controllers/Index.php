@@ -72,7 +72,7 @@ class Controller_Index extends Controller_Abstract
     public function ajaxAttrAction()
     {
         $attr = $this->getx('attr');
-        if (!in_array($attr, array('hp', 'move', 'energy'))) {
+        if (! in_array($attr, array('hp', 'move', 'energy'))) {
             exit('Access Denied');
         }
 

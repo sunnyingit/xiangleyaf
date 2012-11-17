@@ -23,7 +23,7 @@ abstract class Core_Model_Abstract
         $cacheObj = $this->_memcache;
         $key = md5(get_class($this) . ':' . $func . ($args ? ':' . serialize($args) : ''));
 
-        if ($flushCache || !$data = $cacheObj->get($key)) {
+        if ($flushCache || ! $data = $cacheObj->get($key)) {
             $data = call_user_func_array(array($this, $func), $args);
             $cacheObj->set($key, $data, $ttl);
         }

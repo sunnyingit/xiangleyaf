@@ -32,11 +32,11 @@ class Com_Queue_RedisQ implements Com_Queue_Interface
      */
     public function __construct($queue, array $config)
     {
-        if (!$queue) {
+        if (! $queue) {
             throw new Core_Exception_Fatal('队列名不能为空');
         }
 
-        if (!isset($config['module'])) {
+        if (! isset($config['module'])) {
             throw new Core_Exception_Fatal('没有给 RedisQ 队列 ' . $queue . ' 指定 module，请检查 queue.conf.php');
         }
 
@@ -55,7 +55,7 @@ class Com_Queue_RedisQ implements Com_Queue_Interface
      */
     public function push($value)
     {
-        if (!$value) {
+        if (! $value) {
             return false;
         }
 

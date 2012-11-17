@@ -24,7 +24,7 @@ class Core_Bootstrap
     public function initGlobal()
     {
         // 定义路径常量
-        if (!defined('DS')) {
+        if (! defined('DS')) {
             define('DS', DIRECTORY_SEPARATOR);
         }
 
@@ -90,7 +90,7 @@ class Core_Bootstrap
         if (isDebug()) {
             ini_set('display_errors', 'On');
             error_reporting(E_ALL | E_STRICT);
-            if (!isset($_COOKIE['__debug'])) {
+            if (! isset($_COOKIE['__debug'])) {
                 setcookie('__debug', DEBUG_XKEY, null, '/');
             }
             // 打印调试信息

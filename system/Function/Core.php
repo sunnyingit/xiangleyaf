@@ -49,7 +49,7 @@ function Dao($name)
  */
 function __($string, $vars = null)
 {
-    if (!$vars) {
+    if (! $vars) {
        return gettext($string);
     }
 
@@ -159,7 +159,7 @@ function ximplode($array)
  */
 function isDebug()
 {
-    !defined('DEBUG_XKEY') && define('DEBUG_XKEY', 'xianglephp');
+    ! defined('DEBUG_XKEY') && define('DEBUG_XKEY', 'xianglephp');
     return ((defined('DEBUG_MODE') && DEBUG_MODE) || (isset($_REQUEST['debug']) && $_REQUEST['debug'] == DEBUG_XKEY));
 }
 
@@ -183,7 +183,7 @@ function datex($timestamp, $format = 'Y-m-d H:i')
  */
 function arrayToObject($e)
 {
-    if (!is_array($e)) {
+    if (! is_array($e)) {
         return $e;
     }
 
@@ -202,7 +202,7 @@ function objectToArray($e)
         $e = (array) $e;
     }
 
-    if (!is_array($e)) {
+    if (! is_array($e)) {
         return $e;
     }
 

@@ -15,7 +15,7 @@ class Com_Cache_APC
      */
     public function __construct()
     {
-        if (!extension_loaded('apc')) {
+        if (! extension_loaded('apc')) {
             throw new Exception('The apc extension must be loaded.');
         }
     }

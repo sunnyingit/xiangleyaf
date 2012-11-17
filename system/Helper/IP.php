@@ -28,7 +28,7 @@ class Helper_IP
             } else {
                 $tinyipfile = dirname(__FILE__) . '/IPData/tinyipdata.dat';
                 $fullipfile = dirname(__FILE__) . '/IPData/qqwry.dat';
-                if (($forceFull || !file_exists($tinyipfile)) && file_exists($fullipfile)) {
+                if (($forceFull || ! file_exists($tinyipfile)) && file_exists($fullipfile)) {
                     $return = self::convertipFull($ip, $fullipfile);
                 } elseif (file_exists($tinyipfile)) {
                     $return = self::convertipTiny($ip, $tinyipfile);
@@ -76,7 +76,7 @@ class Helper_IP
 
     public static function convertipFull($ip, $ipdatafile)
     {
-        if (!$fd = @fopen($ipdatafile, 'rb')) {
+        if (! $fd = @fopen($ipdatafile, 'rb')) {
             return 'Invalid IP data file';
         }
 

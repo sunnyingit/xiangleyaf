@@ -19,7 +19,7 @@ class Com_Daemon
      */
     public static function nohup($bin, $script, $outputPath = '')
     {
-        if (!empty($bin) && !empty($script)) {
+        if (! empty($bin) && ! empty($script)) {
             $count = self::unixProcessCount($bin, $script);
             if ($count < 1) {
                 $execStr = "nohup $bin $script " . ($outputPath ? " > $outputPath " : '') . ' &';

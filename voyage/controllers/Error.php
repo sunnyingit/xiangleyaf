@@ -13,7 +13,7 @@ class Controller_Error extends Core_Controller_Web
     {
         $e = $this->_request->getException();
 
-        if (!$e instanceof Exception) {
+        if (! $e instanceof Exception) {
             exit('Access Denied');
         }
 
@@ -42,7 +42,7 @@ class Controller_Error extends Core_Controller_Web
                     header404();
             }
 
-            if (!isDebug()) {
+            if (! isDebug()) {
                 header500();
             }
 

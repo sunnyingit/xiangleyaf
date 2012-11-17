@@ -116,7 +116,7 @@ class Com_Http
         $request = $path  . '?' . $query;
 
         $fsock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-        if (!$fsock) {
+        if (! $fsock) {
             return -1;
         }
 
@@ -133,7 +133,7 @@ class Com_Http
         $in .= "User-Agent: Mozilla/5.0\r\n";
         $in .= 'Host: ' . $host . "\r\n";
         if ($method == 'POST') {
-            if (!$data || !is_array($data)) {
+            if (! $data || ! is_array($data)) {
                 return -3;
             }
             $postData = http_build_query($data);
@@ -146,7 +146,7 @@ class Com_Http
         }
         unset($postData);
 
-        if (!@socket_write($fsock, $in, strlen($in))) {
+        if (! @socket_write($fsock, $in, strlen($in))) {
             socket_close($fsock);
             return -4;
         }
@@ -159,7 +159,7 @@ class Com_Http
             $out .= $buff;
         }
         @socket_close($fsock);
-        if (!$out) {
+        if (! $out) {
             return -5;
         }
         $pos = strpos($out, "\r\n\r\n");

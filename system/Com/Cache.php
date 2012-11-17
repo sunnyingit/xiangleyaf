@@ -32,7 +32,7 @@ class Com_Cache
 
     public static function getInstance($className)
     {
-        if (!isset(self::$_instances[$className])) {
+        if (! isset(self::$_instances[$className])) {
             self::$_instances[$className] = new self($className);
         }
 

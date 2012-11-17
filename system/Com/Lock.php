@@ -48,7 +48,7 @@ class Com_Lock
     public function doLock($key, $ttl = 10)
     {
         for ($i = 1; $i < self::LOOP_TIMES; $i++) {
-            if (!$this->isLocked($key, $ttl)) {
+            if (! $this->isLocked($key, $ttl)) {
                 return true;
             }
             usleep(100000); // 休息100ms

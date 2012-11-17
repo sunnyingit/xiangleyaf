@@ -29,7 +29,7 @@ class Model_User_Trait_Battle extends Model_User_Trait_Abstract
         // $whereSql .= " AND hp >= '". Model_Battle::USER_MIN_HP . "'";
 
         $list = Dao('Battle_Block')->findByPage($whereSql, 0, 10);
-        if (!$list) {
+        if (! $list) {
             return array();
         }
 
@@ -49,7 +49,7 @@ class Model_User_Trait_Battle extends Model_User_Trait_Abstract
         }
 
         $logRow = Dao('User_Log_Battle')->loadDs($this->_user['uid'])->get($logId);
-        if (!$logRow) {
+        if (! $logRow) {
             throw new Core_Exception_Logic(__('战斗记录不存在'));
         }
 

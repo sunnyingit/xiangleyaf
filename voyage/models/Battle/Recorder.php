@@ -56,7 +56,7 @@ class Model_Battle_Recorder extends Core_Model_Abstract
      */
     public function __construct(Model_User $self, Model_User $enemy)
     {
-        if (!$self || !$enemy) {
+        if (! $self || ! $enemy) {
             throw new Core_Exception_Logic(__('战斗记录器初始化失败'));
         }
 
@@ -77,7 +77,7 @@ class Model_Battle_Recorder extends Core_Model_Abstract
         $this->_fireLogs['enemy'][] = $log['enemy'];
 
         // 统计每回合开炮次数
-        if (!isset($this->_roundCount[$round])) {
+        if (! isset($this->_roundCount[$round])) {
             $this->_roundCount[$round] = 0;
         }
         $this->_roundCount[$round]++;
@@ -113,7 +113,7 @@ class Model_Battle_Recorder extends Core_Model_Abstract
      */
     public function save()
     {
-        if (!$this->_fireLogs) {
+        if (! $this->_fireLogs) {
             return false;
         }
 

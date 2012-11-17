@@ -17,7 +17,7 @@ class MyHelper_View
     public static function getExpPercent($user)
     {
         // 最高等级
-        if (!$user['next_level']) {
+        if (! $user['next_level']) {
             return 0;
         }
 

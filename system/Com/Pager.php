@@ -218,7 +218,7 @@ class Com_Pager
      */
     public function html()
     {
-        if (1 >= $this->totalPages && !$this->_config['showSinglePage']) {
+        if (1 >= $this->totalPages && ! $this->_config['showSinglePage']) {
             return '';
         }
 

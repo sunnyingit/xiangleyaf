@@ -26,7 +26,7 @@ class Model_User_Trait_Tavern extends Model_User_Trait_Abstract
     {
         $captainIds = $this->refresh($myTavernInfo);
 
-        if (!$captainIds) {
+        if (! $captainIds) {
             return array();
         }
 
@@ -49,7 +49,7 @@ class Model_User_Trait_Tavern extends Model_User_Trait_Abstract
         }
 
         // 还没有到刷新时间
-        if (!$forceRefresh && $myTavernInfo && $GLOBALS['_TIME'] < $myTavernInfo['next_update_time']) {
+        if (! $forceRefresh && $myTavernInfo && $GLOBALS['_TIME'] < $myTavernInfo['next_update_time']) {
             return $myTavernInfo['captain_ids'];
         }
 

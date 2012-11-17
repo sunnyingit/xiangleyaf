@@ -31,7 +31,7 @@ class Model_Battle extends Core_Model_Abstract
      */
     public function __construct(Model_User $self, Model_User $enemy)
     {
-        if (!$self || !$enemy) {
+        if (! $self || ! $enemy) {
             throw new Core_Exception_Logic(__('战斗初始化失败：用户信息不存在'));
         }
 
@@ -75,13 +75,13 @@ class Model_Battle extends Core_Model_Abstract
     {
         // 我方舰船信息
         $this->_selfShips = $this->_self->ship->getList();
-        if (!$this->_selfShips) {
+        if (! $this->_selfShips) {
             throw new Core_Exception_Logic(__('你没有任何舰船，无法战斗'));
         }
 
         // 敌方舰船信息
         $this->_enemyShips = $this->_enemy->ship->getList();
-        if (!$this->_enemyShips) {
+        if (! $this->_enemyShips) {
             throw new Core_Exception_Logic(__('对方没有任何舰船，无法战斗'));
         }
 
@@ -138,7 +138,7 @@ class Model_Battle extends Core_Model_Abstract
                 if (isset($this->_selfShips[$shipNo])) {
 
                     // 敌船被击沉，我方攻击目标转移到下一艘
-                    if (!isset($this->_enemyShips[$selfAimTarget])) {
+                    if (! isset($this->_enemyShips[$selfAimTarget])) {
                         // 我方胜利：没有攻击目标了（敌船全被击沉）
                         if (++$selfAimTarget >= $shipCount) {
                             return self::WIN;
@@ -153,7 +153,7 @@ class Model_Battle extends Core_Model_Abstract
                 if (isset($this->_enemyShips[$shipNo])) {
 
                     // 我船被击沉，敌方攻击目标转移到下一艘
-                    if (!isset($this->_selfShips[$enemyAimTarget])) {
+                    if (! isset($this->_selfShips[$enemyAimTarget])) {
                         // 敌方胜利：没有攻击目标了（我船全被击沉）
                         if (++$enemyAimTarget >= $shipCount) {
                             return self::LOSE;   // 敌方的胜利，即我方的失败

@@ -116,7 +116,7 @@ class Com_DB_PDO
         }
 
         $db = $this->_connect(parse_url($this->_writeConf));
-        if (!$db || !is_object($db)) {
+        if (! $db || ! is_object($db)) {
             return false;
         }
 
@@ -137,7 +137,7 @@ class Com_DB_PDO
         }
 
         // 没有从库配置则直接连主库
-        if (!$this->_readConf){
+        if (! $this->_readConf){
             return $this->_getDbWriteConn();
         }
 
@@ -163,7 +163,7 @@ class Com_DB_PDO
         try {
 
             $conf['path'] = trim($conf['path'], '/');
-            !isset($conf['port']) && $conf['port'] = '3306';
+            ! isset($conf['port']) && $conf['port'] = '3306';
 
             $dsn = 'mysql:dbname=' . $conf['path'] . ';host=' . $conf['host'] . ';port=' . $conf['port'];
 
@@ -228,7 +228,7 @@ class Com_DB_PDO
         try {
 
             $this->_getChoiceDbConnect($forceMaster);
-            if (!$this->_db) {
+            if (! $this->_db) {
                 throw new Com_DB_Exception('DB connection lost.');
             }
 
@@ -242,7 +242,7 @@ class Com_DB_PDO
 
             // 预编译 SQL
             $stmt = $this->_db->prepare($sql);
-            if (!$stmt) {
+            if (! $stmt) {
                 throw new Com_DB_Exception(implode(',', $this->_db->errorInfo()));
             }
 
@@ -250,7 +250,7 @@ class Com_DB_PDO
             $params = $params ? (array) $params: array();
 
             // 执行 SQL
-            if (!$stmt->execute($params)) {
+            if (! $stmt->execute($params)) {
                 throw new Com_DB_Exception(implode(',', $stmt->errorInfo()));
             }
 
@@ -324,7 +324,7 @@ class Com_DB_PDO
     public function query($sql, $params = array(), $forceMaster = true)
     {
         $stmt = $this->_autoExecute($sql, $params, $forceMaster);
-        if (!$stmt) {
+        if (! $stmt) {
             return false;
         }
 
@@ -509,7 +509,7 @@ class Com_DB_PDO
         $sql = $method . ' INTO `' . $table . '`' . '(' . $insertkeysql . ') ' . 'VALUES (' . $insertvaluesql . ')';
 
         $stmt = $this->_autoExecute($sql, array_values($setArr), true);
-        if (!$stmt) {
+        if (! $stmt) {
             return 0;
         }
 
@@ -546,7 +546,7 @@ class Com_DB_PDO
             if (false === $value) { // 值为 false 表示不更新该字段
                 unset($setArr[$key]);
                 continue;
-            } elseif (!is_array($value)) {
+            } elseif (! is_array($value)) {
                 $setSql .= $comma . "`{$key}` = ?";
             } else {
                 if (isset($value[2])) {
@@ -582,7 +582,7 @@ class Com_DB_PDO
     {
         $params = array();
         $insertkeysqlGot = false;
-        if (!$setArrs || !is_array($setArrs)) {
+        if (! $setArrs || ! is_array($setArrs)) {
             return false;
         }
 
@@ -597,7 +597,7 @@ class Com_DB_PDO
                     continue;
                 }
 
-                if (!$insertkeysqlGot) {
+                if (! $insertkeysqlGot) {
                     $insertkeysql .= $commaNode . '`' . $key . '`';
                 }
 

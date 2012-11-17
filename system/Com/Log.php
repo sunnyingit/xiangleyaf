@@ -19,7 +19,7 @@ class Com_Log
     public static function write($fileName, $content, $withDatetime = true)
     {
         $fileDir = LOG_PATH . date('Y-m-d') . DIRECTORY_SEPARATOR;
-        if (!is_dir($fileDir)) {
+        if (! is_dir($fileDir)) {
             @mkdir($fileDir, 0755, true);
         }
 

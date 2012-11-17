@@ -15,7 +15,7 @@ class Com_Cache_EAccelerator
      */
     public function __construct()
     {
-        if (!extension_loaded('eaccelerator')) {
+        if (! extension_loaded('eaccelerator')) {
             throw new Exception('The eAccelerator extension must be loaded.');
         }
     }

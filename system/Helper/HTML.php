@@ -43,11 +43,11 @@ class Helper_HTML
      */
     public static function loadCss($cssArr)
     {
-        if (!$cssArr) {
+        if (! $cssArr) {
             return '';
         }
 
-        if (!is_array($cssArr)) {
+        if (! is_array($cssArr)) {
             $cssArr = array($cssArr);
         }
 

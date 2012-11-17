@@ -18,7 +18,7 @@ class Core_Debug
     public static function firePHP()
     {
         // SQL
-        if (isset($GLOBALS['_SQLs']) && !empty($GLOBALS['_SQLs'])) {
+        if (isset($GLOBALS['_SQLs']) && ! empty($GLOBALS['_SQLs'])) {
 
             // SQL Info
             $table = array();

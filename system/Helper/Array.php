@@ -42,7 +42,7 @@ class Helper_Array
     public static function filter($data)
     {
         foreach ($data as $key => $value) {
-            if (!$value) {
+            if (! $value) {
                 unset($data[$key]);
             } elseif (is_array($value)) {
                 $data[$key] = self::filter($value);
@@ -108,7 +108,7 @@ class Helper_Array
      */
     public static function rand($array, $rndNum = 1)
     {
-        if (!$array || !is_array($array)) {
+        if (! $array || ! is_array($array)) {
             return false;
         }
 

@@ -123,22 +123,22 @@ class Model_User extends Model_User_Abstract
      */
     public function update($key, $value = null)
     {
-        if (!$key) {
+        if (! $key) {
             return false;
         }
 
         $setArr = $key;
-        if (!is_array($key)) {
+        if (! is_array($key)) {
             $setArr = array($key => $value);
         }
 
         // 更新用户索引表
-        if (!$this->_updateUserIndex($setArr)) {
+        if (! $this->_updateUserIndex($setArr)) {
             throw new Core_Exception_SQL('更新用户索引表失败');
         }
 
         // 更新用户基本信息表
-        if (!$this->_updateUserBase($setArr)) {
+        if (! $this->_updateUserBase($setArr)) {
             throw new Core_Exception_SQL('更新用户基本信息表失败');
         }
 

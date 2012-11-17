@@ -24,7 +24,7 @@ class Com_DB
         // 连接配置
         $dbConf = Core_Config::loadEnv('db');
 
-        if (!$dbConf) {
+        if (! $dbConf) {
             throw new Com_DB_Exception('Empty dbconf, plz check: db.conf.php');
         }
 
@@ -37,16 +37,16 @@ class Com_DB
             $dbServers = $dbConf[$dbName];
         }
 
-        if (!$dbServers || !is_array($dbServers)) {
+        if (! $dbServers || ! is_array($dbServers)) {
             throw new Com_DB_Exception('Invalid DB configuration [' . $dbName . '], plz check: db.conf.php');
         }
 
         // 已创建的实例
         $dbKey = $dbName . '_' . intval($forceMaster);
-        if (!isset(self::$_dbs[$dbKey])) {
+        if (! isset(self::$_dbs[$dbKey])) {
 
-            !isset($dbServers['master']) && $dbServers['master'] = array();
-            !isset($dbServers['slave'])  && $dbServers['slave']  = array();
+            ! isset($dbServers['master']) && $dbServers['master'] = array();
+            ! isset($dbServers['slave'])  && $dbServers['slave']  = array();
 
             // 创建数据库连接实例
             self::$_dbs[$dbKey] = new Com_DB_PDO(
@@ -204,7 +204,7 @@ class Com_DB
         $fetchMethod = $data['fetchMethod'];
         $forceMaster = isset($data['forceMaster']) && $data['forceMaster'] ? true : false;
 
-        if (!$dbName || !$sql || !$fetchMethod) {
+        if (! $dbName || ! $sql || ! $fetchMethod) {
             exit('Invalid advQuery Params');
         }
 

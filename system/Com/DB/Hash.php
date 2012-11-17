@@ -20,7 +20,7 @@ class Com_DB_Hash
      */
     public static function dbName($orgDbName, $hashKey, $hashNum = null)
     {
-        if (!$hashKey) {
+        if (! $hashKey) {
             return $orgDbName;
         }
 
@@ -55,7 +55,7 @@ class Com_DB_Hash
      */
     public static function tableName($orgTableName, $hashKey, $hashNum = null)
     {
-        if (!$hashKey) {
+        if (! $hashKey) {
             return $orgTableName;
         }
 

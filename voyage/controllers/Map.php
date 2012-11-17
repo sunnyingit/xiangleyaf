@@ -27,7 +27,7 @@ class Controller_Map extends Controller_Abstract
             $portTo = Model('Static')->Port->one('id', "id != '{$this->_user['port_from']}'", 'RAND()');
         }
 
-        if (!$portTo) {
+        if (! $portTo) {
             exit('Invalid portTargetId');
         }
 
@@ -36,7 +36,7 @@ class Controller_Map extends Controller_Abstract
         }
 
         $portRow = Model('Static')->Port->get($portTo);
-        if (!$portRow) {
+        if (! $portRow) {
             exit('Invalid PortRow');
         }
     }
