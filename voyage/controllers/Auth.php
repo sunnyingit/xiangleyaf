@@ -49,6 +49,16 @@ class Controller_Auth extends Controller_Abstract
      */
     public function registerAction()
     {
+        // 已登录的跳走
+        if ($this->_user) {
+            $this->redirect('/');
+        }
 
+        // 表单提交后
+        if ($this->isPost()) {
+
+            // 注册成功跳转
+            $this->redirect('/');
+        }
     }
 }

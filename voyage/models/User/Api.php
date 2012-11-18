@@ -2,21 +2,6 @@
 
 class Model_User_Api extends Core_Model_Abstract
 {
-    public function getUidByToken($userToken)
-    {
-        return Dao('User_Index')->getUidByToken($userToken);
-    }
-
-    public function getUidByCode($userCode)
-    {
-        return Dao('User_Index')->getUidByCode($userCode);
-    }
-
-    public function getUidByAccount($userAccount)
-    {
-        return Dao('User_Index')->getUidByAccount($userAccount);
-    }
-
     public function register($userToken)
     {
         // 联盟号
@@ -114,7 +99,7 @@ class Model_User_Api extends Core_Model_Abstract
         do {
             $sourceStr = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
             $userCode = Helper_String::random(6, false, $sourceStr);
-            if (! $this->getUidByCode($userCode)) {
+            if (! Dao('User_Index')->getUidByCode($userCode)) {
                 return $userCode;
             }
         } while (true);

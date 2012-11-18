@@ -26,6 +26,16 @@ abstract class Core_Controller_Web extends Core_Controller_Abstract
         return isset($this->tpl) ? $this->tpl : null;
     }
 
+    public function setTpl($tpl)
+    {
+        // TODO
+    }
+
+    public function setLayout($layout = null)
+    {
+        return $this->_view->setLayout($layout);
+    }
+
     public function alert($msg, $res = 'success', $url = '', $extra = '')
     {
         if (is_array($msg)) {

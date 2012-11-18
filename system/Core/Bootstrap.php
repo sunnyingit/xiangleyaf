@@ -103,15 +103,14 @@ class Core_Bootstrap
             ini_set('display_errors', 'Off');
             error_reporting(0);
         }
-
-        // 全局错误处理 TODO
-        // set_error_handler(array('Core_Error', 'handler'));
     }
 
+    /**
+     * 将 XianglePHP 风格的 URI 转为 Yaf 风格
+     * 例如：/index-test/hello-world => /indextest/helloworld
+     */
     public function initRequestUri()
     {
-        // 将 XianglePHP 风格的 URI 转为 Yaf 风格
-        // 例如：/index-test/hello-world => /indextest/helloworld
         $request    = Yaf_Dispatcher::getInstance()->getRequest();
         $requestUri = $request->getRequestUri();
 

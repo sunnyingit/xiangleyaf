@@ -96,6 +96,6 @@ class Controller_Index extends Controller_Abstract
         $this->assign('bodyUrl', $bodyUrl);
 
         // 无布局
-        $this->_view->setLayout(null);
+        $this->setLayout(null);
     }
 }
