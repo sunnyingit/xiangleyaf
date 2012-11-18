@@ -14,6 +14,14 @@ class Controller_Index extends Core_Controller_Web
         echo Com_DB_Hash::tableName('user_log_battle', rand(1,999999));
     }
 
+    public function censorAction()
+    {
+        $string = '我是泽东，哈哈哈';
+        var_dump(Model('Censor')->filter($string));
+
+        return false;
+    }
+
     public function memcacheAction()
     {
         $a = microtime(true);

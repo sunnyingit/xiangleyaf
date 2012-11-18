@@ -80,6 +80,7 @@ class Com_Cookie implements ArrayAccess
 
     public function del($name)
     {
+        $this->set($name, null);
         unset($_COOKIE[$name]);
     }
 

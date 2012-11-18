@@ -1,82 +1,118 @@
 <?php
 
 /**
- * 用户 Auth 加解密
+ * 用户认证模型
  *
  * @author JiangJian <silverd@sohu.com>
- * $Id: Auth.php 298 2012-11-06 07:30:23Z jiangjian $
+ * $Id: Auth.php 2193 2012-06-18 03:19:30Z jiangjian $
  */
 
 class Model_User_Auth extends Core_Model_Abstract
 {
-    // Cookie 名称
-    private static $_cookieName = '__voyage_authUser_1106';
-
-    // Cookie 加、解密私钥
-    private static $_cookieSerectKey = '0deb8c3b74678a14fd7551abc309c722';
+    private $_cookieName = '__voyage_auth_1117';
 
     /**
-     * 获取当前登录用户信息
+     * 获取当前用户 uid
      *
-     * @return array
+     * @return int $uid
      */
-    public function get()
+    public function getUid()
     {
-        if (! isset($_COOKIE[self::$_cookieName]) || empty($_COOKIE[self::$_cookieName])) {
-            return array();
+        if (! $userToken = $this->_cookie->get($this->_cookieName)) {
+            return -1;
         }
 
-        $authUser = json_decode(stripslashes($_COOKIE[self::$_cookieName]), true);
-        if (! $authUser || ! $this->valid($authUser)) {
-            return array();
+        if (! $uid = Dao('User_Index')->getUidByToken($userToken)) {
+            return -2;
         }
 
-        unset($authUser['xkey']);
-
-        return $authUser;
-    }
-
-    public function valid($authUser)
-    {
-        return ($authUser['user_token'] && $authUser['xkey'] && $authUser['xkey'] == $this->_xkey($authUser));
+        return $uid;
     }
 
     /**
-     * 设置当前用户信息
+     * 登录
      *
-     * @param array $authUser
+     * @param string $userAccount
+     * @param string $password
+     * @throws Core_Exception_Logic
+     * @return array $user
+     */
+    public function login($userAccount, $password)
+    {
+        if (! $userAccount || ! $password) {
+            throw new Core_Exception_Logic(__('用户名和密码不能为空'));
+        }
+
+        // 用户信息
+        $user = Dao('User_Index')->getUserByAccount($userAccount);
+
+        if (! $user) {
+            throw new Core_Exception_Logic(__('用户名不存在'));
+        }
+
+        // 验证密码
+        if ($user['password'] != sha1($password)) {
+
+            // 写错误日志
+            Com_Log::write('errPassword', "{$userAccount}\t{$password}\t" . Helper_Client::getUserIp());
+
+            throw new Core_Exception_Logic(__('密码错误，请重试'));
+        }
+
+        // 用户详细信息
+        $user = array_merge($user, Dao('User')->loadDs($user['id'])->get($user['id']));
+
+        // 是否已被封禁
+        if ($user['block_login'] && ($user['block_login'] == -1 || $GLOBALS['_TIME'] - $user['block_login'] < 1)) {
+            throw new Core_Exception_Logic(__('该用户已被禁用'));
+        }
+
+        // 设置 userToken
+        $this->_setUserToken($user['id']);
+
+        return $user;
+    }
+
+    /**
+     * 设置 userToken
+     *
+     * @param int $uid
+     * @param string $userToken
+     * @throws Core_Exception_Logic
      * @return void
      */
-    public function set(array $authUser)
+    private function _setUserToken($uid, $userToken = null)
     {
-        $authUser['xkey'] = $this->_xkey($authUser);
-        setcookie(self::$_cookieName, json_encode($authUser), null, '/');
+        if (! $userToken) {
+            $userToken = $this->_getUserToken($uid);
+        }
+
+        if (! Dao('User_Index')->updateUserToken($uid, $userToken)) {
+            throw new Core_Exception_Logic(__('登陆失败，请稍候再试'));
+        }
+
+        // 设置 cookie
+        $this->_cookie->set($this->_cookieName, $userToken);
     }
 
     /**
-     * 注销
+     * 获取 userToken
+     *
+     * @param int $uid
+     * @return string
+     */
+    private function _getUserToken($uid)
+    {
+        return sha1($uid . Helper_String::random(32));
+    }
+
+    /**
+     * 登出
      *
      * @return void
      */
     public function logout()
     {
-        setcookie(self::$_cookieName, '', time() - 86400, '/');
-    }
-
-    /**
-     * 生成组合key
-     *
-     * @param array $authUser
-     * @return string
-     */
-    private function _xkey($authUser)
-    {
-        $string = '';
-        if (isset($authUser['uid'])) {
-            $string .= $authUser['uid'] . ':';
-        }
-
-        $string .= $authUser['user_token'] . ':' . self::$_cookieSerectKey;
-        return strtoupper(md5(strtoupper(sha1($string))));
+        $this->_cookie->del($this->_cookieName);
     }
 }

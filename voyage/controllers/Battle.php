@@ -18,7 +18,7 @@ class Controller_Battle extends Controller_Abstract
         $this->_user->assertSailing();
 
         $opponentList = $this->_user->battle->getOpponent();
-        $this->assign('opponentList', $this->_encryptIds($opponentList, 'uid'));
+        $this->assign('opponentList', $this->encryptIds($opponentList, 'uid'));
     }
 
     /**
@@ -29,7 +29,7 @@ class Controller_Battle extends Controller_Abstract
         // 必须为出海状态
         $this->_user->assertSailing();
 
-        $enemyUid = $this->_decrypt($this->getx('enemy_uid'));
+        $enemyUid = $this->decrypt($this->getx('enemy_uid'));
         if ($enemyUid < 1 || $enemyUid == $this->_user['uid']) {
             exit('Invalid EnemyUid');
         }
@@ -53,7 +53,7 @@ class Controller_Battle extends Controller_Abstract
         $logId = $battle->after();
 
         // 直接跳到回放器：播放战斗过程
-        $this->forward('Battle', 'replay', array('id' => $this->_encrypt($logId), 'in_battle' => true));
+        $this->forward('Battle', 'replay', array('id' => $this->encrypt($logId), 'in_battle' => true));
 
         return false;
     }
@@ -87,7 +87,7 @@ class Controller_Battle extends Controller_Abstract
      */
     public function replayAction()
     {
-        $logId = $this->_decrypt($this->getx('id'));
+        $logId = $this->decrypt($this->getx('id'));
         if ($logId < 1) {
             exit('Invalid BattleLogId');
         }
@@ -122,8 +122,8 @@ class Controller_Battle extends Controller_Abstract
         // 加密id字段
         if ($logList) {
             foreach ($logList as &$log) {
-                $log['id']        = $this->_encrypt($log['id']);
-                $log['enemy_uid'] = $this->_encrypt($log['attacker_uid'] == $this->_user['uid'] ? $log['defender_uid'] : $log['attacker_uid']);
+                $log['id']        = $this->encrypt($log['id']);
+                $log['enemy_uid'] = $this->encrypt($log['attacker_uid'] == $this->_user['uid'] ? $log['defender_uid'] : $log['attacker_uid']);
             }
         }
 

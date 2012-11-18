@@ -7,6 +7,6 @@ class Controller_User extends Controller_Abstract
      */
     public function indexAction()
     {
-        // 直接渲染模板
+        $this->assign('user', $this->_user->__toArray());
     }
 }

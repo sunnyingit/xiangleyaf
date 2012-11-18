@@ -30,4 +30,14 @@ class Dao_User_Index extends Dao_User_Abstract
     {
         return $this->one('id', array('user_account' => $userAccount));
     }
+
+    public function getUserByAccount($userAccount)
+    {
+        return $this->row(array('user_account' => $userAccount));
+    }
+
+    public function updateUserToken($uid, $userToken)
+    {
+        return $this->updateByPk(array('user_token' => $userToken), $uid);
+    }
 }

@@ -34,12 +34,12 @@ abstract class Core_Model_Abstract
     /**
      * 动态获取变量
      *
-     * @param string $key
+     * @param string $var
      * @return mixed
      */
-    public function __get($key)
+    public function __get($var)
     {
-        switch ($key) {
+        switch ($var) {
 
             case '_session':
                 return $this->_session  = Yaf_Session::getInstance();
@@ -57,7 +57,7 @@ abstract class Core_Model_Abstract
                 return $this->_lock     = new Com_Lock($this->_memcache);
 
             default:
-                throw new Core_Exception_Fatal('Undefined model property: ' . get_class($this) . '::' . $key);
+                throw new Core_Exception_Fatal('Undefined model property: ' . get_class($this) . '::' . $var);
         }
     }
 }

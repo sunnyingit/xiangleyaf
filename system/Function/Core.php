@@ -209,7 +209,14 @@ function objectToArray($e)
     return (array) array_map(__FUNCTION__, $e);
 }
 
-function vd($s, $exit = 1)
+/**
+ * var_dump 的封装
+ *
+ * @param mixed $s
+ * @param bool $exit
+ * @return void
+ */
+function vd($s, $exit = true)
 {
     echo '<pre>';
     var_dump($s);
@@ -217,7 +224,14 @@ function vd($s, $exit = 1)
     $exit && exit();
 }
 
-function pr($s, $exit = 1)
+/**
+ * print_r 的封装
+ *
+ * @param mixed $s
+ * @param bool $exit
+ * @return void
+ */
+function pr($s, $exit = true)
 {
     echo '<pre>';
     print_r($s);

@@ -22,7 +22,7 @@ class Model_User extends Model_User_Abstract
 
     public function __construct($uid)
     {
-        $this->_user = $this->_getUser($uid);
+        $this->_user = $this->getUser($uid);
 
         // 升级检测
         $this->base->levelUp();
@@ -55,16 +55,20 @@ class Model_User extends Model_User_Abstract
             return $this->_user[$var];
         }
 
-        parent::__get();
+        return parent::__get($var);
     }
 
-    protected function _getUser($uid)
+    public static function getUser($uid, $full = true)
     {
         // 基本信息
         $user = Dao('User')->loadDs($uid)->get($uid);
 
         if (! $user) {
-            throw new Core_Exception_Logic(__('用户信息不存在'));
+            throw new Core_Exception_Logic(__('用户信息读取失败，请重新登录'));
+        }
+
+        if (! $full) {
+            return $user;
         }
 
         // 等级信息
@@ -100,7 +104,7 @@ class Model_User extends Model_User_Abstract
 
     public function refresh()
     {
-        $this->_user = $this->_getUser($this->_user['uid']);
+        $this->_user = $this->getUser($this->_user['uid']);
 
         return $this;
     }
